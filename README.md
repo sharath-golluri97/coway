@@ -11,6 +11,15 @@ Follow these guidelines for developing custom components
 * Similar methodology for commons too.
 * Have all the API calls and responses fetched from APICalls.commons.js file.
 
+###Glimpse of  organism model
+_Organism < compounds < components < molecules < atoms_
+
+* Organism = app
+* Compound = sub-app
+* Components = Collection of components
+* molecules = Collection of molecules build a component
+* atoms = Collection of atoms build a molecule
+
 ```It is ideal to have components set page wise or container-wise(if there are too many UI components in a view/page)```
 ``This means we divide our app into multiple sub-apps i.e following organism model to some extent.``
  
