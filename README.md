@@ -19,12 +19,38 @@ For example, Landing page will be a sub-app,
 src->components->landingPage --|
                                |_ LandingPageView.component.jsx
                                |_ SignInUp.jsx
-                               |_Authenticator.jsx```
+                               |_ Authenticator.jsx
                                
-                
-    
+```                
+## Progressive Web App(PWA)
+Following two things are very important to convert a Web App into PWA:
+* ServiceWorker - Runs as separate thread in the background to offer functionalities of a native mobile app. 
+* PWA Manifest - The web app manifest is a JSON file that tells the browser about your Progressive Web App and how it should behave when installed on the user's desktop or mobile device
+
+Files Associated:
+* ServiceWorker (Tool used: Workbox):
+```
+  src --|
+        |_ serviceWoker.js
+        |_ sw-build.js
+        |_ sw-custom.js
+                               
+``` 
+* Manifest:
+```$xslt
+  public --|
+           |_ manifest.json
+
+```
+
+To Test ServiceWorker : (localhost:5000)
+```$xslt
+$ npm run build
+$ npx serve build
+```
 
 
+                        
 
 
 
