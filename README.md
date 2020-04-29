@@ -11,7 +11,7 @@ Follow these guidelines for developing custom components
 * Similar methodology for commons too.
 * Have all the API calls and responses fetched from APICalls.commons.js file.
 
-###Glimpse of  organism model
+### Glimpse of  organism model
 _Organism < compounds < components < molecules < atoms_
 
 * Organism = app
