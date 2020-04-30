@@ -118,20 +118,6 @@ const PrimaryAppBar = (props) => {
 				handleMenuClose={handleMenuClose}
 			/>
 			<Toolbar id="back-to-top-anchor" />
-			<Container>
-				<Box my={2}>
-					{[...new Array(12)]
-						.map(
-							() => `With Coway, we aim to build a provider that lets users connect with others based on their travel itinerary. This is unlike any other ride-sharing or car-pooling service, as we connect people irrespective of whether they have any vehicle. If anyone is planning to travel and wants to connect to the fellow travelers virtually, we help them connect by creating chat rooms for them. A further extension to this will also allow creating specific events, serving as a self-served ticketing platform for event organizers. The participants can register, connect with other participants, get updated details directly from event organizers, and plan their travel all on a single platform. The solo travelers can find the others, you can also interact with others on the same bus or flight with you with our secure platform. The extent of details that can be shared can be controlled by the users, of course, thus honoring the privacy and security of every user.`,
-						)
-						.join('\n')}
-				</Box>
-			</Container>
-			<ScrollTop {...props}>
-				<Fab color="secondary" size="small" aria-label="scroll back to top">
-					<KeyboardArrowUpIcon />
-				</Fab>
-			</ScrollTop>
 		</div>
 	);
 }
