@@ -1,16 +1,19 @@
 import React from 'react';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import Container from "@material-ui/core/Container";
+import {Box} from "@material-ui/core";
 import AppBar from './client/commons/appBar/appBar.component';
 import './App.css';
+import displayUserInformation from "./Authenticator/UserInfo";
 
 function App() {
   return (
     <div>
-	    <ThemeProvider>
 		    <AppBar/>
-	    </ThemeProvider>
-      {/* Welcome to Coway! */}
-      {/*Add landing page component here  */}
+		    <Container>
+					<Box>
+						{displayUserInformation()}
+					</Box>
+		    </Container>
     </div>
   );
 }
