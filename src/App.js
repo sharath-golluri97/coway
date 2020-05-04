@@ -13,6 +13,7 @@ import displayUserInformation from "./Authenticator/UserInfo";
 function App() {
   return (
     <div>
+	    {/*<ThemeProvider>*/}
 		    <AppBar/>
             <Container>
                 <Box my={2}>
@@ -27,6 +28,7 @@ function App() {
                     <KeyboardArrowUpIcon />
                 </Fab>
             </ScrollTop>
+	    {/*</ThemeProvider>*/}
     </div>
   );
 }

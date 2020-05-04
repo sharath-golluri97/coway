@@ -1,0 +1,21 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "updatedGroups",
+      "direction": "in",
+      "databaseName": "CowayDevDb",
+      "collectionName": "GroupInfo",
+      "connectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
+      "feedPollDelay": 1000,
+      "CreateLeaseCollectionIfNotExists": true
+    },
+    {
+      "type": "signalR",
+      "name": "signalRMessages",
+      "hubName": "chat",
+      "direction": "out"
+    }
+  ]
+}
