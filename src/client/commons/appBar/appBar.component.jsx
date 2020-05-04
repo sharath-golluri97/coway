@@ -5,21 +5,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Badge from "@material-ui/core/Badge";
-import Box from '@material-ui/core/Box';
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Container from '@material-ui/core/Container';
-import Fab from '@material-ui/core/Fab';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import useStyles from "./appBar.styles";
 import RenderMenu from "./renderMenu.atom";
 import RenderMobileMenu from "./renderMobileMenu.atom";
-import ScrollTop from "./scrollTop.molecule";
 
 //Can't use function nmae as AppBar as it an identifier in material-UI components. Hence, BackToTop.
 const PrimaryAppBar = (props) => {
