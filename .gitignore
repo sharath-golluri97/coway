@@ -34,4 +34,4 @@ yarn-error.log*
 .env
 
 #cosmos config
-./src/server/cosmos/config.js
+src/server/cosmos/config.js
