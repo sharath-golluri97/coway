@@ -4,6 +4,7 @@ import {Box, Container, Grid} from "@material-ui/core";
 import axios from "axios";
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import ChatRoomListItem from "./chatRoomListItem.component";
+import _ from "lodash";
 const signalR = require("@aspnet/signalr");
 
 
@@ -87,12 +88,14 @@ const ChatRoomsList = (props) => {
 
     function groupUpdated(updatedGroup) {
         console.log("db update triggered!")
-        const group = chatGroupsList.find(g => g.id === updatedGroup.id);
-        if (group) {
-            group.group = updatedGroup.group;
+        let groupIndex = chatGroupsList.findIndex(g => g.id === updatedGroup.id);
+        if (groupIndex >-1) {
+            chatGroupsList[groupIndex] = updatedGroup;
         } else {
             chatGroupsList.push(updatedGroup)
         }
+        setChatGroupsList(_.cloneDeep(chatGroupsList));
+        console.log("chat room list: " + JSON.stringify(chatGroupsList));
     }
 
     function startConnection(connection) {
@@ -113,7 +116,7 @@ const ChatRoomsList = (props) => {
 
     return (
         <Container disableGutters>
-            <Box height='100vh'>
+            <Box height='100vh' >
                  <ShowIfPropTrue prop={ready}>
                 <Grid
                     container
@@ -126,7 +129,7 @@ const ChatRoomsList = (props) => {
             {chatGroupsList.map((element,i) =>
                 (
                     <Grid item xs={12} key={i} >
-                        <ChatRoomListItem chatRoomInfo={element.group}/>
+                        <ChatRoomListItem chatRoomInfo={element.group_name}/>
                     </Grid>
                 )
             )}
