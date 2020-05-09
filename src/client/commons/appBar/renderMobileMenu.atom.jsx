@@ -7,7 +7,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
-
 const renderMobileMenu = (props) => {
 	return (
 		<Menu

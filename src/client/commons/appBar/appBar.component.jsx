@@ -14,7 +14,7 @@ import useStyles from "./appBar.styles";
 import RenderMenu from "./renderMenu.atom";
 import RenderMobileMenu from "./renderMobileMenu.atom";
 
-//Can't use function nmae as AppBar as it an identifier in material-UI components. Hence, BackToTop.
+//Can't use function name as AppBar as it an identifier in material-UI components. Hence, BackToTop.
 const PrimaryAppBar = (props) => {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -95,7 +95,6 @@ const PrimaryAppBar = (props) => {
 					</div>
 				</Toolbar>
 			</AppBar>
-			{/*{renderMobileMenu}*/}
 			<RenderMobileMenu
 				mobileMenuId={mobileMenuId}
 				mobileMoreAnchorEl={mobileMoreAnchorEl}
@@ -103,7 +102,6 @@ const PrimaryAppBar = (props) => {
 				handleMobileMenuClose={handleMobileMenuClose}
 				handleProfileMenuOpen={handleProfileMenuOpen}
 			/>
-			{/*{renderMenu}*/}
 			<RenderMenu
 				menuId={menuId}
 				anchorEl={anchorEl}
