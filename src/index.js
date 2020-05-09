@@ -17,7 +17,7 @@ b2cauth.initialize({
 	postLogoutRedirectUri: window.location.origin,
 });
 
-b2cauth.run(() => {
+// b2cauth.run(() => {
 	ReactDOM.render(
 		<React.StrictMode>
 			<App />
@@ -25,7 +25,7 @@ b2cauth.run(() => {
 		document.getElementById('root')
 	);
 	// serviceWorker.unregister();
-});
+// });
 
 
 // If you want your app to work offline and load faster, you can change
