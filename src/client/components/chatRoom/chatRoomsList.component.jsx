@@ -5,8 +5,10 @@ import axios from "axios";
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import ChatRoomListItem from "./chatRoomListItem.component";
 import _ from "lodash";
-const signalR = require("@aspnet/signalr");
+const {queryGroups} = require("../../services/chat")
+const {getSignalRConnection} = require("../../services/chat");
 
+const signalR = require("@aspnet/signalr");
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,47 +33,48 @@ const ChatRoomsList = (props) => {
         headers: {'x-ms-client-principal-name': username}
     };
 
-    useEffect(()=>{
-        let chatGroups=[];
-        // getChatGroups().then(function(chatGroupsResp) {
-        //     chatGroupsResp.forEach(chatGroup => {
-        //         chatGroups.push(chatGroup.group);
-        //     });
-        //     setChatGroupsList(chatGroups);
-        //     console.log("res: " + chatGroupsList);
-        //
-        //     setReady(true);
-        // })
-        getChatGroups().then(function(chatGroupsResp){
-            chatGroupsResp.forEach(groupUpdated)
-        }).then(getUserInfo).then(getConnectionInfo).then(function (info) {
-            let accessToken = info.accessToken;
-            const options = {
-                accessTokenFactory: function() {
-                    if (accessToken) {
-                        const _accessToken = accessToken
-                        accessToken = null
-                        return _accessToken
-                    } else {
-                        return getConnectionInfo().then(function(info) {
-                            return info.accessToken
-                        })
-                    }
-                }
-            };
+    const querySpec = {
+            query: "SELECT * from c"
+    };
 
-            const connection = new signalR.HubConnectionBuilder()
-                .withUrl(info.url, options)
-                .build()
+    useEffect(()=>{
+        getChatGroups().then(function(chatGroupsResp) {
+            chatGroupsResp.forEach(groupUpdated)
+        }).then(()=>{
+            const connection = getSignalRConnection();
+            console.log("connection info in list: " + JSON.stringify(connection));
 
             connection.on('groupUpdated', groupUpdated)
 
-            connection.onclose(function() {
-                console.log('disconnected')
-                // setTimeout(function() { startConnection(connection) }, 2000)
-            })
-            startConnection(connection)
-        }).then(()=>setReady(true));
+        })
+        // }).then(getUserInfo).then(getConnectionInfo).then(function (info) {
+        //     let accessToken = info.accessToken;
+        //     const options = {
+        //         accessTokenFactory: function() {
+        //             if (accessToken) {
+        //                 const _accessToken = accessToken
+        //                 accessToken = null
+        //                 return _accessToken
+        //             } else {
+        //                 return getConnectionInfo().then(function(info) {
+        //                     return info.accessToken
+        //                 })
+        //             }
+        //         }
+        //     };
+        //
+        //     const connection = new signalR.HubConnectionBuilder()
+        //         .withUrl(info.url, options)
+        //         .build()
+        //
+        //     connection.on('groupUpdated', groupUpdated)
+        //
+        //     connection.onclose(function() {
+        //         console.log('disconnected')
+        //         // setTimeout(function() { startConnection(connection) }, 2000)
+        //     })
+        //     startConnection(connection)
+        // }).then(()=>setReady(true));
     },[]);
 
 
@@ -81,10 +84,16 @@ const ChatRoomsList = (props) => {
     }
 
     function getChatGroups() {
-        return axios.post(`${apiBaseUrl}/api/GetChatGroups`, null, axiosConfig)
-            .then(function(resp) { return resp.data })
-            .catch(function() { return {} })
-    }
+            return axios.post(`${apiBaseUrl}/api/GetChatGroups`, null, axiosConfig)
+                .then(function(resp) { return resp.data })
+                .catch(function() { return {} })
+        }
+
+    // function getChatGroups(){
+    //     return  queryGroups(querySpec).then(function (resp) {
+    //                 return resp;
+    //     })
+    // }
 
     function groupUpdated(updatedGroup) {
         console.log("db update triggered!")
@@ -117,7 +126,7 @@ const ChatRoomsList = (props) => {
     return (
         <Container disableGutters>
             <Box height='100vh' >
-                 <ShowIfPropTrue prop={ready}>
+                 <ShowIfPropTrue prop={true}>
                 <Grid
                     container
                     direction="column"
