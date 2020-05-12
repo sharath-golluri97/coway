@@ -48,7 +48,6 @@ export default function AlignItemsList(props) {
                             >
                                 {element.sender}
                             </Typography>
-                            {/*{element.text}*/}
                         </React.Fragment>
                     }
                 />

@@ -111,7 +111,7 @@ export default function ChatApp(props) {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item xs={12} className={classes.headButton}>
+                <Grid item xs={12}>
                     <Paper variant="outlined" >
                         <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
                             <Button><Link to="/chat/create">Create Group</Link></Button>
@@ -119,7 +119,7 @@ export default function ChatApp(props) {
                         </ButtonGroup>
                     </Paper>
                 </Grid>
-                <Grid item xs={12} className={classes.chatListContainer}>
+                <Grid item xs={12} >
                     <ChatRoomsList/>
                 </Grid>
             </Grid>

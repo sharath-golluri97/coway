@@ -96,12 +96,6 @@ const ChatRoomsList = (props) => {
       });
   }
 
-  // function getChatGroups(){
-  //     return  queryGroups(querySpec).then(function (resp) {
-  //                 return resp;
-  //     })
-  // }
-
   function groupUpdated(updatedGroup) {
     console.log("db update triggered!");
     let groupIndex = chatGroupsList.findIndex((g) => g.id === updatedGroup.id);

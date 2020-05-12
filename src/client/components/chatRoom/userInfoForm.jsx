@@ -6,9 +6,6 @@ import Button from "@material-ui/core/Button";
 
 export default function UserInfoForm(props) {
 
-
-
-
     return (
         <form  noValidate autoComplete="off">
             <Grid container  spacing={2}>

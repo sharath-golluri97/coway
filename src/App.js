@@ -4,13 +4,9 @@ import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import AppBar from "./client/commons/appBar/appBar.component";
 import "./App.css";
-import Box from "@material-ui/core/Box";
 import ScrollTop from "./client/commons/appBar/scrollTop.molecule";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import displayUserInformation from "./Authenticator/UserInfo";
-import ChatRoomsList from "./client/components/chatRoom/chatRoomsList.component";
-import ChatApp from "./client/components/chatRoom/chatApp";
 import AuthProvider from "./Authenticator/authProvider";
 import AzureAD from "react-aad-msal";
 
@@ -56,7 +52,6 @@ function App() {
               <Route exact path="/chat/rooms" component={withSuspense(CreateChatRoomAsync)} />
               <Route path="/chat/rooms/:roomId" component={withSuspense(ChatRoomAsync)} />
               <Route exact path="/chatCustom" component={withSuspense(ChatAppCustomAsync)} />
-
           </Container>
           <ScrollTop>
             <Fab color="secondary" size="small" aria-label="scroll back to top">

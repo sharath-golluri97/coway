@@ -23,13 +23,7 @@ export default function CreateChatRoom(props) {
 
     const [userInfo,setUserInfo] = useState({});
     const [groupInfo,setGroupInfo] = useState({name:'',id:''});
-    //     // inputGroupInfo.name = prompt("Enter Group Name");
-    //     // inputGroupInfo.desc = prompt("Enter Group Description");
-    //     // inputGroupInfo.id = prompt("Enter Group id");
-    //     // inputGroupInfo.group = inputGroupInfo.name;
-    //     // inputGroupInfo.admin = userInfo.name;
-    //     // inputGroupInfo.members = [userInfo.id];
-    //     // inputGroupInfo.created_at = new Date();
+
 
     useEffect(()=>{
 

@@ -186,7 +186,6 @@ const ChatRoom = (props) => {
                 justify="flex-end"
                 alignItems="center"
                 style={{position:'fixed'}}
-                // classes={{height: '100vh'}}
             >
             <Grid item xs={12} className="container" >
             {/*    Chat header */}
