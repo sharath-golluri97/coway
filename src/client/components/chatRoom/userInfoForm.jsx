@@ -45,7 +45,7 @@ export default function UserInfoForm(props) {
                     />
                 </Grid>
             </Grid>
-            <Button variant="contained" color="primary" onClick={handleUserInfoSubmit}>
+            <Button variant="contained" color="primary" onClick={props.handleUserInfoSubmit}>
                 Submit
             </Button>
         </form>
