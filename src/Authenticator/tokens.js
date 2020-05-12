@@ -1,12 +1,28 @@
 import sha256 from 'crypto-js/sha256';
 import AuthProvider from "./authProvider";
+import AES from 'crypto-js/aes';
+import decodeJWT from "jwt-decode";
 
-const  idToken = () => {
-	  AuthProvider.getIdToken().then((response) => {
-	 	let encryptedIdToken = sha256(response.idToken.rawIdToken);
-	 	localStorage.setItem('ID_TOKEN', encryptedIdToken);
-	 	return response || false;
-	 });
+export const idToken = () => {
+	return AuthProvider.getIdToken().then((response) => {
+		// return response || false;
+		return response.idToken.rawIdToken;
+		});
 };
 
-export default idToken;
+export const getUserInfo = () => {
+	return idToken().then(id_token => {
+		const decoded = decodeJWT(id_token);
+		console.log("decoded: " + JSON.stringify(decoded));
+		const userInfo = {
+			firstName: decoded.given_name,
+			lastName: decoded.family_name,
+			city: decoded.city,
+			country: decoded.country,
+			email : decoded.emails[0]
+		};
+		return userInfo;
+	})
+
+
+}
