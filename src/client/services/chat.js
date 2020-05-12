@@ -9,7 +9,6 @@ const loginUrl = `${apiBaseUrl}/.auth/login/${authProvider}?post_login_redirect_
 const logoutUrl = `${apiBaseUrl}/.auth/logout?post_logout_redirect_uri=${encodeURIComponent(window.location.href)}`;
 var signalRConnection;
 
-const container = getContainer();
 
 export function getConnectionInfo(username) {
     return axios.post(`${apiBaseUrl}/api/SignalRInfo`, null, getAxiosConfig(username))
@@ -40,6 +39,8 @@ export  function connectToSignalR(username){
 
         signalRConnection=connection;
         // connection.on('newMessage', onNewMessage);
+        //  connection.on('groupUpdated', groupUpdated)
+
          console.log("connect info inside : "  + connection)
         connection.onclose(() => console.log('disconnected'));
 
@@ -56,6 +57,10 @@ export  function connectToSignalR(username){
 export function getSignalRConnection(){
     return signalRConnection;
 }
+
+const container = getContainer();
+
+
 
 export async function queryGroups(querySpec) {
     console.log("querySpec: " + JSON.stringify(querySpec));
