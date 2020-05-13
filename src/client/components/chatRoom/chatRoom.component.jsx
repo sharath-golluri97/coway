@@ -1,4 +1,5 @@
 import React, {useState,useEffect,useRef} from "react";
+import {useParams,useRouteMatch} from 'react-router-dom';
 import _ from "lodash"
 import axios from "axios";
 import {TextField, Grid, Box,Container} from "@material-ui/core";
@@ -174,6 +175,7 @@ const ChatRoom = (props) => {
         messageEndRef.current.scrollIntoView({behavior: "smooth"});
     }
 
+    let {roomId} = useParams();
 
     return (
         <Container disableGutters>
@@ -184,11 +186,10 @@ const ChatRoom = (props) => {
                 justify="flex-end"
                 alignItems="center"
                 style={{position:'fixed'}}
-                // classes={{height: '100vh'}}
             >
             <Grid item xs={12} className="container" >
             {/*    Chat header */}
-            <h3>Temporary ChatRoom</h3>
+            <h3>Temporary ChatRoom: {roomId}</h3>
             <ShowIfPropTrue prop={!isLocalhost}>
                 <ShowIfPropTrue prop={authenticated}>
                     You are logged in
@@ -204,7 +205,6 @@ const ChatRoom = (props) => {
                         <div ref={messageEndRef}></div>
                     </div>
                 </ShowIfPropTrue>
-
             </div>
             </Grid>
             <Grid item xs={12} style={{width:100+'%',paddingLeft:10+'px'}} >

@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,15 +43,17 @@ export default function ChatRoomListItem(props) {
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
-                        {props.chatRoomInfo}
+                        {props.chatRoomInfo.name}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        Mac Miller
+                        {props.chatRoomInfo.admin}
                     </Typography>
                 </CardContent>
                 <div className={classes.controls}>
-                    <IconButton aria-label="play/pause">
-                        <PlayArrowIcon className={classes.playIcon} />
+                    <IconButton aria-label="play/pause" onClick={()=> console.log("trying to enter")}>
+                        <Link to={`/chat/rooms/${props.chatRoomInfo.name}`}>
+                            <PlayArrowIcon className={classes.playIcon} />
+                        </Link>
                     </IconButton>
                 </div>
             </div>

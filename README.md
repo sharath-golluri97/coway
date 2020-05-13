@@ -42,7 +42,7 @@ Files Associated:
   src --|
         |_ serviceWoker.js
         |_ sw-build.js
-        |_ sw-custom.js
+        |_ sw.js
                                
 ``` 
 * Manifest:

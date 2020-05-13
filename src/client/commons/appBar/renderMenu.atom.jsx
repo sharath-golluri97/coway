@@ -1,8 +1,12 @@
 import React from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import AuthProvider from "../../../Authenticator/authProvider";
 
 const renderMenu = (props) => {
+	const handleLogOut = () => {
+		return AuthProvider.logout();
+	};
 	return (
 		<Menu
 			anchorEl={props.anchorEl}
@@ -14,7 +18,7 @@ const renderMenu = (props) => {
 			onClose={props.handleMenuClose}
 		>
 			<MenuItem onClick={props.handleMenuClose}>Profile</MenuItem>
-			<MenuItem onClick={props.handleMenuClose}>Logout</MenuItem>
+			<MenuItem onClick={handleLogOut}>Log out</MenuItem>
 		</Menu>
 	);
 };

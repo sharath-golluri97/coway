@@ -15,6 +15,7 @@ module.exports = function (context, req) {
         "target": "newMessage",
         "arguments": [ message ]
     }];
+
    context.res.body = message;
     context.done();
 };
