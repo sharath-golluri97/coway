@@ -6,12 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import AuthProvider from "./Authenticator/authProvider";
 import AzureAD from "react-aad-msal";
 
-ReactDOM.render(
-	<AzureAD provider={AuthProvider} forceLogin={true}>
-		<App />
-	</AzureAD> ,
-	document.getElementById('root')
-);
+ReactDOM.render(<App/>, document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change
