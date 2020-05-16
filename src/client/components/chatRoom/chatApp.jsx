@@ -1,7 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import ChatRoomsList from "./chatRoomsList.component";
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {
@@ -11,14 +9,10 @@ import {
     Link
 } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
-import UserInfoForm from "./userInfoForm";
 import {Box} from "@material-ui/core";
 import useStyles from "./chatApp.styles";
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Container from "@material-ui/core/Container";
-import AES from 'crypto-js/aes';
+
 
 import {getUserInfo} from "../../../Authenticator/tokens";
 

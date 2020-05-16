@@ -9,6 +9,8 @@ import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AuthProvider from "./Authenticator/authProvider";
 import AzureAD from "react-aad-msal";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const ChatAppAsync = lazy(() => import("./client/components/chatRoom/chatApp"));
 const HomePageAsync = lazy(() => import("./client/components/homePage/homePage.component"));
@@ -18,7 +20,7 @@ const ChatRoomAsync = lazy(() => import("./client/components/chatRoom/chatRoom.c
 //Custom Chat -> for Azure Service Bus
 
 const ChatAppCustomAsync = lazy(() => import("./client/components/chatRoomCustom/chatApp"));
-
+const GroupInfoAsync = lazy(()=> import("./client/components/chatRoomCustom/groupInfo"));
 
 
 /**
@@ -29,7 +31,7 @@ function withSuspense(WrappedComponent, loader) {
     return (
       <Suspense
         fallback={
-          <div className="centered">Loader</div> || <div>Loading...</div>
+          <div className="centered"><LinearProgress color="secondary" /></div> || <div>Loading...</div>
         }
       >
         <WrappedComponent {...props} />
@@ -51,7 +53,8 @@ function App() {
               <Route path="/chat/create" component={withSuspense(CreateChatRoomAsync)} />
               <Route exact path="/chat/rooms" component={withSuspense(CreateChatRoomAsync)} />
               <Route path="/chat/rooms/:roomId" component={withSuspense(ChatRoomAsync)} />
-              <Route exact path="/chatCustom" component={withSuspense(ChatAppCustomAsync)} />
+              <Route exact path="/chatCustom" component={withSuspense(GroupInfoAsync)} />
+              <Route  path="/chatCustom/chat" component={withSuspense(ChatAppCustomAsync)} />
           </Container>
           <ScrollTop>
             <Fab color="secondary" size="small" aria-label="scroll back to top">

@@ -5,7 +5,11 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "name": "req"
+      "name": "req",
+      "route": "messages",
+      "methods": [
+        "get"
+      ]
     },
     {
       "type": "http",
@@ -13,11 +17,12 @@
       "name": "res"
     },
     {
+      "name": "cosmosDBMessage",
       "type": "cosmosDB",
-      "name": "groups",
-      "ConnectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
       "databaseName": "CowayDevDb",
       "collectionName": "chat",
+      "sqlQuery": "select * from c order by c._ts desc",
+      "connectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
       "direction": "in"
     }
   ]
