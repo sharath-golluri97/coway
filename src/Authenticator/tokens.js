@@ -13,7 +13,6 @@ export const idToken = () => {
 export const getUserInfo = () => {
 	return idToken().then(id_token => {
 		const decoded = decodeJWT(id_token);
-		console.log("decoded: " + JSON.stringify(decoded));
 		const userInfo = {
 			firstName: decoded.given_name,
 			lastName: decoded.family_name,
