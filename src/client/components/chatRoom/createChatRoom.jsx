@@ -1,14 +1,9 @@
 import React, {useState,useEffect} from 'react';
 import useStyles from "./chatApp.styles";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
 import {Box} from "@material-ui/core";
-import UserInfoForm from "./userInfoForm";
 import TextField from "@material-ui/core/TextField";
-import AES from 'crypto-js/aes';
 import {getUserInfo} from "../../../Authenticator/tokens";
 import {getAxiosConfig} from "../../services/chat";
 import axios from "axios";
