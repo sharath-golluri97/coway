@@ -14,7 +14,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
-import Paper from '@material-ui/core/Paper';
 import ChatMessage from "./chatMessage";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {getUserInfo} from "../../../Authenticator/tokens";
@@ -25,7 +24,7 @@ export default function ChatApp(props) {
     TimeAgo.addLocale(en)
     const timeago = new TimeAgo('en-US')
 
-    //to get the group Name from preveious route i.e /chatCustom (groupInfo_
+    //to get the group Name from previous route i.e /chatCustom (groupInfo)
     const {data} = props.location;
 
     // to auto scroll to bottom when new msg appears
