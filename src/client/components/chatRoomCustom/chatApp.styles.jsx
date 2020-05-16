@@ -48,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
     messageContainer: {
         marginTop: '15px',
         marginBottom: '15px'
+    },
+    contentContainer: {
+        margin:'5px'
+    },
+    sender: {
+        fontSize:'xx-small'
     }
 }));
 

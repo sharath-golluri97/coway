@@ -50,7 +50,7 @@ export  function connectToSignalR(username){
                 console.log("connected!");
             })
             .catch(console.error);
-        return connection;
+         return connection;
     }).catch(alert);
 }
 
