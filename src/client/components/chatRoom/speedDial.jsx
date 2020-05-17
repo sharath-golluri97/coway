@@ -50,7 +50,7 @@ export default function SpeedDials(props) {
         { icon: <PrintIcon />, name: 'Print' },
         { icon: <ShareIcon />, name: 'Share' },
         { icon: <FavoriteIcon />, name: 'Like' },
-        { icon: <Link to={{ pathname:'/chatCustom/chat', data: props.groupName}}><ChatIcon/></Link>, name: 'Char'}
+        { icon: <Link to={{ pathname:'/chatRoom/chat', data: props.groupName}}><ChatIcon/></Link>, name: 'Chat'}
     ];
 
     const handleDirectionChange = (event) => {
