@@ -5,8 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import AuthProvider from "./Authenticator/authProvider";
 import AzureAD from "react-aad-msal";
+import createMuiTheme from './theme'
+import {ThemeProvider} from '@material-ui/core/styles'
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(
+    <ThemeProvider theme={createMuiTheme}>
+        <App/>
+    </ThemeProvider>
+    , document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

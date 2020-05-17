@@ -6,7 +6,7 @@
       "name": "updatedGroups",
       "direction": "in",
       "databaseName": "CowayDevDb",
-      "collectionName": "GroupInfo",
+      "collectionName": "chat",
       "connectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
       "feedPollDelay": 1000,
       "CreateLeaseCollectionIfNotExists": true
