@@ -3,10 +3,14 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import AuthProvider from "../../../Authenticator/authProvider";
+import { ExitToApp } from "@material-ui/icons";
 
+const handleLogOut = () => {
+	return AuthProvider.logout();
+};
 const renderMobileMenu = (props) => {
 	return (
 		<Menu
@@ -34,19 +38,18 @@ const renderMobileMenu = (props) => {
 				</IconButton>
 				<p>Notifications</p>
 			</MenuItem>
-			<MenuItem onClick={props.handleProfileMenuOpen}>
+			<MenuItem onClick={handleLogOut}>
 				<IconButton
 					aria-label="account of current user"
 					aria-controls="primary-search-account-menu"
-					aria-haspopup="true"
+					aria-haspopup="false"
 					color="inherit"
 				>
-					<AccountCircle/>
+				<ExitToApp/>
 				</IconButton>
-				<p>Profile</p>
+				<p>Logout</p>
 			</MenuItem>
 		</Menu>
 	);
 };
-
 export default renderMobileMenu;

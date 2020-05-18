@@ -42,8 +42,22 @@ const useStyles = makeStyles((theme) => ({
 	  display: "flex",
 	  [theme.breakpoints.up("md")]: {
 		display: "none"
-	  }
-	}
+	  },
+	},
+	menuSliderContainer: {
+        width: 250,
+        background: "#311B92",
+        height: "100%"
+    },
+    avatar: {
+        display: "block",
+        margin: "0.5rem auto",
+        width: theme.spacing(13),
+        height: theme.spacing(13)
+    },
+    listItem: {
+        color: "#fff"   
+    }
   }));
 
 export default useStyles;
