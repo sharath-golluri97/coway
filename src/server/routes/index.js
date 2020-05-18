@@ -1,10 +1,14 @@
 const express = require('express');
 
 const router = express.Router();
-const chat = require('./chat');
 
 // Load all REST Endpoints
-router.use('/chat',chat);
+/**
+ * Example :
+ * const map = require('./example');
+
+ router.use('/map',map);
+ **/
 
 /// API Error Handler
 router.use(function(err, req, res, next) {
