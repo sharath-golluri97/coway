@@ -6,7 +6,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "messages",
+      "route": "messages/{group_name}",
       "methods": [
         "get"
       ]
@@ -21,7 +21,7 @@
       "type": "cosmosDB",
       "databaseName": "CowayDevDb",
       "collectionName": "chat",
-      "sqlQuery": "select * from c order by c._ts desc",
+      "sqlQuery": "select * from c where c.groupName = {group_name} order by c._ts desc",
       "connectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
       "direction": "in"
     }
