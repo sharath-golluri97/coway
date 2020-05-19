@@ -5,7 +5,6 @@ import useStyles from "./chatApp.styles";
 import axios from "axios";
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en'
-import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash'
 import TextField from '@material-ui/core/TextField';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
@@ -22,22 +21,21 @@ const signalR = require("@aspnet/signalr");
 export default function ChatApp(props) {
     const classes = useStyles();
     TimeAgo.addLocale(en)
-    const timeago = new TimeAgo('en-US')
-
-    //to get the group Name from previous route i.e /chatCustom (groupInfo)
+    const timeago = new TimeAgo('en-US');
+    const groupId = props.match.params.id;
     const {data} = props.location;
 
     // to auto scroll to bottom when new msg appears
     const messagesEndRef = useRef(null);
 
     const [userInfo,setUserInfo] = useState({});
+    // var userInfo = {};
     const [newMessageText,setNewMessageText] = useState('');
     const [messages,setMessages] = useState([]);
     const [ready,setReady] = useState(false);
 
-
     const sendNewMessage = () => {
-        sendMessage(userInfo.firstName,newMessageText);
+        sendMessage(userInfo.firstName, newMessageText, groupId);
         setNewMessageText('');
     }
 
@@ -50,80 +48,95 @@ export default function ChatApp(props) {
     useEffect(()=>{
         getUserInfo().then(userData => {
             setUserInfo(userData);
-            if (userInfo !== null) {
+
+            if (userData !== null) {
                 setReady(true);
                 console.log('retrieving messages');
-                getMessages().then(messages => {
-                    for (let m of messages.reverse()) {
-                        newMessage(m);
-                    }
+                getMessages(userData).then(messages => {
+                    console.log("messages", messages);
+                       for (let m of messages.reverse()) {
+                                newMessage(m); 
+                        }
+                    
                 });
-                getConnectionInfo().then(info => {
+                getConnectionInfo(userData).then(info => {                    
                     const options = {
                         accessTokenFactory: () => info.accessToken
                     };
+
                     const connection = new signalR.HubConnectionBuilder()
                         .withUrl(info.url, options)
                         .configureLogging(signalR.LogLevel.Information)
                         .build();
-
+                                        
                     connection.on('newMessage', newMessage);
                     connection.onclose(() => console.log('disconnected'));
-                    console.log('connecting...');
                     connection.start()
-                        .then(() => console.log('connected!'))
+                        .then(() => {
+                            addToGroup(userData);
+                        }
+                            )
                         .catch(console.error);
-
+                    
                 }).catch(console.error);
                 setInterval(refreshTimes, 1000);
             }
-        })
-
-
-    },[])
+    })
+},[])
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
-
     // Azure SignalR connection configs
     const apiBaseUrl = 'http://localhost:7071';
     const hubName = 'chat';
 
-    function getAxiosConfig() {
+    function getAxiosConfig(userData) {
         const config = {
-            headers: {'x-ms-client-principal-name': userInfo.email}
+            headers: {'x-ms-client-principal-name': userData.email}
         };
         return config;
     }
-    function getConnectionInfo() {
-        return axios.post(`${apiBaseUrl}/api/SignalRInfo`, null, getAxiosConfig())
-            .then(resp => resp.data);
+    function getConnectionInfo(userData) {
+        return axios.post(`${apiBaseUrl}/api/SignalRInfo`, null, getAxiosConfig(userData))
+            .then(resp => {
+                return resp.data;
+            });
     }
 
-    function sendMessage(sender, messageText) {
+    function addToGroup(userData){
+        axios.post(`${apiBaseUrl}/api/manageGroup`, {
+            groupName: groupId,
+            userId: userData.email,
+        }, getAxiosConfig(userData));
+    }
+
+    function sendMessage(sender, messageText, groupName) {
         return axios.post(`${apiBaseUrl}/api/messages`, {
             sender: sender,
             text: messageText,
-            group_name: data,
-            group: uuidv4(),
-        }, getAxiosConfig()).then(resp => resp.data);
+            groupName: groupName,
+        }).then(resp => resp.data);
     }
-    function getMessages() {
-        return axios.get(`${apiBaseUrl}/api/messages`, getAxiosConfig())
+    function getMessages(userData) {
+        return axios.get(`${apiBaseUrl}/api/messages/` + groupId, getAxiosConfig(userData))
             .then(resp => resp.data);
     }
 
     function newMessage(message) {
+        //if sender is not set in our case, no anonymous messages will be passed!
         if (!message.sender) {
             message.sender = "anonymous";
         }
+        else{
         message._ts = message._ts || (new Date().getTime() / 1000);
         message.timeago = timeago.format(new Date(message._ts * 1000));
         messages.push(message);
         setMessages(_.cloneDeep(messages));
+        }
     }
+
     function refreshTimes() {
         messages.forEach(m => m.timeago = timeago.format(new Date(m._ts * 1000)));
     }

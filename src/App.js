@@ -10,13 +10,13 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AuthProvider from "./Authenticator/authProvider";
 import AzureAD from "react-aad-msal";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ChatApp from './client/components/chatRoom/chatApp';
 
 
 const HomePageAsync = lazy(() => import("./client/components/homePage/homePage.component"));
 
 //Custom Chat -> for Azure SignalR and Azure Cosmos DB
-
-const ChatAppCustomAsync = lazy(() => import("./client/components/chatRoom/chatApp"));
+// const ChatAppCustomAsync = lazy(() => import("./client/components/chatRoom/chatApp"));
 const GroupInfoAsync = lazy(()=> import("./client/components/chatRoom/groupInfo"));
 
 
@@ -47,7 +47,7 @@ function App() {
           <Container >
               <Route exact path="/" component={withSuspense(HomePageAsync)} />
               <Route exact path="/chatRoom" component={withSuspense(GroupInfoAsync)} />
-              <Route  path="/chatRoom/chat" component={withSuspense(ChatAppCustomAsync)} />
+              <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatApp)} />
           </Container>
           <ScrollTop>
             <Fab color="secondary" size="small" aria-label="scroll back to top">
