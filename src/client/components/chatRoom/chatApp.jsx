@@ -16,6 +16,7 @@ import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import ChatMessage from "./chatMessage";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {getUserInfo} from "../../../Authenticator/tokens";
+import { v4 as uuidv4 } from 'uuid';
 const signalR = require("@aspnet/signalr");
 
 export default function ChatApp(props) {
@@ -55,11 +56,11 @@ export default function ChatApp(props) {
                 getMessages(userData).then(messages => {
                     console.log("messages", messages);
                        for (let m of messages.reverse()) {
-                                newMessage(m); 
+                                newMessage(m);
                         }
-                    
+
                 });
-                getConnectionInfo(userData).then(info => {                    
+                getConnectionInfo(userData).then(info => {
                     const options = {
                         accessTokenFactory: () => info.accessToken
                     };
@@ -68,7 +69,7 @@ export default function ChatApp(props) {
                         .withUrl(info.url, options)
                         .configureLogging(signalR.LogLevel.Information)
                         .build();
-                                        
+
                     connection.on('newMessage', newMessage);
                     connection.onclose(() => console.log('disconnected'));
                     connection.start()
@@ -77,7 +78,7 @@ export default function ChatApp(props) {
                         }
                             )
                         .catch(console.error);
-                    
+
                 }).catch(console.error);
                 setInterval(refreshTimes, 1000);
             }
@@ -117,6 +118,7 @@ export default function ChatApp(props) {
             sender: sender,
             text: messageText,
             groupName: groupName,
+            group: uuidv4(),
         }).then(resp => resp.data);
     }
     function getMessages(userData) {
