@@ -1,8 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const palette = {
-    primary: { main: '#311B92' },
-    secondary: { main: '#E040FB' }
+    primary: { main: '#1565c0' },
+    secondary: { main: '#e91e63' }
 };
 const themeName = 'Jacksons Purple Heliotrope Cardinal';
 
