@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import CardActionArea from "@material-ui/core/CardActionArea";
+// import CardActionArea from "@material-ui/core/CardActionArea";
 import Collapse from '@material-ui/core/Collapse';
 import CardHeader from "@material-ui/core/CardHeader";
 import IconButton from "@material-ui/core/IconButton";
@@ -60,7 +60,7 @@ const EventCard = (props) => {
   return (
     <Grid item xs={12} sm={6} md={3}>
       <Card className={classes.root} variant="outlined">
-       <CardActionArea>
+       {/*<CardActionArea>*/}
           <CardHeader
             action={
               <IconButton
@@ -134,7 +134,7 @@ const EventCard = (props) => {
               </Typography>
             </CardContent>
           </Collapse>
-        </CardActionArea>
+        {/*</CardActionArea>*/}
     </Card>
     </Grid>
   );
