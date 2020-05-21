@@ -3,7 +3,8 @@ import { MsalAuthProvider, LoginType } from "react-aad-msal";
 const tenant = "cowayauth.onmicrosoft.com";
 const signInPolicy = "B2C_1_coway_signup";
 const applicationID = "b722f51d-720a-4943-a4a3-a42c9c65005c";
-const reactRedirectUri = "http://localhost:3000";
+const reactRedirectUri = window.location.origin;
+
 const tenantSubdomain = tenant.split(".")[0];
 const instance = `https://${tenantSubdomain}.b2clogin.com/tfp/`;
 const signInAuthority = `${instance}${tenant}/${signInPolicy}`;
