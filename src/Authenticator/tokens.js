@@ -1,6 +1,4 @@
-import sha256 from 'crypto-js/sha256';
 import AuthProvider from "./authProvider";
-import AES from 'crypto-js/aes';
 import decodeJWT from "jwt-decode";
 
 export const idToken = () => {
