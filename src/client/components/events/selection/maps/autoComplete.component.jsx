@@ -17,9 +17,11 @@ class AutoComplete extends Component {
   };
 
   onChange = (_, { newValue }) => {
-
+    console.log("outside: ", newValue);
     if (!newValue) {
+        console.log("inisde: ", newValue);
       this.props.onSuggestionCleared();
+        console.log("inisde1: ", newValue);
     }
 
     this.setState({
@@ -34,6 +36,10 @@ class AutoComplete extends Component {
   onSuggestionsClearRequested = () => {
     this.props.refine();
   };
+
+  // onSuggestionSelected = (_, { suggestion }) => {
+  //       console.log("suggestion", suggestion);
+  // };
 
   getSuggestionValue(hit) {
     return hit.name;
@@ -58,7 +64,12 @@ class AutoComplete extends Component {
         suggestions={hits}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        onSuggestionSelected={onSuggestionSelected}
+        onSuggestionSelected={(_, { suggestion })=>{
+            console.log("suggestion: ",suggestion.name);
+            this.setState({
+                value: suggestion.name,
+            });
+        }}
         getSuggestionValue={this.getSuggestionValue}
         renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
