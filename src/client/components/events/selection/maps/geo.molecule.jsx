@@ -10,11 +10,9 @@ const Geo = (props) =>  {
 
         InfoWindow.setContent(
             '<div>' +
-            hit.name + '<span>' + '•' + '</span>' +
-            hit.city + '<span>' + '•' + '</span>' +
-            hit.time + '<span>' + '•' + '</span>' +
-            hit.date + '<span>' + '•' + '</span>' +
-            hit.max_participants + '<span>' + '•' + '</span>' +
+            '<span>' + '•' + '</span>' + hit.name + '<br>' +
+            '<span>' + '•' + '</span>' + hit.created_on + '<br>' +
+            '<span>' + '•' + '</span>' + hit.max_participants + '<br>' +
             '</div>' +
             ' <div> ' +
             '<style>' +
@@ -60,11 +58,11 @@ const Geo = (props) =>  {
     return (
         <GeoSearch
             google={google}
-            enableRefine={false}
+            enableRefine={true}
             streetViewControl={false}
-            mapTypeControl={false}
+            mapTypeControl={true}
             zoom={4}
-            minZoom={3}
+            minZoom={6.5}
             maxZoom={70}
             styles={[
                 {
