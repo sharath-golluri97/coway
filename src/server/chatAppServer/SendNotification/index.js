@@ -5,8 +5,15 @@ module.exports = function (context, req) {
         message.sender = req.headers['x-ms-client-principal-name'];
     }
 
+    let recipientUserId = '';
+    if (message.recipient) {
+      recipientUserId = message.recipient;
+      message.isPrivate = true;
+    }
+
     context.bindings.signalRMessages = [{
-        "target": "newMessage",
+      "userId": recipientUserId,
+      "target": "newMessage",
         "arguments": [ message ]
     }];
 

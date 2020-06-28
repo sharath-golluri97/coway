@@ -10,11 +10,11 @@ import UserContextProvider from "./eventContext.atom";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        minHeight: "100vh",
-        alignContent: "stretch",
-        [theme.breakpoints.down("sm")]: {
-            alignContent: "flex-start"
-        }
+    //     minHeight: "100vh",
+    //     alignContent: "stretch",
+    //     [theme.breakpoints.down("sm")]: {
+    //         alignContent: "flex-start"
+    //     }
     },
     header: {
         padding: theme.spacing(5),

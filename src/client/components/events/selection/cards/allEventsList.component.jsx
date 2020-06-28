@@ -7,24 +7,24 @@ import EventCard from "./eventCard.molecule";
 
 const useStyles = makeStyles({
   gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px"
+    paddingLeft: "3px",
+    paddingRight: "3px"
   }
 });
 
-export default function EventsList() {
-  const data = EventData.eventList;
+export default function EventsList(props) {
+  const data = EventData.groups;
   const classes = useStyles();
   return (
     <Grid
       container
-      spacing={4}
+      spacing={1}
       className={classes.gridContainer}
       justify="center"
     >
       {
         data.map( (eventDetails) => {
-          return <EventCard {...eventDetails} key={eventDetails.eventId}/>
+          return <EventCard {...eventDetails} key={eventDetails.id} {...props}/>
         })
       }
     </Grid>

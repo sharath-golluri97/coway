@@ -1,13 +1,15 @@
 module.exports = {
   eventList: [
     {
+      groupId: '1',
+      groupName: 'abc airport to cde1',
       eventId : 1,
       eventType: "airport",
       status: true,
       favoriteEvent: Math.random() >= 0.5,
       joinStatus: Math.random() >= 0.5,
       requestStatus : Math.random() >= 0.1,
-      eventName: "Independence day",
+      eventName: "Independence day1",
       pickUpLocation : "LAX",
       dropLocation : "Downtown LA",
       eventDate: "July 4th, 2020",
@@ -16,9 +18,11 @@ module.exports = {
       maxPeople: 2,
       shortDesc: "Join me on a ride to downtown LA from LAX Airport.",
       longDesc: " My country 'tis of thee Sweet land of liberty Of thee I sing Land where my fathers died Land of the pilgrim's pride From every mountainside Let freedom ring Let freedom ring Let it ring ...",
-      creatorUser: "Founding Fathers"
+      creatorUser: "amangupta570@gmail.com"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 2,
       eventType: "airport",
       status: true,
@@ -37,6 +41,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 3,
       eventType: "airport",
       status: true,
@@ -55,6 +61,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 4,
       eventType: "airport",
       status: true,
@@ -73,6 +81,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 5,
       eventType: "airport",
       status: true,

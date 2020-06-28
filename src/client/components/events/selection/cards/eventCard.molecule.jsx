@@ -17,10 +17,12 @@ import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Divider from "@material-ui/core/Divider";
 import clsx from "clsx";
-
 import EventCardStyles from "./eventCard.styles";
-
-
+import {getDateTime} from "../../../../utils/dateTimeTools";
+import {reverseGeocode} from "../../../../utils/osmReverseGeocode";
+import ShowIfPropTrue from "../../../../commons/showPropIf/showPropIf";
+import LocalAirportIcon from '@material-ui/icons/LocalAirport';
+import {Link} from "react-router-dom";
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
@@ -29,10 +31,18 @@ const EventCard = (props) => {
   const [request, setRequest] = useState(props.requestStatus);
   const [favorite, setFavorite] = useState(props.favoriteEvent);
   const favColor = favorite ? "action" : "secondary";
+  const [groupInfo,setGroupInfo] = useState(props);
+  const [startEvent,setStartEvent] = useState({});
+  const [endEvent,setEndEvent] = useState({});
+  const [dest,setDest] = useState('');
+  const [ready,setReady] = useState(false);
+  const [groupStatus,setGroupStatus] = useState(null);
+  // var dest = '';
 
   const handleRequestClick = () => {
     if(!request){
       //POST call .then()
+      props.handleRequestClick(props.groupId,props.groupName,props.creatorUser);
       setRequest(!request);
       return;
     }
@@ -52,59 +62,108 @@ const EventCard = (props) => {
     setExpanded(!expanded);
   };
 
-  useEffect( () => {
 
-  });
+  useEffect( () => {
+    let eventStart = getDateTime(new Date(groupInfo.event.start_time));
+    let eventEnd = getDateTime(new Date(groupInfo.event.end_time));
+
+    setStartEvent({date:eventStart.date, time: eventStart.time });
+    setEndEvent({date:eventEnd.date, time: eventEnd.time });
+    setGroupStatus(groupInfo.user_group_infos[0].user_group_status.status);
+    console.log(JSON.stringify(groupInfo.user_group_infos))
+    // setGroupStatus(groupInfo.)
+    reverseGeocode(groupInfo.event.latitude,groupInfo.event.longitude)
+      .then(resp => resp.address.suburb)
+      .then(location => {
+        setDest(location);
+        setReady(true)
+      });
+  },[]);
 
   return (
     <Grid item xs={12} sm={6} md={3}>
+      <ShowIfPropTrue prop={ready}>
       <Card className={classes.root} variant="outlined">
           <CardHeader
             action={
-              <IconButton
-                aria-label="chat or join"
-                onClick={handleRequestClick}
-              >
-                {props.joinStatus? <ChatBubbleOutlineOutlinedIcon/> : (request ? <CheckCircleOutlineIcon style={{ color: "#ff9900" }}/> : <GroupAddOutlinedIcon/> )}
-              </IconButton>
+
+
+                groupStatus == "APPROVED" || groupStatus == "ADMIN" ?
+                  <Link to={'/chatRoom/chat/' + groupInfo.group_name}>
+
+                  <IconButton style={{zIndex:1}}
+                                  aria-label="chat or join"
+                                  onClick={handleRequestClick}
+                    >
+                      <ChatBubbleOutlineOutlinedIcon/>
+                    </IconButton>
+                  </Link>
+
+                  :
+                    (groupStatus == "PENDING" ?
+                        <IconButton style={{zIndex:1}}
+                                    aria-label="chat or join"
+                                    onClick={handleRequestClick}
+                        >
+                      <CheckCircleOutlineIcon style={{ color: "#ff9900" }}/>
+                        </IconButton>
+                      :
+                        <IconButton style={{zIndex:1}}
+                                    aria-label="chat or join"
+                                    onClick={handleRequestClick}
+                        >
+                      <GroupAddOutlinedIcon/>
+                        </IconButton>
+                    )
+
             }
-            title={props.eventName}
-            subheader={props.eventTime}
+            title={
+              <Typography>
+                {props.event.name}
+              </Typography>
+            }
+            subheader={
+              <Typography variant={'caption'}>
+              {startEvent.time} | {startEvent.date}
+              </Typography>
+            }
+            disableTypography={true}
           />
-          <CardContent>
+          <CardContent style={{paddingTop:'5px', paddingBottom:'5px'}}>
+
             <Typography
               className={classes.subtitle}
               color="textSecondary"
               gutterBottom
+              style={{fontSize:'smaller'}}
             >
-              {props.pickUpLocation}  {bull}  {props.dropLocation} {bull}   {props.maxPeople}
+              {
+                groupInfo.event.event_type_id == 1 ?
+                  <span>
+                    {groupInfo.event.city.airport_id}
+                    <LocalAirportIcon style={{fontSize:'0.8rem'}}/>
+
+                  </span>
+                :
+                groupInfo.event.city.name
+              }
+                {bull}  {dest} {bull}   {groupInfo.event.max_participants}
             </Typography>
             <Divider />
-            <Typography className={classes.pos} color="textSecondary">
-              <IconButton aria-label="time">
-                <AccessTimeOutlinedIcon
-                  fontSize="small"
-                  style={{ marginRight: 10 }}
-                />
-                {props.eventTime} {props.timeZone}
-              </IconButton>
-            </Typography>
-            <Typography variant="body2" component="p">
-              {props.shortDesc}
-              <br />
-            </Typography>
           </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
+          <CardActions disableSpacing style={{paddingTop:'2px',paddingBottom:'5px'}}>
+            <IconButton aria-label="add to favorites" style={{zIndex:1,paddingTop:2,paddingBottom:2}} onClick={addToFavorites}>
               <FavoriteIcon
+                fontSize={'small'}
                 color={favColor}
-                onClick={addToFavorites}
+
               />
             </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
+            <IconButton aria-label="share" style={{zIndex:1,paddingTop:2,paddingBottom:2}}>
+              <ShareIcon fontSize={'small'}/>
             </IconButton>
             <IconButton
+              style={{zIndex:1,paddingTop:2,paddingBottom:2}}
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded
               })}
@@ -112,7 +171,7 @@ const EventCard = (props) => {
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <ExpandMoreIcon />
+              <ExpandMoreIcon fontSize={'small'}/>
             </IconButton>
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -121,18 +180,19 @@ const EventCard = (props) => {
                 <IconButton aria-label="admin name">
                   <PersonIcon
                     color="primary"
-                    fontSize="large"
+                    fontSize="small"
                     style={{ marginRight: 10 }}
                   />
                     {props.creatorUser}
                 </IconButton>
               </Typography>
-              <Typography paragraph>
-                {props.longDesc}
+              <Typography paragraph style={{fontSize:'smaller'}}>
+                {groupInfo.event.description}
               </Typography>
             </CardContent>
           </Collapse>
     </Card>
+      </ShowIfPropTrue>
     </Grid>
   );
 }

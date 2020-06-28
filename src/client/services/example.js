@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function fetchEventForAlgolia(params){
   try {
-    const resp = await axios.get("/api/map/algolia", {
+    const resp = await axios.post("/api/map/algolia", {
       params
     });
     return resp.data;
@@ -18,8 +18,8 @@ export async function fetchEventForAlgolia(params){
   }
 }
 
- **/
 
+**/
 
 //To use this function in any react component
 

@@ -13,23 +13,23 @@ html {
     height: 100%;
 }
 
-html,
-body {
-    padding: 0;
-    margin: 0;
-}
+/*html,*/
+/*body {*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
 
-body {
-    min-height: 100%;
-    padding: 24px;
-    font-size: 14px;
-    line-height: 24px;
-    overflow-y: scroll;
-    display: flex;
-    font-family: 'Open Sans', sans-serif;
-    background: #f0f2f5;
-    flex-direction: column;
-}
+/*body {*/
+/*    min-height: 100%;*/
+/*    padding: 24px;*/
+/*    font-size: 14px;*/
+/*    line-height: 24px;*/
+/*    overflow-y: scroll;*/
+/*    display: flex;*/
+/*    font-family: 'Open Sans', sans-serif;*/
+/*    background: #f0f2f5;*/
+/*    flex-direction: column;*/
+/*}*/
 
 #root {
     min-height: 100%;

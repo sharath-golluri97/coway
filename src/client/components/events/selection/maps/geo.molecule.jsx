@@ -64,7 +64,7 @@ const Geo = (props) =>  {
             streetViewControl={false}
             mapTypeControl={false}
             zoom={4}
-            minZoom={10}
+            minZoom={3}
             maxZoom={70}
             styles={[
                 {

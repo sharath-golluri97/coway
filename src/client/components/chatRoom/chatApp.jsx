@@ -170,7 +170,7 @@ export default function ChatApp(props) {
                                     <GroupRoundedIcon />
                                 </IconButton>
                             }
-                            title={data}
+                            title={groupId}
                             subheader="Group Status"
                         />
                     </Card>
