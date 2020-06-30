@@ -12,8 +12,11 @@ import AzureAD from "react-aad-msal";
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 
+
 const HomePageAsync = lazy(() => import("./client/components/homePage/homePage.component"));
 const CreateEventAsync = lazy( () => import("./client/components/events/creation/createEvent.component"));
+const MapViewAsync = lazy( () => import("./client/components/events/selection/maps/mapView.component"));
+
 
 //Custom Chat -> for Azure SignalR and Azure Cosmos DB
 const GroupInfoAsync = lazy(()=> import("./client/components/chatRoom/groupInfo"));
@@ -48,6 +51,7 @@ function App() {
               <Route exact path="/chatRoom" component={withSuspense(GroupInfoAsync)} />
               <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
               <Route exact path="/create" component={withSuspense(CreateEventAsync)}/>
+              <Route exact path="/mapview" component={withSuspense(MapViewAsync)} />
           </Container>
           <ScrollTop>
             <Fab color="secondary" size="small" aria-label="scroll back to top">
