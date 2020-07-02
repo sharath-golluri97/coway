@@ -16,13 +16,6 @@ export default props => {
         {title: "Delhi"},
         {title: "Mumbai"}
     ];
-    // const [cityName, setCityName] = React.useState('');
-
-    // const handleCities = (e) => {
-    //   setCityName(e.target.value.title);
-    //   user.city = e.target.value.title;
-    // };
-
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -31,7 +24,6 @@ export default props => {
                     name='eventname'
                     label='Event name'
                     value={user.eventname}
-                    // variant='outlined'
                     InputLabelProps={{
                         shrink: true
                     }}
@@ -74,7 +66,6 @@ export default props => {
                     id='startdate'
                     label='Start date'
                     defaultValue={user.startdate}
-                    // helperText='Choose a date one week from now'
                     variant='outlined'
                     margin='normal'
                     InputLabelProps={{
@@ -95,21 +86,15 @@ export default props => {
                     autoComplete
                     options={cities}
                     getOptionLabel={(option) => option.title}
-                    // getOptionSelected={(option, value) => option.title === value.title}
                     getOptionSelected={(option, value) => {
-                        console.log("option: ",option.title);
-                        console.log("value: ",value.title);
+
                         if (option.title === value.title)
                         {
-                            console.log("option1: ",option.title);
-                            console.log("value1: ",value.title);
                             user.city = value.title
-
                         }
                         return option.title === value.title;
                     }
                     }
-                    // onChange={handleCities}
                     style={{ width: 300 }}
                     renderInput={
                         (params) => <TextField
@@ -124,7 +109,6 @@ export default props => {
                             InputLabelProps={{
                                 shrink: true
                             }}
-                            // required
                             fullWidth
                         />
                     }
