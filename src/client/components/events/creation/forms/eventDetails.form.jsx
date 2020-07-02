@@ -95,7 +95,20 @@ export default props => {
                     autoComplete
                     options={cities}
                     getOptionLabel={(option) => option.title}
-                    getOptionSelected={(option, value) => option.title === value.title}
+                    // getOptionSelected={(option, value) => option.title === value.title}
+                    getOptionSelected={(option, value) => {
+                        console.log("option: ",option.title);
+                        console.log("value: ",value.title);
+                        if (option.title === value.title)
+                        {
+                            console.log("option1: ",option.title);
+                            console.log("value1: ",value.title);
+                            user.city = value.title
+
+                        }
+                        return option.title === value.title;
+                    }
+                    }
                     // onChange={handleCities}
                     style={{ width: 300 }}
                     renderInput={
