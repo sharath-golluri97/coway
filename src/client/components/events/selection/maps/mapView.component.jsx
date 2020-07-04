@@ -35,7 +35,7 @@ const searchClient = algoliasearch(
                     </div>
                     <div >
                         <div id="map">
-                            <div style={{height:"78vh"}}>
+                            <div style={{height:"75vh"}}>
                                 <GoogleMapsLoader apiKey="AIzaSyBawL8VbstJDdU5397SUX7pEt9DslAwWgQ">
                                     {google => <Geo google={google} />}
                                 </GoogleMapsLoader>

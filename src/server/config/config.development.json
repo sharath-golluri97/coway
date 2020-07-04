@@ -3,7 +3,7 @@
     "coway": {
       "baseUrl": "http://localhost:5000/",
       "routes": {
-        "algolia": "api/event/algolia"
+        "algolia": "api/events/"
       }
 
     }

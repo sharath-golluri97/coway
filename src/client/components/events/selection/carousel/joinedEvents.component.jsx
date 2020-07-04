@@ -6,14 +6,14 @@ import JoinedEvents from "../mocks/getMyEvents"
 const JoinedEventsCarousel = () => {
     return (
         <Carousel
-            autoPlay={true}
+            autoPlay={false}
             indicators={true}
-            animation={"slide"}
+            animation={"fade"}
             navButtonsAlwaysVisible={false}
         >
             {
                 JoinedEvents.eventList.map((eventDetails) => {
-                    return <EventCard {...eventDetails} key={eventDetails.eventId}/>
+                    return <EventCard {...eventDetails} key={eventDetails.eventId} type={'joinedEvent'}/>
                 })
             }
         </Carousel>

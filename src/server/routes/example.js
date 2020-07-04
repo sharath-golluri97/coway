@@ -1,4 +1,4 @@
-/**
+
 
  const express = require("express");
 const {logger} = require("../utils/logger");
@@ -11,9 +11,9 @@ const router = express.Router();
 
 //  Example
 
-router.get("/algolia", async function (req, res, next) {
+router.post("/algolia", async function (req, res, next) {
   try{
-    const params = req.query;
+    const params = req.body;
     console.log("params->", params);
     logger.info(`Entered ${req.originalURL} route`);
     const data = await getEventsForAlgolia(params);
@@ -25,4 +25,4 @@ router.get("/algolia", async function (req, res, next) {
 });
 
 module.exports = router;
-**/
+

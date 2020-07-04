@@ -1,4 +1,4 @@
-/**
+
 
 const axios = require("axios");
 const { appConfig } = require("../utils/app-config");
@@ -9,7 +9,7 @@ async function getEventsForAlgolia(params) {
   try {
     // logger.info(`Entered ${req.originalUrl} route`);
     const url = appConfig.api.coway.algolia;
-    const res = await fetch.get(url);
+    const res = await fetch.post(url,params);
     return res;
 
   } catch (err) {
@@ -23,4 +23,4 @@ module.exports = {
   getEventsForAlgolia
 }
 
-**/
+

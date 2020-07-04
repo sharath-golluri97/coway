@@ -22,6 +22,16 @@ const EventCardStyles = makeStyles((theme) => ({
     avatar: {
       backgroundColor: Black[500],
     },
+    pendingRequestExpandedArea : {
+        maxHeight: '20vh',
+        overflowY: 'scroll',
+        padding:0
+      },
+
+    headerFont: {
+      fontSize: 'small'
+    }
+
   }));
 
 export default EventCardStyles;

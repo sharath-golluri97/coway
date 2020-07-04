@@ -1,6 +1,8 @@
 module.exports = {
   eventList: [
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 5,
       eventType: "airport",
       status: true,
@@ -19,6 +21,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 6,
       eventType: "airport",
       status: true,
@@ -37,6 +41,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 7,
       eventType: "airport",
       status: true,
@@ -55,6 +61,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 8,
       eventType: "airport",
       status: true,
@@ -73,6 +81,8 @@ module.exports = {
       creatorUser: "Founding Fathers"
     },
     {
+      groupId: '1',
+      groupName: 'abc airport to cde',
       eventId : 9,
       eventType: "airport",
       status: true,
