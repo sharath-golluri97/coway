@@ -260,7 +260,6 @@ export default function Notifications() {
               })
             }
           </List>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer variant="persistent" anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
