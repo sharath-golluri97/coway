@@ -52,31 +52,8 @@ function App() {
         <AzureAD provider={AuthProvider} forceLogin={true}>
         <div>
           <AppBar />
-          {/*<Grid container >*/}
-          {/*  <Grid item xs={12} style={{height:'86.2vh',overflowY:'scroll'}}>*/}
-          {/*<Container >*/}
-          {/*    <Route exact path="/" component={withSuspense(HomePageAsync)} />*/}
-          {/*    <Route exact path="/chatRoom" component={withSuspense(GroupInfoAsync)} />*/}
-          {/*    <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />*/}
-          {/*    <Route exact path="/create" component={withSuspense(CreateEventAsync)}/>*/}
-          {/*    <Route exact path="/mapView" component={withSuspense(MapViewAsync)}/>*/}
-          {/*    <Route exact path="/notifications" component={withSuspense(NotificationsAsync)}/>*/}
-
-          {/*</Container>*/}
-          {/*<ScrollTop>*/}
-          {/*  <Fab color="secondary" size="small" aria-label="scroll back to top">*/}
-          {/*    <KeyboardArrowUpIcon />*/}
-          {/*  </Fab>*/}
-          {/*</ScrollTop>*/}
-          {/*  </Grid>*/}
-          {/*  <Grid item xs={12} style={{zIndex:1}}>*/}
-          {/*    <LabelBottomNavigation/>*/}
-          {/*  </Grid>*/}
-          {/*</Grid>*/}
-
           <Route exact path={page} component={CustomContainer}/>
           <Route exact path={pageWithBottomNavBar} component={DefaultContainer}/>
-          {/*<Route component={NotFoundAsync}/>*/}
         </div>
         </AzureAD>
       </Switch>
@@ -90,7 +67,6 @@ const DefaultContainer = () => (
       <Container >
         <Route exact path="/" component={withSuspense(HomePageAsync)} />
         <Route exact path="/chatRoom" component={withSuspense(GroupInfoAsync)} />
-        {/*<Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />*/}
         <Route exact path="/create" component={withSuspense(CreateEventAsync)}/>
         <Route exact path="/mapView" component={withSuspense(MapViewAsync)}/>
         <Route exact path="/notifications" component={withSuspense(NotificationsAsync)}/>
