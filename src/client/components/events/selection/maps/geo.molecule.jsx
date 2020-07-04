@@ -14,7 +14,7 @@ const Geo = (props) =>  {
             '<span>' + '•' + '</span>' + hit.created_on + '<br>' +
             '<span>' + '•' + '</span>' + hit.max_participants + '<br>' +
             '</div>' +
-            ' <div> ' +
+            '<div> ' +
             '<style>' +
             '.button {' +
             '  background-color: #008CBA;' +
@@ -56,42 +56,41 @@ const Geo = (props) =>  {
     const { google } = props;
 
     return (
-        <GeoSearch
-            google={google}
-            enableRefine={true}
-            streetViewControl={false}
-            mapTypeControl={true}
-            zoom={4}
-            minZoom={6.5}
-            maxZoom={70}
-            styles={[
-                {
-                    stylers: [
-                        {
+                 <GeoSearch
+                    google={google}
+                    enableRefine={false}
+                    streetViewControl={false}
+                    mapTypeControl={false}
+                    zoom={5}
+                    minZoom={7}
+                    maxZoom={9}
+                    styles={[
+                      {
+                        stylers: [
+                          {
                             hue: '#3596D2'
-                        }
-                    ]
-                }
-            ]}
-        >
-            {({ hits }) => (
-                <div>
-                    {hits.map(hit => (
-                        <Marker
+                          }
+                        ]
+                      }
+                    ]}
+                  >
+                    {({ hits }) => (
+                      <div>
+                        {hits.map(hit => (
+                          <Marker
                             key={hit.objectID}
                             hit={hit}
                             onClick={({ marker }) => {
-                                onClickMarker({
-                                    hit,
-                                    marker
-                                })
+                              onClickMarker({
+                                hit,
+                                marker
+                              })
                             }}
-                        />
-                    ))}
-                </div>
-            )}
-        </GeoSearch>
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </GeoSearch>
     );
 }
-
 export default Geo;
