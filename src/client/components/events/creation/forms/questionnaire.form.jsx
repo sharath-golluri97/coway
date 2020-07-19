@@ -13,9 +13,9 @@ export default props => {
                 <TextField
                     id='q1'
                     label='Question 1'
-                    value={user.q1}
+                    // value={user.q1}
                     name='q1'
-                    placeholder='Answer this question'
+                    placeholder={user.q1}
                     variant='outlined'
                     margin='normal'
                     multiline
@@ -34,13 +34,12 @@ export default props => {
                 <TextField
                     id='q2'
                     label='Question 2'
-                    value={user.q2}
+                    // value={user.q2}
                     name='q2'
-                    placeholder='Answer this question'
+                    placeholder={user.q2}
                     variant='outlined'
                     margin='normal'
                     multiline
-                    required
                     InputLabelProps={{
                         shrink: true
                     }}
@@ -55,13 +54,12 @@ export default props => {
                 <TextField
                     id='q3'
                     label='Question 3'
-                    value={user.q3}
+                    // value={user.q3}
                     name='q3'
-                    placeholder='Answer this question'
+                    placeholder={user.q3}
                     variant='outlined'
                     margin='normal'
                     multiline
-                    required
                     InputLabelProps={{
                         shrink: true
                     }}
