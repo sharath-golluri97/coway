@@ -135,28 +135,28 @@ export default props => {
                     fullWidth
                 />
             </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    id='shortdescription'
-                    placeholder='TL;DR'
-                    name='shortdescription'
-                    label='Short Description'
-                    value={user.shortdescription}
-                    variant='outlined'
-                    margin='normal'
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    required
-                    inputProps={{
-                        minLength: 3,
-                        maxLength: 100
-                    }}
-                    error={!!errors["shortdescription"]}
-                    fullWidth
-                    rows={3}
-                />
-            </Grid>
+            {/*<Grid item xs={12}>*/}
+            {/*    <TextField*/}
+            {/*        id='shortdescription'*/}
+            {/*        placeholder='TL;DR'*/}
+            {/*        name='shortdescription'*/}
+            {/*        label='Short Description'*/}
+            {/*        value={user.shortdescription}*/}
+            {/*        variant='outlined'*/}
+            {/*        margin='normal'*/}
+            {/*        InputLabelProps={{*/}
+            {/*            shrink: true*/}
+            {/*        }}*/}
+            {/*        required*/}
+            {/*        inputProps={{*/}
+            {/*            minLength: 3,*/}
+            {/*            maxLength: 100*/}
+            {/*        }}*/}
+            {/*        error={!!errors["shortdescription"]}*/}
+            {/*        fullWidth*/}
+            {/*        rows={3}*/}
+            {/*    />*/}
+            {/*</Grid>*/}
             <Grid item xs={12}>
                 <TextField
                     id='remarks'

@@ -8,10 +8,13 @@ export default props => {
             startdate: new Date().toISOString().slice(0, 10),
             city: "",
             // ["Bengaluru", "Hyderabad", "Delhi", "Mumbai"]
+            location: {
+                lat : 0.00,
+                long : 0.00
+            },
             maxparticipants: 2,
             // desc
             description: "",
-            shortdescription: "",
             remarks: "",
             // questionnaire
             q1: "Why do you want to join the group?",

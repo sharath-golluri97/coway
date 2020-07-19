@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 //modules
 import EventDetails from "./forms/eventDetails.form";
+import LocationDetails from "./forms/location.form";
 import Questionnaire from "./forms/questionnaire.form";
 import EventFormSummary from "./summary.molecule";
 import Success from "./success.atom";
@@ -53,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const steps = ["Event details", "Questionnaire", "Summary"];
+const steps = ["Event details", "Location details","Questionnaire", "Summary"];
 
 //main form component
 export default props => {
@@ -90,9 +91,11 @@ export default props => {
         switch (step) {
             case 0:
                 return <EventDetails />;
-            case 1:
-                return <Questionnaire />;
+            case 1 :
+                return <LocationDetails/>;
             case 2:
+                return <Questionnaire />;
+            case 3:
                 return <EventFormSummary />;
             default:
                 return "Unknown step";
