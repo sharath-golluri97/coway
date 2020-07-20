@@ -3,7 +3,7 @@ import Black from "@material-ui/core/colors/red";
 
 const EventCardStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 345,
+      maxWidth: 500,
     },
     media: {
       height: 0,
