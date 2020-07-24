@@ -1,18 +1,23 @@
 FROM node:10.16-alpine
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
-
+RUN mkdir -p /home/node/app/public
 # set working directory
 WORKDIR /home/node/app
 
 # install server packages
 COPY package*.json ./
-RUN npm set progress=false && npm install --production
+COPY server.js ./
+COPY public/ ./public/
+
+RUN npm set progress=false && npm install
+# RUN npm run build
 
 # copy server files
 COPY src src
-COPY .sequelizerc .
+COPY .env .
 
 EXPOSE 3000
+EXPOSE 8080
 
-CMD [ "npm", "run dev" ]
+CMD [ "npm", "run", "dev"]
