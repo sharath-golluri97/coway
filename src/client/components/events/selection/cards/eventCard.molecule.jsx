@@ -23,6 +23,10 @@ import {reverseGeocode} from "../../../../utils/osmReverseGeocode";
 import ShowIfPropTrue from "../../../../commons/showPropIf/showPropIf";
 import LocalAirportIcon from '@material-ui/icons/LocalAirport';
 import {Link} from "react-router-dom";
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import { FormControl,InputLabel,Input, FormHelperText,TextField} from '@material-ui/core';
+import {getUserInfo} from '../../../../../Authenticator/tokens';
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
@@ -30,14 +34,20 @@ const EventCard = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [request, setRequest] = useState(props.requestStatus);
   const [favorite, setFavorite] = useState(props.favoriteEvent);
+  const [anonymous, setAnonymous] = useState(props.anonymous);
+  const [userInfo,setUserInfo] = useState({});
   const favColor = favorite ? "action" : "secondary";
   const [groupInfo,setGroupInfo] = useState(props);
   const [startEvent,setStartEvent] = useState({});
   const [endEvent,setEndEvent] = useState({});
   const [dest,setDest] = useState('');
+  const [a1,setA1] = useState('');
+  const [a2,setA2] = useState('');
+  const [a3,setA3] = useState('');
   const [ready,setReady] = useState(false);
   const [groupStatus,setGroupStatus] = useState(null);
   // var dest = '';
+  console.log("anonymous", props.anonymous);
 
   const handleRequestClick = () => {
     if(!request){
@@ -52,32 +62,46 @@ const EventCard = (props) => {
     }
   }
 
-  const addToFavorites = () => {
-    console.log("favorites");
-    //POST call .then()
-    setFavorite(!favorite);
-  }
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('submit called');
+    //todo: make call with all details
+    var requestJson = {};
+    
+    
+    
+  };
 
   useEffect( () => {
-    let eventStart = getDateTime(new Date(groupInfo.event.start_time));
-    let eventEnd = getDateTime(new Date(groupInfo.event.end_time));
-
+    let eventStart = getDateTime(new Date(groupInfo.event.event_start_time));
+    let eventEnd = getDateTime(new Date(groupInfo.event.event_end_time));
+    let userGroupStatus = 'PENDING';
+    if('user_group_infos' in groupInfo && groupInfo.user_group_infos[0].user_group_status.status){
+      userGroupStatus = groupInfo.user_group_infos[0].user_group_status.status;
+    }
     setStartEvent({date:eventStart.date, time: eventStart.time });
     setEndEvent({date:eventEnd.date, time: eventEnd.time });
-    setGroupStatus(groupInfo.user_group_infos[0].user_group_status.status);
+    setGroupStatus(userGroupStatus);
     console.log(JSON.stringify(groupInfo.user_group_infos))
     // setGroupStatus(groupInfo.)
     reverseGeocode(groupInfo.event.latitude,groupInfo.event.longitude)
       .then(resp => resp.address.suburb)
       .then(location => {
         setDest(location);
-        setReady(true)
+        getUserInfo().then(userData => {
+          setUserInfo(userData);
+          if (userData !== null){
+            setReady(true);
+          }
+        });
+        
       });
+
+    
   },[]);
 
   return (
@@ -152,13 +176,13 @@ const EventCard = (props) => {
             <Divider />
           </CardContent>
           <CardActions disableSpacing style={{paddingTop:'2px',paddingBottom:'5px'}}>
-            <IconButton aria-label="add to favorites" style={{zIndex:1,paddingTop:2,paddingBottom:2}} onClick={addToFavorites}>
+            {/* <IconButton aria-label="add to favorites" style={{zIndex:1,paddingTop:2,paddingBottom:2}} onClick={addToFavorites}>
               <FavoriteIcon
                 fontSize={'small'}
                 color={favColor}
 
               />
-            </IconButton>
+            </IconButton> */}
             <IconButton aria-label="share" style={{zIndex:1,paddingTop:2,paddingBottom:2}}>
               <ShareIcon fontSize={'small'}/>
             </IconButton>
@@ -189,6 +213,38 @@ const EventCard = (props) => {
               <Typography paragraph style={{fontSize:'smaller'}}>
                 {groupInfo.event.description}
               </Typography>
+
+              <ShowIfPropTrue prop={anonymous}>
+              <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                  <InputLabel htmlFor="component-simple">{props.questionnaire.question_1}</InputLabel>
+                  <TextField
+                        variant="outlined"
+                        onInput={ e=>setA1(e.target.value)}
+                    />
+                  <ShowIfPropTrue prop={props.questionnaire.question_2}> 
+                  <InputLabel htmlFor="component-simple">{props.questionnaire.question_2}</InputLabel>
+                  <TextField  
+                        variant="outlined"        
+                        onInput={ e=>setA2(e.target.value)}
+                    />
+                  </ShowIfPropTrue> 
+                  <ShowIfPropTrue prop={props.questionnaire.question_3}> 
+                  <InputLabel htmlFor="component-simple">{props.questionnaire.question_3}</InputLabel>
+                  <TextField  
+                        variant="outlined"        
+                        onInput={ e=>setA3(e.target.value)}
+                    />
+                  </ShowIfPropTrue> 
+                  <Button
+                    type='submit'
+                    className={classes.button}
+                    variant='contained'
+                    color='primary'
+                  >
+                    Submit
+                  </Button>
+              </form>
+              </ShowIfPropTrue>
             </CardContent>
           </Collapse>
     </Card>

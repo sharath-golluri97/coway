@@ -9,6 +9,16 @@ const router = express.Router();
 
  router.use('/map',map);
  **/
+const events = require('./events/events');
+const groups = require('./groups/groups');
+// const responses = require('./responses/userResponses');
+// const users = require('./users/users');
+
+
+router.use('/events',events);
+router.use('/groups',groups);
+// router.use('/responses',responses);
+// router.use('/users',users);
 
 /// API Error Handler
 router.use(function(err, req, res, next) {

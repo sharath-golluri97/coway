@@ -3,7 +3,10 @@
     "coway": {
       "baseUrl": "http://localhost:5000/",
       "routes": {
-        "algolia": "api/events/"
+        "algolia": "api/events/",
+        "groupsForUser": "api/groups/user",
+        "userExistsInGroup": "api/groups/status",
+        "groupDetails": "api/groups/"
       }
 
     }

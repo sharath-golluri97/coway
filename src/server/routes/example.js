@@ -1,6 +1,6 @@
 
 
- const express = require("express");
+const express = require("express");
 const {logger} = require("../utils/logger");
 
 const {getEventsForAlgolia} = require("../services/example");
