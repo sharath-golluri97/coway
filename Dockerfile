@@ -8,7 +8,7 @@ WORKDIR /home/node/app
 # install server packages
 COPY package*.json ./
 COPY server.js ./
-COPY public/ ./public/
+COPY build build
 
 RUN npm set progress=false && npm install
 # RUN npm run build
@@ -20,4 +20,4 @@ COPY .env .
 EXPOSE 3000
 EXPOSE 8080
 
-CMD [ "npm", "run", "dev"]
+CMD [ "node", "server.js"]

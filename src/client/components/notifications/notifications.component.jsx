@@ -43,7 +43,7 @@ export default function Notifications() {
   const [messages, setMessages] = useState([]);
   const [ready, setReady] = useState(false);
 
-  const apiBaseUrl = "http://localhost:7071";
+  const apiBaseUrl = "http://localhost:3000";
 
   function sendMessage(sender, messageText, groupId, groupName, creatorUser) {
     return axios
