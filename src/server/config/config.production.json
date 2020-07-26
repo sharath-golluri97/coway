@@ -1,7 +1,7 @@
 {
     "api": {
       "coway": {
-        "baseUrl": "http://34.217.8.191:5000/",
+        "baseUrl": "http://13.68.151.102:5000/",
         "routes": {
           "algolia": "api/events/",
           "groupsForUser": "api/groups/user",

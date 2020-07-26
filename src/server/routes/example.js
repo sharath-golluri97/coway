@@ -11,7 +11,7 @@ const router = express.Router();
 
 //  Example
 
-router.post("/algolia", async function (req, res, next) {
+router.get("/algolia", async function (req, res, next) {
   try{
     const params = req.body;
     console.log("params->", params);

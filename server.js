@@ -14,7 +14,12 @@ const routes = require('./src/server/routes');
 const config = require('./src/server/config');
 const { serverAccessLogger } = require('./src/server/utils/logger');
 
+
+
 const app = express();
+
+/* Caching Experiment */
+
 
 /* Load base middlewares */
 app.use(helmet(config.helmet));
@@ -24,8 +29,8 @@ app.use(expressPinoLogger({ logger: serverAccessLogger }), function(req, res, ne
 });
 app.use(cors());
 app.use(cookieParser());
-app.use(bodyParser.json({limit: '200mb'}));
-app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(compression());
 
 /* Load routes */
@@ -47,10 +52,16 @@ if (process.env.NODE_ENV !== 'development') {
     app.use(serveStatic(path.join(__dirname, 'build')));
     app.use(serveStatic(path.join(__dirname, 'static')));
 }
+
+
+
 // Fallback Error Handler
 app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(500).send();
 });
+
+
 
 app.listen(config.app.port, function() {
     console.log(`App listening on port ${config.app.port}!\n`);

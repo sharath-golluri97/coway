@@ -2,7 +2,7 @@
 const merge = require('lodash/merge');
 
 const config = {
-    app: { port: 3000 },
+    app: { port: 8080 },
     csrf: { cookie: true },
     helmet: {},
 };

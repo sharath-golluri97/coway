@@ -4,7 +4,7 @@ const fetch = require("../../utils/fetch");
 
 
 async function fetchGroupsForUser(params) {
-    console.log("+++++appConfig++++++", appConfig.api, params);
+    console.log("+++++appConfig++++++", params);
     try {
       // logger.info(`Entered ${req.originalUrl} route`);
       const url = appConfig.api.coway.groupsForUser;
@@ -17,7 +17,7 @@ async function fetchGroupsForUser(params) {
   }
   
 async function fetchGroupDetails(params) {
-  console.log("+++++fetchGroupDetails++++++", appConfig.api, params);
+  console.log("+++++fetchGroupDetails++++++", params);
   try {
     // logger.info(`Entered ${req.originalUrl} route`);
     const url = appConfig.api.coway.groupDetails;

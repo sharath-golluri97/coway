@@ -1,12 +1,14 @@
 {
   "api": {
     "coway": {
-      "baseUrl": "http://34.217.8.191:5000/",
+      "baseUrl": "http://localhost:5000/",
       "routes": {
         "algolia": "api/events/",
         "groupsForUser": "api/groups/user",
         "userExistsInGroup": "api/groups/status",
-        "groupDetails": "api/groups/"
+        "groupDetails": "api/groups/",
+        "userDetails": "api/users/email",
+        "createUser": "api/users/create"
       }
 
     }
