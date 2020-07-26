@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
+const notifications = require('./notifications')
 
 // Load all REST Endpoints
 /**
@@ -22,6 +23,8 @@ router.use('/groups',groups);
 
 // router.use('/responses',responses);
 // router.use('/users',users);
+
+router.use('/notifications',notifications);
 
 /// API Error Handler
 router.use(function(err, req, res, next) {

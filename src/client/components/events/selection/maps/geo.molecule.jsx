@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component, useState } from "react";
+import { render } from "react-dom";
+import "react-sliding-pane/dist/react-sliding-pane.css";
 import { GeoSearch, Marker } from 'react-instantsearch-dom-maps';
 import ReactDOMServer from "react-dom/server";
 import clsx from 'clsx';
@@ -56,6 +58,12 @@ const useStyles = makeStyles({
 const Geo = (props) =>  {
     const InfoWindow = new props.google.maps.InfoWindow({content: ""});
 
+const Geo = (props) =>  {
+    const InfoWindow = new props.google.maps.InfoWindow();
+    const [state, setState] = useState({
+        isPaneOpen: false,
+        isPaneOpenLeft: false,
+      });
     const onClickMarker = ({ hit, marker }) => {
         if (InfoWindow.getMap())
             InfoWindow.close();
@@ -114,9 +122,13 @@ const Geo = (props) =>  {
                     enableRefine={false}
                     streetViewControl={false}
                     mapTypeControl={false}
+                    initialPosition={{
+                        lat: 12.9716,
+                        lng: 77.5946
+                      }}
                     zoom={5}
-                    minZoom={7}
-                    maxZoom={9}
+                    minZoom={12}
+                    maxZoom={20}
                     styles={[
                       {
                         stylers: [

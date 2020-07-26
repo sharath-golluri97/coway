@@ -1,7 +1,7 @@
 {
   "api": {
     "coway": {
-      "baseUrl": "http://localhost:5000/",
+      "baseUrl": "http://localhost:5000",
       "routes": {
         "algolia": "api/events/",
         "groupsForUser": "api/groups/user",
@@ -9,8 +9,10 @@
         "groupDetails": "api/groups/",
         "userDetails": "api/users/email",
         "createUser": "api/users/create"
+        "notifications": "/api/userResponses/user/pending",
+        "acceptRequest": "/api/userResponses/accept",
+        "rejectRequest": "/api/userResponses/reject"
       }
-
     }
   }
 }

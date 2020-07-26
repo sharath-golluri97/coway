@@ -5,14 +5,13 @@ import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Paper from '@material-ui/core/Paper';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import PendingRequestData from "../events/selection/mocks/getUserGroupInfoForPendingRequest";
@@ -21,6 +20,8 @@ import _ from "lodash";
 import {getUserInfo} from "../../../Authenticator/tokens";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
+import {fetchPendingNotifications, acceptPendingRequest, rejectPendingRequest} from "../../services/notifications";
+
 const signalR = require("@aspnet/signalr");
 
 
@@ -43,7 +44,9 @@ export default function Notifications() {
   const [messages, setMessages] = useState([]);
   const [ready, setReady] = useState(false);
 
-  const apiBaseUrl = "http://localhost:3000";
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [selectedRequest, setSelectedRequest] = useState({});
+  const apiBaseUrl = "http://localhost:7071";
 
   function sendMessage(sender, messageText, groupId, groupName, creatorUser) {
     return axios
@@ -106,14 +109,31 @@ export default function Notifications() {
   };
 
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open, pr) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
+    if(open)
+      setSelectedRequest(pr);
   };
 
+
+  const acceptRequest = (requestId,anchor) => {
+    acceptPendingRequest({request_id: requestId}).then(res => {
+      console.log('accepted!')
+      init(userInfo);
+      setState({ ...state, [anchor]: false });
+    })
+  }
+
+  const rejectRequest = (requestId,anchor) => {
+    rejectPendingRequest({request_id: requestId}).then(res => {
+      console.log('rejected!');
+      init(userInfo);
+      setState({ ...state, [anchor]: false });
+    })
+  }
 
 
   const list = (anchor) => (
@@ -132,49 +152,120 @@ export default function Notifications() {
         </IconButton>
       </div>
       <Grid container style={{padding:20}}>
-        <Grid item xs={12}>
-          <h1>
-            User Details
-          </h1>
+        <Grid container alignItems='center' item xs={12}>
+          <Grid item xs={12}>
+            <Typography variant='overline' style={{fontSize:'x-large',color:'grey'}}>
+              User
+            </Typography>
+            <Divider  style={{marginRight: '20vw'}} />
+          </Grid>
+          <Grid item xs={3}>
+            <Typography variant='h6'>
+              Name:
+            </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography variant='subtitle1'>
+              {selectedRequest.user_group_info ? selectedRequest.user_group_info.user.full_name: 'undefined'}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography variant='h6'>
+            Email:
+            </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography variant='subtitle1'>
+            {selectedRequest.user_group_info ? selectedRequest.user_group_info.user.email: 'undefined'}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <h2>
-            Group info
-          </h2>
+        <Grid container alignItems='center' item xs={12}>
+          <Grid item xs={12}>
+            <Typography variant='overline' style={{fontSize:'x-large',color:'grey'}}>
+              Group
+            </Typography>
+            <Divider  style={{marginRight: '20vw'}} />
+          </Grid>
+          <Grid item xs={3}>
+            <Typography variant='h6'>
+              Name:
+            </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography ariant='subtitle1'>
+              {selectedRequest.user_group_info ? selectedRequest.user_group_info.group.group_name: 'undefined'}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <h3>
-            Questions and Answers
-          </h3>
+        <Grid container item xs={12}>
+          <Grid container item xs={12}>
+            <Grid item xs={12}>
+              <Paper style={{background:'lightblue'}}>
+              <Typography variant='caption' style={{fontSize:'large'}}>
+              {selectedRequest.questionnaire && selectedRequest.questionnaire.question_1 !== "" ?  `Q1. ${selectedRequest.questionnaire.question_1}` : null}
+              </Typography>
+              </Paper>
+             </Grid>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2' style={{fontSize:'larger'}}>
+              {selectedRequest.questionnaire && selectedRequest.questionnaire.question_1 !== "" ? (selectedRequest.answer_1!=="" ? selectedRequest.answer_1 : '-') : null}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12}>
+              <Paper style={{background:'lightblue'}}>
+              <Typography variant='caption' style={{fontSize:'large'}}>
+              {selectedRequest.questionnaire && selectedRequest.questionnaire.question_2 !== "" ?  `Q2. ${selectedRequest.questionnaire.question_2}` : null}
+              </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2' style={{fontSize:'larger'}}>
+              {selectedRequest.questionnaire && selectedRequest.questionnaire.question_2 !== "" ? (selectedRequest.answer_2!=="" ? selectedRequest.answer_2 : '-') : null}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12}>
+              <Paper style={{background:'lightblue'}}>
+              <Typography variant='caption' style={{fontSize:'large'}}>
+                {selectedRequest.questionnaire && selectedRequest.questionnaire.question_3 !== "" ?  `Q3. ${selectedRequest.questionnaire.question_3}` : null}
+              </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2' style={{fontSize:'larger'}}>
+              {selectedRequest.questionnaire && selectedRequest.questionnaire.question_3 !== "" ? (selectedRequest.answer_3!=="" ? selectedRequest.answer_3 : '-') : null}
+              </Typography>
+            </Grid>
+          </Grid>
+
         </Grid>
-        <Grid item xs={12}>
-          <h3>
-            Buttons to approve or reject
-          </h3>
+        <Grid container direction='column'  justify="center"  alignItems="center" item xs={12} style={{height:'10vh'}}>
+          <Grid item xs={12}>
+            <IconButton size='medium'  style={{color:'greenyellow'}} onClick={()=>acceptRequest(selectedRequest.request_id,anchor)}>
+              <CheckCircleIcon style={{fontSize:'4rem'}}/>
+            </IconButton>
+          </Grid>
+          <Grid item xs={12}>
+            <IconButton size='medium' style={{color:'red'}} onClick={()=>rejectRequest(selectedRequest.request_id,anchor)}>
+              <CancelIcon style={{fontSize:'4rem'}}/>
+            </IconButton>
+          </Grid>
         </Grid>
       </Grid>
-
-
-      {/*<List>*/}
-      {/*  {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (*/}
-      {/*    <ListItem button key={text}>*/}
-      {/*      <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-      {/*      <ListItemText primary={text} />*/}
-      {/*    </ListItem>*/}
-      {/*  ))}*/}
-      {/*</List>*/}
-      {/*<Divider />*/}
-      {/*<List>*/}
-      {/*  {['All mail', 'Trash', 'Spam'].map((text, index) => (*/}
-      {/*    <ListItem button key={text}>*/}
-      {/*      <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-      {/*      <ListItemText primary={text} />*/}
-      {/*    </ListItem>*/}
-      {/*  ))}*/}
-      {/*</List>*/}
     </div>
   );
 
+
+  const init = (userData) => {
+    fetchPendingNotifications({email:userData.email}).then(res => {
+      // console.log(JSON.stringify(resp));
+      setPendingRequests(res.userResponses);
+    })
+  }
 
 
   useEffect(()=>{
@@ -185,9 +276,12 @@ export default function Notifications() {
         console.log("retrieving messages");
         /**
          * Retrieve notifications from db
+         *
          * */
+        init(userData);
+
         getMessages(userData).then(messages => {
-          console.log("messages", messages);
+          // console.log("messages", messages);
           for (let m of messages.reverse()) {
             newMessage(m);
           }
@@ -226,16 +320,16 @@ export default function Notifications() {
         <React.Fragment key={anchor}>
           <List className={classes.root}>
             {
-              messages.map((notification,i) => {
+              pendingRequests.map((pr,i) => {
                 return (
                   <div key={i}>
-                    <ButtonBase onClick={toggleDrawer(anchor, true)}>
+                    <ButtonBase onClick={toggleDrawer(anchor,true,pr)}>
                     <ListItem alignItems="flex-start" >
                   <ListItemAvatar>
-                    <Avatar alt={notification.user.full_name} src="" />
+                    <Avatar alt={pr.user_group_info.user.full_name} src="" />
                   </ListItemAvatar>
                     <ListItemText
-                    primary={notification.user.full_name}
+                    primary={pr.user_group_info.user.full_name}
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -244,9 +338,9 @@ export default function Notifications() {
                           className={classes.inline}
                           color="textPrimary"
                         >
-                          {notification.group.group_name}
+                          {pr.user_group_info.group.group_name}
                         </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
+                        {"- No  Description"}
                       </React.Fragment>
                     }
                   />
