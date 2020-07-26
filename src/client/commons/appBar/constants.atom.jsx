@@ -1,5 +1,7 @@
 import React from 'react';
-import { AccountBox, ContactMail, Event, Favorite, Home } from '@material-ui/icons';
+import { AccountBox, Event, Favorite, Home } from '@material-ui/icons';
+import FeedbackOutlinedIcon from '@material-ui/icons/FeedbackOutlined';
+import RGF from 'react-google-forms'
 
 const menuItems = [
     {
@@ -19,8 +21,9 @@ const menuItems = [
         listText: "Favorites"
     },
     {
-        listIcon: <ContactMail />,
-        listText: "Invite Friends"
+        listIcon: <FeedbackOutlinedIcon />,
+        listText: "Feedback",
+        url:"https://forms.gle/YS87NiaWszHtBFXQ9"
     }
 ]
 export default menuItems;
