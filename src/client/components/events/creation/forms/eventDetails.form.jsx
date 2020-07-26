@@ -1,22 +1,34 @@
-import React, { useContext } from "react";
+import React, {useState,useContext,useEffect } from "react";
 //material-ui
 import { TextField, Grid } from "@material-ui/core";
 import { isWidthDown } from "@material-ui/core/withWidth";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
+import ShowIfPropTrue from '../../../../commons/showPropIf/showPropIf';
 //context
 import { EventContext } from "../eventContext.atom";
+import {getCities} from "../../../../services/cities";
+import {getUserInfo} from "../../../../../Authenticator/tokens";
 
 export default props => {
     const [state] = useContext(EventContext);
     const { user, errors } = state;
-    const cities = [
-        {title: "Bengaluru"},
-        {title: "Hyderabad"},
-        {title: "Delhi"},
-        {title: "Mumbai"}
-    ];
+    const [cities, setCities] = useState([{}]);
+    const [ready,setReady] = useState(false);
+
+    useEffect(()=>{
+        getCities().then(cityRes => {
+            setCities(cityRes);
+            getUserInfo().then(userData => {
+                user.user_id = userData['userId'];
+                setReady(true);
+            });
+        });
+
+        
+    },[]);
+
     return (
+        <ShowIfPropTrue prop={ready}>
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <TextField
@@ -61,7 +73,7 @@ export default props => {
             </Grid>
             <Grid item xs={12}>
                 <TextField
-                    type='date'
+                    type='datetime-local'
                     name='startdate'
                     id='startdate'
                     label='Start date'
@@ -72,7 +84,7 @@ export default props => {
                         shrink: true
                     }}
                     inputProps={{
-                        min: new Date().toISOString().slice(0, 10),
+                        min: new Date().toISOString().slice(0, 16),
                         max: "2100-01-01"
                     }}
                     error={!!errors["startdate"]}
@@ -85,14 +97,14 @@ export default props => {
                     id="city"
                     autoComplete
                     options={cities}
-                    getOptionLabel={(option) => option.title}
+                    getOptionLabel={(option) => option.name}
                     getOptionSelected={(option, value) => {
 
-                        if (option.title === value.title)
+                        if (option.name === value.title)
                         {
                             user.city = value.title
                         }
-                        return option.title === value.title;
+                        return option.name === value.title;
                     }
                     }
                     style={{ width: 300 }}
@@ -104,7 +116,6 @@ export default props => {
                             variant="outlined"
                             name='city'
                             value={user.city}
-
                             margin='normal'
                             InputLabelProps={{
                                 shrink: true
@@ -179,5 +190,6 @@ export default props => {
                 />
             </Grid>
         </Grid>
+        </ShowIfPropTrue>
     );
 };

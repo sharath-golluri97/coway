@@ -10,16 +10,16 @@ const notifications = require('./notifications')
 
  router.use('/map',map);
  **/
-const example = require('./example');
+const cities = require('./cities/cities');
 const events = require('./events/events');
 const groups = require('./groups/groups');
 const users = require('./users/users');
 // const responses = require('./responses/userResponses');
 // const users = require('./users/users');
 router.use('/users',users);
-router.use('/example', example);
 router.use('/events',events);
 router.use('/groups',groups);
+router.use('/cities',cities);
 
 // router.use('/responses',responses);
 // router.use('/users',users);

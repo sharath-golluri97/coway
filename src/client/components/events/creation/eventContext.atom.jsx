@@ -4,8 +4,9 @@ export const EventContext = createContext([{}, () => {}]);
 export default props => {
     const [state, setState] = useState({
         user: {
+            user_id: 0,
             eventname: "",
-            startdate: new Date().toISOString().slice(0, 10),
+            startdate: new Date().toISOString().slice(0, 16),
             city: "",
             // ["Bengaluru", "Hyderabad", "Delhi", "Mumbai"]
             location: {

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext,useState,useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 //modules
 import EventDetails from "./forms/eventDetails.form";
@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
 const steps = ["Event details", "Location details","Questionnaire", "Summary"];
 
 //main form component
@@ -79,11 +80,41 @@ export default props => {
     const handleCloseSnackbar = () => {
         setOpen(false);
     };
+
+
     const handleSubmit = e => {
         e.preventDefault();
         if (activeStep < steps.length - 1) handleNext();
         else {
-            setCompleted(true);
+            console.log('form data..', state);
+                var events = {};
+                var questionnaire = {};
+                var groups={};
+                events['name'] = state.user.eventname;
+                events['description'] = state.user.description;
+                events['city_id'] = state.user.city;
+                events['event_type_id']= 1;
+                events['remarks']= state.user.remarks;
+                events['event_start_time']= state.user.startdate;
+                events['latitude']= state.user.location.lat;
+                events['longitude']= state.user.location.long;
+                events['is_active']=true;
+
+                questionnaire['question_1']= state.user.q1;
+                questionnaire['question_2']= state.user.q2;
+                questionnaire['question_3']= state.user.q3;
+                questionnaire['required_questions']= [1];
+                
+                groups['creator_id']= state.user.user_id;
+                groups['max_participants']= state.user.maxparticipants;
+                
+                var request = {};
+                request['groups']= groups;
+                request['questionnaire']=questionnaire;
+                request['events']=events;
+
+                console.log("request..", request);
+                setCompleted(true);
         }
     };
 
