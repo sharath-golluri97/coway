@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { render } from "react-dom";
-import "react-sliding-pane/dist/react-sliding-pane.css";
+// import "react-sliding-pane/dist/react-sliding-pane.css";
 import { GeoSearch, Marker } from 'react-instantsearch-dom-maps';
 import ReactDOMServer from "react-dom/server";
 import clsx from 'clsx';
@@ -55,11 +55,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Geo = (props) =>  {
-    const InfoWindow = new props.google.maps.InfoWindow({content: ""});
 
 const Geo = (props) =>  {
-    const InfoWindow = new props.google.maps.InfoWindow();
+    const InfoWindow = new props.google.maps.InfoWindow({content: ""});
     const [state, setState] = useState({
         isPaneOpen: false,
         isPaneOpenLeft: false,

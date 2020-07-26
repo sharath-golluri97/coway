@@ -1,7 +1,6 @@
 import React from 'react';
 import { AccountBox, Event, Favorite, Home } from '@material-ui/icons';
 import FeedbackOutlinedIcon from '@material-ui/icons/FeedbackOutlined';
-import RGF from 'react-google-forms'
 
 const menuItems = [
     {
