@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
+const notifications = require('./notifications')
 
 // Load all REST Endpoints
 /**
@@ -9,6 +10,8 @@ const router = express.Router();
 
  router.use('/map',map);
  **/
+
+router.use('/notifications',notifications);
 
 /// API Error Handler
 router.use(function(err, req, res, next) {

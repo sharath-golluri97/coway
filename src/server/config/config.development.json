@@ -1,11 +1,13 @@
 {
   "api": {
     "coway": {
-      "baseUrl": "http://localhost:5000/",
+      "baseUrl": "http://localhost:5000",
       "routes": {
-        "algolia": "api/events/"
+        "algolia": "api/events/",
+        "notifications": "/api/userResponses/user/pending",
+        "acceptRequest": "/api/userResponses/accept",
+        "rejectRequest": "/api/userResponses/reject"
       }
-
     }
   }
 }
