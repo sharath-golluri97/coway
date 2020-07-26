@@ -1,0 +1,15 @@
+{
+    "api": {
+      "coway": {
+        "baseUrl": "http://13.68.151.102:5000/",
+        "routes": {
+          "algolia": "api/events/",
+          "groupsForUser": "api/groups/user",
+          "userExistsInGroup": "api/groups/status",
+          "groupDetails": "api/groups/"
+        }
+  
+      }
+    }
+  }
+  

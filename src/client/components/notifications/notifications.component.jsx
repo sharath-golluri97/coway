@@ -43,6 +43,7 @@ export default function Notifications() {
   const [newMessageText, setNewMessageText] = useState("");
   const [messages, setMessages] = useState([]);
   const [ready, setReady] = useState(false);
+
   const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState({});
   const apiBaseUrl = "http://localhost:7071";

@@ -23,6 +23,7 @@ const NotFoundAsync = lazy( () => import("./client/components/notFound/notFound.
 //Custom Chat -> for Azure SignalR and Azure Cosmos DB
 const GroupInfoAsync = lazy(()=> import("./client/components/chatRoom/groupInfo"));
 const ChatAppAsync = lazy(()=> import("./client/components/chatRoom/chatApp"));
+const EventDetailsAsync = lazy(()=> import("./client/components/events/eventDetails.component"));
 
 /**
  * HOC to wrap dynamically imported routes with React.Suspense fallback loader
@@ -42,7 +43,7 @@ function withSuspense(WrappedComponent, loader) {
 }
 
 const pageWithBottomNavBar = ["/","/notifications","/mapView","/create","/chatRoom"];
-const page = ["/chatRoom/chat/:id"];
+const page = ["/chatRoom/chat/:id", "/events/:id"];
 
 
 function App() {
@@ -88,6 +89,7 @@ const CustomContainer = () => (
   <div>
     <Container >
       <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
+      <Route exact path="/events/:id" component={withSuspense(EventDetailsAsync)} />
     </Container>
     <ScrollTop>
       <Fab color="secondary" size="small" aria-label="scroll back to top">

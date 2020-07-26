@@ -2,468 +2,200 @@ module.exports = {
 
   "groups": [
     {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
-            "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
-        }
-      ],
-      "event": {
         "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
-    },
-    {
-      "id": 7,
-      "group_name": "Bombay Brasserie",
-      "status": 1,
-      "event_id": 18407918,
-      "created_on": "2019-01-18T19:37:42.000Z",
-      "expires_on": "2020-06-08T06:40:12.000Z",
-      "remarks": "None",
-      "creator_id": 1004,
-      "questionnaire_id": 1,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 7,
-          "status": 1,
-          "is_favorite": true,
-          "modified_on": "2019-04-23T00:38:12.000Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
-            "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 1,
-            "status": "APPROVED"
-          }
-        }
-      ],
-      "event": {
-        "id": 18407918,
-        "name": "Bombay Brasserie",
-        "description": "Want to eat Modern Indian So going urgently",
-        "city_id": 3,
-        "event_type_id": 1,
-        "max_participants": 5,
-        "created_on": "2019-01-18T19:37:42.000Z",
-        "last_updated": "2020-06-08T06:40:12.000Z",
-        "remarks": "None",
-        "short_description": "Want to eat Modern Indian",
-        "start_time": "2019-01-18T19:37:42.000Z",
-        "end_time": "2020-06-08T06:40:12.000Z",
-        "latitude": 12.970324,
-        "longitude": 77.645748,
-        "is_active": false,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
-    },
-    {
-      "id": 8,
-      "group_name": "Glen's Bakehouse",
-      "status": 1,
-      "event_id": 56464,
-      "created_on": "2020-06-13T03:55:26.000Z",
-      "expires_on": "2021-09-25T10:16:54.000Z",
-      "remarks": "None",
-      "creator_id": 1005,
-      "questionnaire_id": 1,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 8,
-          "status": 3,
-          "is_favorite": true,
-          "modified_on": "2020-06-13T03:55:26.000Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
-            "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
+        "group_name": "early morning ride",
+        "max_participants": "2",
+        "status": 1,
+        "event_id": 3,
+        "created_at": "2020-07-19T03:21:49.144Z",
+        "expires_at": null,
+        "remarks": null,
+        "creator_id": 1,
+        "questionnaire_id": 8,
+        "user_group_infos": [
+            {
+                "user_id": 1,
+                "group_id": 1,
+                "status": 1,
+                "modified_on": "2020-07-19T11:09:21.287Z",
+                "user": {
+                    "id": 1
+                },
+                "user_group_status": {
+                    "id": 1,
+                    "status": "ADMIN"
+                }
+            }
+        ],
+        "event": {
             "id": 3,
-            "status": "PENDING"
-          }
+            "parent_event_id": null,
+            "name": "early morning ride",
+            "description": "Join me on a ride from airport to Bellandur",
+            "city_id": 3,
+            "event_type_id": 1,
+            "created_at": "2020-07-19T03:21:49.144Z",
+            "remarks": "There's a lot of luggage",
+            "event_start_time": "2020-05-24T18:40:00.000Z",
+            "event_end_time": null,
+            "questionnaire_id": 8,
+            "ip": null,
+            "latitude": "12.924604",
+            "longitude": "77.669603",
+            "is_active": true,
+            "city": {
+                "id": 3,
+                "name": "HYDERABAD",
+                "airport_id": "HYD"
+            }
         }
-      ],
-      "event": {
-        "id": 56464,
-        "name": "Glen's Bakehouse",
-        "description": "Want to eat Bakery, Desserts, Cafe So going urgently",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 5,
-        "created_on": "2020-06-13T03:55:26.000Z",
-        "last_updated": "2021-09-25T10:16:54.000Z",
-        "remarks": "None",
-        "short_description": "Want to eat Bakery, Desserts, Cafe",
-        "start_time": "2020-06-13T03:55:26.000Z",
-        "end_time": "2021-09-25T10:16:54.000Z",
-        "latitude": 12.97909556,
-        "longitude": 77.64062494,
-        "is_active": false,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
     },
     {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
+        "id": 34,
+        "group_name": "early morning ride 3",
+        "max_participants": "2",
+        "status": 1,
+        "event_id": 36,
+        "created_at": "2020-07-19T04:32:15.528Z",
+        "expires_at": null,
+        "remarks": null,
+        "creator_id": 1,
+        "questionnaire_id": 41,
+        "user_group_infos": [
+            {
+                "user_id": 1,
+                "group_id": 34,
+                "status": 1,
+                "modified_on": "2020-07-19T11:08:50.086Z",
+                "user": {
+                    "id": 1
+                },
+                "user_group_status": {
+                    "id": 1,
+                    "status": "ADMIN"
+                }
+            }
+        ],
+        "event": {
+            "id": 36,
+            "parent_event_id": null,
+            "name": "early morning ride 3",
+            "description": "Join me on a ride from airport to Bellandur",
+            "city_id": 1,
+            "event_type_id": 1,
+            "created_at": "2020-07-19T04:32:15.528Z",
+            "remarks": "There's a lot of luggage",
+            "event_start_time": "2020-05-24T18:40:00.000Z",
+            "event_end_time": null,
+            "questionnaire_id": 41,
+            "ip": null,
+            "latitude": "12.924604",
+            "longitude": "77.669603",
             "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
+            "city": {
+                "id": 1,
+                "name": "BANGALORE",
+                "airport_id": "BLR"
+            }
         }
-      ],
-      "event": {
-        "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
     },
     {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
+        "id": 35,
+        "group_name": "event 1",
+        "max_participants": "2",
+        "status": 1,
+        "event_id": 37,
+        "created_at": "2020-07-19T04:45:33.766Z",
+        "expires_at": null,
+        "remarks": null,
+        "creator_id": 1,
+        "questionnaire_id": 42,
+        "user_group_infos": [
+            {
+                "user_id": 1,
+                "group_id": 35,
+                "status": 1,
+                "modified_on": "2020-07-19T11:09:27.719Z",
+                "user": {
+                    "id": 1
+                },
+                "user_group_status": {
+                    "id": 1,
+                    "status": "ADMIN"
+                }
+            }
+        ],
+        "event": {
+            "id": 37,
+            "parent_event_id": null,
+            "name": "event 1",
+            "description": "event 1 description",
+            "city_id": 1,
+            "event_type_id": 1,
+            "created_at": "2020-07-19T04:45:33.766Z",
+            "remarks": "There's a lot of luggage",
+            "event_start_time": "2020-07-24T18:40:00.000Z",
+            "event_end_time": null,
+            "questionnaire_id": 42,
+            "ip": null,
+            "latitude": "12.9581",
+            "longitude": "77.6993",
             "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
+            "city": {
+                "id": 1,
+                "name": "BANGALORE",
+                "airport_id": "BLR"
+            }
         }
-      ],
-      "event": {
-        "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
     },
     {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
+        "id": 36,
+        "group_name": "event 2",
+        "max_participants": "2",
+        "status": 1,
+        "event_id": 38,
+        "created_at": "2020-07-19T05:29:47.441Z",
+        "expires_at": null,
+        "remarks": null,
+        "creator_id": 1,
+        "questionnaire_id": 43,
+        "user_group_infos": [
+            {
+                "user_id": 1,
+                "group_id": 36,
+                "status": 1,
+                "modified_on": "2020-07-19T11:09:29.793Z",
+                "user": {
+                    "id": 1
+                },
+                "user_group_status": {
+                    "id": 1,
+                    "status": "ADMIN"
+                }
+            }
+        ],
+        "event": {
+            "id": 38,
+            "parent_event_id": null,
+            "name": "event 2",
+            "description": "event 2 description",
+            "city_id": 1,
+            "event_type_id": 1,
+            "created_at": "2020-07-19T05:29:47.441Z",
+            "remarks": "There's a lot of luggage",
+            "event_start_time": "2020-07-24T18:40:00.000Z",
+            "event_end_time": null,
+            "questionnaire_id": 43,
+            "ip": null,
+            "latitude": "12.9581",
+            "longitude": "77.6993",
             "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
+            "city": {
+                "id": 1,
+                "name": "BANGALORE",
+                "airport_id": "BLR"
+            }
         }
-      ],
-      "event": {
-        "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
-    },
-    {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
-            "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
-        }
-      ],
-      "event": {
-        "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
-    },
-    {
-      "id": 1,
-      "group_name": "bangalore airport at 8pm",
-      "status": 1,
-      "event_id": 1,
-      "created_on": "2020-05-16T16:49:59.407Z",
-      "expires_on": "2020-06-06T18:30:00.000Z",
-      "remarks": "",
-      "creator_id": 1001,
-      "questionnaire_id": 0,
-      "user_group_infos": [
-        {
-          "user_id": 1001,
-          "group_id": 1,
-          "status": 2,
-          "is_favorite": true,
-          "modified_on": "2020-05-19T15:00:15.472Z",
-          "user": {
-            "id": 1001,
-            "full_name": "User 1",
-            "email": "ritesh.ghodrao@gmail.com",
-            "is_verified": true,
-            "is_active": true,
-            "contact": "999",
-            "created_on": "2020-05-16T12:24:37.227Z",
-            "last_login": "2020-05-16T12:24:37.227Z",
-            "remarks": "",
-            "username": "u1"
-          },
-          "user_group_status": {
-            "id": 2,
-            "status": "ADMIN"
-          }
-        }
-      ],
-      "event": {
-        "id": 1,
-        "name": "bangalore airport to bellandur",
-        "description": "travelling from bangalore airport to airport, need cab share",
-        "city_id": 3,
-        "event_type_id": 2,
-        "max_participants": 3,
-        "created_on": "2020-05-16T13:10:58.239Z",
-        "last_updated": "2020-05-16T13:10:58.239Z",
-        "remarks": "",
-        "short_description": "short des",
-        "start_time": "2020-05-30T06:30:00.000Z",
-        "end_time": "2020-05-30T07:30:00.000Z",
-        "latitude": 22.719568,
-        "longitude": 75.857727,
-        "is_active": true,
-        "city": {
-          "id": 3,
-          "name": "Bangalore",
-          "airport_id": "BLR"
-        }
-      }
-    },
-  ]
+    }
+]
 };

@@ -58,7 +58,7 @@ const MapsView = () =>  {
                         <SearchBox
                           searchAsYouType={false}
                             translations={{
-                                placeholder: 'Search events by name, city...'
+                                placeholder: 'Search events by name, description..'
                             }}
                         />
                     </div>
