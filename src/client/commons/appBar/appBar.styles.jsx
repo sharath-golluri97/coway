@@ -56,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(13)
     },
     listItem: {
-        color: "#fff"   
+        color: "#fff"
+    },
+    a: {
+        textDecoration: "none"
     }
   }));
 

@@ -6,6 +6,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
@@ -35,9 +36,22 @@ function LabelBottomNavigation(props) {
   };
 
   return (
-    <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+    <BottomNavigation value={value}
+     onChange={handleChange}
+     className={classes.root}
+     showLabels
+     >
       <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
       <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
+           <BottomNavigationAction
+              label="Create"
+              value="create-event"
+              icon={
+                <Link to={'/create'} style={{ textDecoration: 'none' }} >
+                <AddCircleIcon/>
+                </Link>
+                }
+            />
       <BottomNavigationAction
         label="Nearby"
         value="nearby"

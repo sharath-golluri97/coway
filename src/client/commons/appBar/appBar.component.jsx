@@ -26,6 +26,7 @@ import MobilRightMenuSlider from '@material-ui/core/Drawer';
 import avatar from '../images/avatar.png';
 import MenuItems from './constants.atom';
 
+
 //Can't use function name as AppBar as it an identifier in material-UI components. Hence, BackToTop.
 const PrimaryAppBar = (props) => {
 
@@ -72,6 +73,7 @@ const PrimaryAppBar = (props) => {
             <Divider />
             <List>
                 {MenuItems.map((lsItem,key)=>(
+                <a href={lsItem.url} target="_blank" className={classes.a}>
                 <ListItem button key={key}>
                     <ListItemIcon className={classes.listItem}>
                         {lsItem.listIcon}
@@ -81,6 +83,7 @@ const PrimaryAppBar = (props) => {
                     primary={lsItem.listText}
                     />
                 </ListItem>
+                </a>
                 ))}
             </List>
         </Box>
