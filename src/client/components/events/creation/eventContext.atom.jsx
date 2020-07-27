@@ -10,8 +10,8 @@ export default props => {
             city: "",
             // ["Bengaluru", "Hyderabad", "Delhi", "Mumbai"]
             location: {
-                lat : 0.00,
-                long : 0.00
+              lat : 12.925297,
+              long : 77.669237
             },
             maxparticipants: 2,
             // desc
