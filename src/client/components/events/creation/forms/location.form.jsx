@@ -22,7 +22,7 @@ export default props => {
             <Grid item xs={12}>
                 <Map
                     google={props.google}
-                    center={{lat: 12.925297, lng: 77.669237}}
+                    center={{lat: user.location.lat, lng: user.location.long}}
                     height='300px'
                     zoom={15}
                 />
