@@ -9,6 +9,7 @@ WORKDIR /home/node/app
 COPY package*.json ./
 COPY server.js ./
 COPY build build
+COPY run-docker.sh ./
 
 RUN npm set progress=false && npm install
 # RUN npm run build
@@ -19,5 +20,6 @@ COPY .env .
 
 EXPOSE 3000
 EXPOSE 8080
+EXPOSE 7071
 
-CMD [ "node", "server.js"]
+CMD [ "sh","./run-docker.sh"]

@@ -90,7 +90,7 @@ export default function ChatApp(props) {
     }
 
     // Azure SignalR connection configs
-    const apiBaseUrl = 'http://localhost:3000';
+    const apiBaseUrl = 'http://localhost:7071';
     const hubName = 'chat';
 
     function getAxiosConfig(userData) {

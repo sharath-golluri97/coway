@@ -1,6 +1,6 @@
 import React, {useState,useContext,useEffect } from "react";
 //material-ui
-import { TextField, Grid } from "@material-ui/core";
+import { TextField, Grid,MenuItem} from "@material-ui/core";
 import { isWidthDown } from "@material-ui/core/withWidth";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import ShowIfPropTrue from '../../../../commons/showPropIf/showPropIf';
@@ -13,6 +13,7 @@ export default props => {
     const [state] = useContext(EventContext);
     const { user, errors } = state;
     const [cities, setCities] = useState([{}]);
+    const [city, setCity] = React.useState(1);
     const [ready,setReady] = useState(false);
 
     useEffect(()=>{
@@ -23,9 +24,12 @@ export default props => {
                 setReady(true);
             });
         });
-
-        
     },[]);
+
+    const handleCityChange = (event) => {
+        user.city = event.target.value;
+        setCity(event.target.value);
+      };
 
     return (
         <ShowIfPropTrue prop={ready}>
@@ -93,13 +97,26 @@ export default props => {
                 />
             </Grid>
             <Grid item sm={4} md={6} xs={12}>
-                <Autocomplete
+            <TextField
+                id="city"
+                select
+                label="Select City"
+                value={city}
+                onChange={handleCityChange}
+                helperText="Select your city"
+                >
+                {cities.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                    </MenuItem>
+                ))}
+            </TextField>
+                {/* <Autocomplete
                     id="city"
                     autoComplete
                     options={cities}
                     getOptionLabel={(option) => option.name}
                     getOptionSelected={(option, value) => {
-
                         if (option.name === value.title)
                         {
                             user.city = value.title
@@ -123,8 +140,7 @@ export default props => {
                             fullWidth
                         />
                     }
-
-                />
+                /> */}
             </Grid>
             <Grid item sm={4} md={6} xs={12}>
                 <TextField

@@ -39,10 +39,10 @@ const CreateEvent = () => {
             <Grid container className={classes.root}>
                 <Grid item className={classes.header} xs={12} md={4}>
                     <Typography variant='h3' className={classes.title}>
-                        Create an event?
+                        Want a new event?
                     </Typography>
                     <Typography variant='h5' className={classes.subtitle}>
-                        Complete these 2 steps, you're done!
+                        Complete these 3 easy steps, and it's done!
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={8}>

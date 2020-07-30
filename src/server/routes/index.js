@@ -1,29 +1,19 @@
 const express = require('express');
 
 const router = express.Router();
+
 const notifications = require('./notifications')
-
-// Load all REST Endpoints
-/**
- * Example :
- * const map = require('./example');
-
- router.use('/map',map);
- **/
 const cities = require('./cities/cities');
 const events = require('./events/events');
 const groups = require('./groups/groups');
 const users = require('./users/users');
-// const responses = require('./responses/userResponses');
-// const users = require('./users/users');
+const responses = require('./responses/userResponses');
+
 router.use('/users',users);
 router.use('/events',events);
 router.use('/groups',groups);
 router.use('/cities',cities);
-
-// router.use('/responses',responses);
-// router.use('/users',users);
-
+router.use('/responses',responses);
 router.use('/notifications',notifications);
 
 /// API Error Handler

@@ -70,7 +70,7 @@ const MapsView = () =>  {
                     <div >
                         <div id="map">
                             <div style={{height:"60vh"}}>
-                                <GoogleMapsLoader apiKey="AIzaSyBawL8VbstJDdU5397SUX7pEt9DslAwWgQ">
+                                <GoogleMapsLoader apiKey="AIzaSyCv7mHnjHZYsbeOe9tRMqWcKDZ9ywXSmI0">
                                     {google => <Geo google={google} />}
                                 </GoogleMapsLoader>
                             </div>
