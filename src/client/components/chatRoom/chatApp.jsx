@@ -90,7 +90,7 @@ export default function ChatApp(props) {
     }
 
     // Azure SignalR connection configs
-    const apiBaseUrl = 'http://localhost:7071';
+    const apiBaseUrl = 'https://ridemate-chatserver.azurewebsites.net/api/messages';
     const hubName = 'chat';
 
     function getAxiosConfig(userData) {

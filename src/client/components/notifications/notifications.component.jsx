@@ -46,7 +46,7 @@ export default function Notifications() {
 
   const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState({});
-  const apiBaseUrl = "http://localhost:7071";
+  const apiBaseUrl = "https://ridemate-chatserver.azurewebsites.net";
 
   function sendMessage(sender, messageText, groupId, groupName, creatorUser) {
     return axios
