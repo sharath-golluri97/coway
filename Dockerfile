@@ -16,12 +16,13 @@ COPY public public
 
 RUN npm set progress=false && npm install
 # 
+COPY src src
+COPY .env .
 RUN npm run build
 COPY build build
 
 # copy server files
-COPY src src
-COPY .env .
+
 
 EXPOSE 3000
 EXPOSE 8080
