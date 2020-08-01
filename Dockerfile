@@ -17,7 +17,8 @@ COPY public public
 RUN npm set progress=false && npm install
 # 
 COPY src src
-COPY .env .
+# COPY .env .
+
 RUN npm run build
 COPY build build
 
