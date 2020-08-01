@@ -1,3 +1,6 @@
+#######################
+#### RUN npm run build command first
+####################
 FROM node:10.16-alpine
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
@@ -8,10 +11,13 @@ WORKDIR /home/node/app
 # install server packages
 COPY package*.json ./
 COPY server.js ./
-COPY build build
+
+
 
 RUN npm set progress=false && npm install
-# RUN npm run build
+# 
+RUN npm run build
+COPY build build
 
 # copy server files
 COPY src src
