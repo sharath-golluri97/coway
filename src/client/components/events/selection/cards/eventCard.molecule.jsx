@@ -27,6 +27,7 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import { FormControl,InputLabel,Input, FormHelperText,TextField} from '@material-ui/core';
 import {getUserInfo} from '../../../../../Authenticator/tokens';
+import {createJoinRequest} from '../../../../services/responses';
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
@@ -46,6 +47,7 @@ const EventCard = (props) => {
   const [a3,setA3] = useState('');
   const [ready,setReady] = useState(false);
   const [groupStatus,setGroupStatus] = useState(null);
+  
   // var dest = '';
   console.log("anonymous", props.anonymous);
 
@@ -70,10 +72,29 @@ const EventCard = (props) => {
     e.preventDefault();
     console.log('submit called');
     //todo: make call with all details
-    var requestJson = {};
-    
-    
-    
+    var user = {};
+    var group = {};
+    var user_responses = {};
+    user['id'] = userInfo['id'];
+    group['id'] = groupInfo['id'];
+    group['questionnaire_id'] = groupInfo.questionnaire_id;
+    user_responses['answer_1']=a1;
+    user_responses['answer_1']=a2;
+    user_responses['answer_1']=a3;
+    var request = {};
+    request['user'] = user;
+    request['group'] = group;
+    request['user_responses'] = user_responses;
+    console.log("save request..", request);
+    createJoinRequest(request).then(resp => {
+      if(resp=="CREATED"){
+        // successful
+      }
+      else{
+       // handle failure
+      }
+    }
+    )
   };
 
   useEffect( () => {

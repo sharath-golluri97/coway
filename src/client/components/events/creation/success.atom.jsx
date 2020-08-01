@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button,Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -14,18 +14,22 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default () => {
+export default (props) => {
     const classes = useStyles();
     const reload = () => {
         window.location.reload();
     };
+    const preventDefault = (event) => event.preventDefault();
+    const event_link = "/events/" + props.event_id;
     return (
         <Fragment>
             <Typography variant='h5' className={classes.title}>
                 Voila! your event has been created.
             </Typography>
             <Button variant='contained' color='primary' onClick={reload}>
-                Reload
+            <Link href={event_link} onClick={preventDefault}>
+                Go to your Event Page
+            </Link> 
             </Button>
         </Fragment>
     );

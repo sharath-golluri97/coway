@@ -3,7 +3,7 @@
     "coway": {
       "baseUrl": "http://localhost:5000/",
       "routes": {
-        "algolia": "api/events/",
+        "events": "api/events/",
         "groupsForUser": "api/groups/user",
         "userExistsInGroup": "api/groups/status",
         "groupDetails": "api/groups/",
@@ -12,7 +12,8 @@
         "notifications": "api/userResponses/user/pending",
         "acceptRequest": "api/userResponses/accept",
         "rejectRequest": "api/userResponses/reject",
-        "getCities": "api/cities"
+        "getCities": "api/cities",
+        "joinRequest": "api/userResponses/create"
       }
     }
   }

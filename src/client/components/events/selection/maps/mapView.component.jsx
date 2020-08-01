@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState,useContext,useEffect } from 'react'
 import { InstantSearch, Configure, SearchBox } from 'react-instantsearch-dom'
 import algoliasearch from 'algoliasearch/lite';
 import { GoogleMapsLoader } from 'react-instantsearch-dom-maps'
@@ -8,16 +8,42 @@ import './maps.css'
 import Grid from '@material-ui/core/Grid';
 import MaterialUIPickers from "../../../../commons/dateTimePicker/dateTimePicker";
 import CitySelect from "../citySelect/citySelect.component";
-
-const options = ['Bengaluru', 'Option 2'];
+import {getCities} from "../../../../services/cities";
+// const options = ['Bengaluru', 'Option 2'];
 
 const MapsView = () =>  {
 
         const [selectedDate, setSelectedDate] = React.useState(new Date());
-        const [value, setValue] = React.useState(options[0]);
         const [inputValue, setInputValue] = React.useState('');
+        const [cities, setCities] = useState([{}]);
+        const [cityOptions, setCityOptions]= useState([]);
+        const [value, setValue] = React.useState(cityOptions[0]);
+
+
+        function getCityId(cityName){
+          for(var i in cities){
+            if(cities[i].name==cityName){
+              console.log(cities[i].id);
+              return cities[i].id;
+            }
+          }
+        }
+
+        useEffect(()=>{
+          getCities().then(cityRes => {
+              setCities(cityRes);
+              var cityMap = [];
+              console.log(cities);
+              for(var i in cityRes){
+                cityMap.push(cityRes[i].name);
+                console.log(cityRes[i].name);
+              }
+              setCityOptions(cityMap);
+        });
+        },[]);
 
         const handleOnCityChange = (event, newValue) => {
+          console.log("city changed:", newValue);
           setValue(newValue);
         }
 
@@ -43,12 +69,12 @@ const MapsView = () =>  {
                     getRankingInfo
                     aroundLatLngViaIP
                     typoTolerance="min"
-                    filters={`city_id:1 AND end_time > ${selectedDate.getTime()}`}
+                    filters={`city_id:${getCityId(value)} AND end_time > ${selectedDate.getTime()}`}
                 />
                 <main>
                   <Grid container justify="center" alignItems="center" >
                     <Grid item xs={12} style={{marginTop:'10px'}}>
-                      <CitySelect options={options} handleOnChange={handleOnCityChange} value={value} inputValue={inputValue} onInputChange={handleOnCityInputChange} />
+                      <CitySelect options={cityOptions} handleOnChange={handleOnCityChange} value={value} inputValue={inputValue} onInputChange={handleOnCityInputChange} />
                     </Grid>
                     <Grid item xs={12}>
                       <MaterialUIPickers selectedDate={selectedDate} handleDateChange={handleDateChange}/>
@@ -70,7 +96,7 @@ const MapsView = () =>  {
                     <div >
                         <div id="map">
                             <div style={{height:"60vh"}}>
-                                <GoogleMapsLoader apiKey="AIzaSyBawL8VbstJDdU5397SUX7pEt9DslAwWgQ">
+                                <GoogleMapsLoader apiKey="AIzaSyCv7mHnjHZYsbeOe9tRMqWcKDZ9ywXSmI0">
                                     {google => <Geo google={google} />}
                                 </GoogleMapsLoader>
                             </div>

@@ -1,14 +1,20 @@
 {
     "api": {
       "coway": {
-        "baseUrl": "http://13.68.151.102:5000/",
+        "baseUrl": "http://localhost:5000/",
         "routes": {
-          "algolia": "api/events/",
+          "events": "api/events/",
           "groupsForUser": "api/groups/user",
           "userExistsInGroup": "api/groups/status",
-          "groupDetails": "api/groups/"
+          "groupDetails": "api/groups/",
+          "userDetails": "api/users/email",
+          "createUser": "api/users/create",
+          "notifications": "api/userResponses/user/pending",
+          "acceptRequest": "api/userResponses/accept",
+          "rejectRequest": "api/userResponses/reject",
+          "getCities": "api/cities",
+          "joinRequest": "api/userResponses/create"
         }
-  
       }
     }
   }

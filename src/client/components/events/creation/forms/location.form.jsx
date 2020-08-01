@@ -11,12 +11,6 @@ import { EventContext } from "../eventContext.atom";
 export default props => {
     const [state] = useContext(EventContext);
     const { user, errors } = state;
-    const cities = [
-        {title: "Bengaluru"},
-        {title: "Hyderabad"},
-        {title: "Delhi"},
-        {title: "Mumbai"}
-    ];
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -24,7 +18,7 @@ export default props => {
                     google={props.google}
                     center={{lat: user.location.lat, lng: user.location.long}}
                     height='300px'
-                    zoom={15}
+                    zoom={12}
                 />
             </Grid>
         </Grid>

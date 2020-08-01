@@ -284,10 +284,10 @@ class Map extends Component{
                 }
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
             </Grid>
             <Grid item xs={12}>
-            </Grid>
+            </Grid> */}
           </Grid>
         } else {
             map = <div style={{height: this.props.height}} />

@@ -15,7 +15,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
-
+import {createEvent} from "../../../services/events"; 
 import Button from "@material-ui/core/Button";
 //context
 import { EventContext } from "./eventContext.atom";
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3, 0, 3, 5)
     },
     buttonsContainer: {
-        margin: theme.spacing(2, 0)
+        margin: theme.spacing(7,0, 0)
     },
     button: {
         marginRight: theme.spacing(2)
@@ -114,7 +114,11 @@ export default props => {
                 request['events']=events;
 
                 console.log("request..", request);
-                setCompleted(true);
+                createEvent(request).then(resp => {
+                    console.log("new event created: ", resp.id);
+                    setCompleted(true);
+                });
+                
         }
     };
 

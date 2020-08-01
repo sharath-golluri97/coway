@@ -42,7 +42,7 @@ function LabelBottomNavigation(props) {
      showLabels
      >
       <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
+      {/* <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} /> */}
            <BottomNavigationAction
               label="Create"
               value="create-event"

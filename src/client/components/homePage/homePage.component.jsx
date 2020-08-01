@@ -27,7 +27,7 @@ export default function HomePage(props) {
   const [messages, setMessages] = useState([]);
   const [ready, setReady] = useState(false);
 
-  const apiBaseUrl = "http://localhost:3000";
+  const apiBaseUrl = "https://ridematechat.azurewebsites.net";
 
   function sendMessage(sender, messageText, groupId, groupName, creatorUser) {
     return axios
