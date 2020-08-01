@@ -20,7 +20,7 @@ COPY src src
 # COPY .env .
 
 RUN npm run build
-COPY build build
+# COPY build build
 
 # copy server files
 
