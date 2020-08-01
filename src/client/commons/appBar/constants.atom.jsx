@@ -16,10 +16,6 @@ const menuItems = [
         listText: "My Events"
     },
     {
-        listIcon: <Favorite />,
-        listText: "Favorites"
-    },
-    {
         listIcon: <FeedbackOutlinedIcon />,
         listText: "Feedback",
         url:"https://forms.gle/YS87NiaWszHtBFXQ9"
