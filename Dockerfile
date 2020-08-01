@@ -11,7 +11,7 @@ WORKDIR /home/node/app
 # install server packages
 COPY package*.json ./
 COPY server.js ./
-
+COPY public public
 
 
 RUN npm set progress=false && npm install
