@@ -5,6 +5,7 @@
       "routes": {
         "events": "api/events/",
         "groupsForUser": "api/groups/user",
+        "approvedGroupsForUser": "api/groups/user/approved",
         "userExistsInGroup": "api/groups/status",
         "groupDetails": "api/groups/",
         "userDetails": "api/users/email",
