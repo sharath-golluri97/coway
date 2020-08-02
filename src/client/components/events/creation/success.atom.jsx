@@ -20,19 +20,18 @@ export default (props) => {
         window.location.reload();
     };
     const preventDefault = (event) => event.preventDefault();
-    const event_link = "/events/" + props.event_id;
     return (
         <Fragment>
             <Typography variant='h4' className={classes.title}>
                 Voila! your event has been created.
             </Typography>
-            <Button variant='contained' color='primary' onClick={reload}>
-            <Link href={event_link} onClick={preventDefault}>
+            {/* <Button variant='contained' color='primary' onClick={reload}> */}
+            <Link to={'/'} onClick={preventDefault}>
                 <Typography variant='h5' className={classes.title}>
-                    Go to your Event Page
+                    Return to home page
                 </Typography>
             </Link> 
-            </Button>
+            {/* </Button> */}
         </Fragment>
     );
 };

@@ -19,6 +19,7 @@ import {createEvent} from "../../../services/events";
 import Button from "@material-ui/core/Button";
 //context
 import { EventContext } from "./eventContext.atom";
+import HomePage from "../../homePage/homePage.component";
 
 const useStyles = makeStyles(theme => ({
     root: {

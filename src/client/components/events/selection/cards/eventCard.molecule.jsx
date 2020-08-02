@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Grid } from "@material-ui/core";
+import { Grid ,Snackbar} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -29,10 +29,8 @@ import { FormControl,InputLabel,Input, FormHelperText,TextField} from '@material
 import {getUserInfo} from '../../../../../Authenticator/tokens';
 import {createJoinRequest} from '../../../../services/responses';
 import MuiAlert from '@material-ui/lab/Alert';
+import HomePage from "../../../homePage/homePage.component";
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
@@ -53,13 +51,13 @@ const EventCard = (props) => {
   const [a3,setA3] = useState('');
   const [ready,setReady] = useState(false);
   const [groupStatus,setGroupStatus] = useState(null);
-  const [open, setOpen] = React.useState(false);
-  const [failure, setFailure] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [failure,setFailure] = useState(false);
+  const [success,setSuccess] = useState(false);
 
-  // var dest = '';
-  console.log("anonymous", props.anonymous);
-
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 
   const handleRequestClick = () => {
@@ -106,13 +104,12 @@ const EventCard = (props) => {
     console.log("save request..", request);
     createJoinRequest(request).then(resp => {
       if(resp=="CREATED"){
-        // successful
         setSuccess(true);
-
+        setOpen(true);
       }
       else{
-       // handle failure
         setFailure(true);
+        setOpen(true);
       }
     }
     )
@@ -146,13 +143,24 @@ const EventCard = (props) => {
   return (
     <Grid item xs={12} sm={6} md={3}>
       <ShowIfPropTrue prop={success}>
-        <Alert severity="success">Your join request was sent successfully!</Alert>
-        <Link to={'/'} style={{ textDecoration: 'none' }} ></Link>
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Your join request was sent successfully!
+            </Alert>
+          </Snackbar>
+        <HomePage/>
+        </div>
       </ShowIfPropTrue>
 
       <ShowIfPropTrue prop={failure}>
-        <Alert severity="error">Something went wrong, please write to us and report!</Alert>
-        <Link to={'/'} style={{ textDecoration: 'none' }} ></Link>
+      <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+              Something went wrong, please write to us and report!
+            </Alert>
+          </Snackbar>
+      </div>
       </ShowIfPropTrue>
 
       <ShowIfPropTrue prop={ready}>
