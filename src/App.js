@@ -42,8 +42,8 @@ function withSuspense(WrappedComponent, loader) {
   };
 }
 
-const pageWithBottomNavBar = ["/","/notifications","/mapView","/create","/chatRoom","/chatRoom/chat/:id", "/events/:id"];
-const page = [];
+const pageWithBottomNavBar = ["/","/notifications","/mapView","/create","/chatRoom", "/events/:id"];
+const page = ["/chatRoom/chat/:id"];
 
 
 function App() {
@@ -71,8 +71,7 @@ const DefaultContainer = () => (
         <Route exact path="/create" component={withSuspense(CreateEventAsync)}/>
         <Route exact path="/mapView" component={withSuspense(MapViewAsync)}/>
         <Route exact path="/notifications" component={withSuspense(NotificationsAsync)}/>
-        <Route path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
-        <Route path="/events/:id" component={withSuspense(EventDetailsAsync)} />
+        <Route exact path="/events/:id" component={withSuspense(EventDetailsAsync)} />
       </Container>
       <ScrollTop>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
@@ -87,10 +86,9 @@ const DefaultContainer = () => (
 );
 
 const CustomContainer = () => (
-  <Grid container >
   <div>
     <Container >
-      
+      <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
     </Container>
     <ScrollTop>
       <Fab color="secondary" size="small" aria-label="scroll back to top">
@@ -98,8 +96,6 @@ const CustomContainer = () => (
       </Fab>
     </ScrollTop>
   </div>
-  </Grid>
-
 );
 
 

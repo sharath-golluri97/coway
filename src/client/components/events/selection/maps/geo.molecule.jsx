@@ -1,19 +1,12 @@
 import React, { Component, useState } from "react";
-import { render } from "react-dom";
-// import "react-sliding-pane/dist/react-sliding-pane.css";
 import { GeoSearch, Marker } from 'react-instantsearch-dom-maps';
-import ReactDOMServer from "react-dom/server";
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { renderToString } from 'react-dom/server'
+import Grid from "@material-ui/core/Grid";
+import Link from '@material-ui/core/Link';
+import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 function formatDate(long_time) {
 //todo : find better way
@@ -36,9 +29,9 @@ month[11] = "December";
       day = '' + d.getDate(),
       hour = '' + d.getHours();
 
-  if (month.length < 2) 
+  if (month.length < 2)
       month = '0' + month;
-  if (day.length < 2) 
+  if (day.length < 2)
       day = '0' + day;
   if(hour.length < 2)
       hour = '0' + hour;
@@ -66,48 +59,38 @@ const Geo = (props) =>  {
         if (InfoWindow.getMap())
             InfoWindow.close();
 
-        InfoWindow.setContent(
-            '<div>' +
-            '<span>' + '•' + '</span><u>' + hit.name + '</u><br>' +
-            '<span>' + '</span>' + hit.description + '<br>' +
-            '<span>' + '</span><b>' + formatDate(hit.start_time) + '</b><br>' +
-            '<span>' + '</span>' + hit.remarks + '<br>' +
-            '</div>' +
-            '<div> ' +
-            '<style>' +
-            '.button {' +
-            '  background-color: #008CBA;' +
-            '  border: none;' +
-            '  color: white;' +
-            '  padding: 2px 4px;' +
-            '  text-align: center;' +
-            '  text-decoration: none;' +
-            '  display: inline-block;' +
-            '  font-size: 12px;' +
-            '  margin: 4px 2px;' +
-            '  transition-duration: 0.4s;' +
-            '  cursor: pointer;' +
-            '  border-radius: 12px;' +
-            '}' +
-            '' +
-            '.button2 {' +
-            '  background-color: white; ' +
-            '  color: black; ' +
-            '  border: 2px solid #008CBA;' +
-            '  border-radius: 12px;' +
-            '}' +
-            '' +
-            '.button2:hover {' +
-            '  background-color: #008CBA;' +
-            '  color: white;' +
-            '  border-radius: 12px;' +
-            '}' +
-            '</style>'+
-            '<a href="http://localhost:3000/#/events/' + hit.event_id + '">' +
-            '<button class="button button2">More details</button>' +
-            '</a> ' +
-            '</div>'
-        );
+        InfoWindow.setContent(renderToString(
+          <Grid container >
+            <Grid item xs={12}>
+              <Typography variant={'h6'} noWrap>
+              {hit.name}
+              </Typography>
+              <Divider/>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='overline' noWrap>
+              {hit.description}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='overline' noWrap>
+              {hit.remarks}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='caption' noWrap>
+              {formatDate(hit.start_time)}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} >
+              <Link href={`#/events/${hit.event_id}`} >
+              <Button style={{background: 'aquamarine',fontSize:'0.675rem', marginTop:2}}>
+                More Details
+              </Button>
+              </Link>
+            </Grid>
+          </Grid>
+        ));
 
         InfoWindow.open(marker.getMap(), marker);
     }
@@ -153,7 +136,7 @@ const Geo = (props) =>  {
                         ))}
                       </div>
                     )}
-                    
+
                   </GeoSearch>
     );
 }
