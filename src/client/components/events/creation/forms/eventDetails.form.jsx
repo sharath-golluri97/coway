@@ -28,7 +28,19 @@ export default props => {
 
     const handleCityChange = (event) => {
         user.city = event.target.value;
-        setCity(event.target.value);
+        var cityId = event.target.value;
+        setCity(cityId);
+        for(var i=0; i<cities.length;i++){
+            if(cities[i].id==cityId){
+                console.log(cities[i]);
+                user.cityname = (cities[i].name);
+                user.location.lat = parseFloat(cities[i].default_lat); 
+                user.location.long = parseFloat(cities[i].default_long);
+                console.log("city details set: ", user.location.lat,user.location.long,user.cityname );
+                break;
+            }
+        }
+    
       };
 
     return (
@@ -89,7 +101,7 @@ export default props => {
                     }}
                     inputProps={{
                         min: new Date().toISOString().slice(0, 16),
-                        max: "2100-01-01"
+                        max: "2021-01-01T00:00"
                     }}
                     error={!!errors["startdate"]}
                     required
@@ -111,36 +123,6 @@ export default props => {
                     </MenuItem>
                 ))}
             </TextField>
-                {/* <Autocomplete
-                    id="city"
-                    autoComplete
-                    options={cities}
-                    getOptionLabel={(option) => option.name}
-                    getOptionSelected={(option, value) => {
-                        if (option.name === value.title)
-                        {
-                            user.city = value.title
-                        }
-                        return option.name === value.title;
-                    }
-                    }
-                    style={{ width: 300 }}
-                    renderInput={
-                        (params) => <TextField
-                            {...params}
-                            label="City"
-                            placeholder='Choose airport city'
-                            variant="outlined"
-                            name='city'
-                            value={user.city}
-                            margin='normal'
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            fullWidth
-                        />
-                    }
-                /> */}
             </Grid>
             <Grid item sm={4} md={6} xs={12}>
                 <TextField
@@ -162,28 +144,6 @@ export default props => {
                     fullWidth
                 />
             </Grid>
-            {/*<Grid item xs={12}>*/}
-            {/*    <TextField*/}
-            {/*        id='shortdescription'*/}
-            {/*        placeholder='TL;DR'*/}
-            {/*        name='shortdescription'*/}
-            {/*        label='Short Description'*/}
-            {/*        value={user.shortdescription}*/}
-            {/*        variant='outlined'*/}
-            {/*        margin='normal'*/}
-            {/*        InputLabelProps={{*/}
-            {/*            shrink: true*/}
-            {/*        }}*/}
-            {/*        required*/}
-            {/*        inputProps={{*/}
-            {/*            minLength: 3,*/}
-            {/*            maxLength: 100*/}
-            {/*        }}*/}
-            {/*        error={!!errors["shortdescription"]}*/}
-            {/*        fullWidth*/}
-            {/*        rows={3}*/}
-            {/*    />*/}
-            {/*</Grid>*/}
             <Grid item xs={12}>
                 <TextField
                     id='remarks'

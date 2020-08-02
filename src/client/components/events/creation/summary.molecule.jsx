@@ -18,14 +18,13 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
     const [state] = useContext(EventContext);
-    const { eventname, startdate, city, maxparticipants, description, shortdescription, remarks, q1, q2, q3 } = state.user;
+    const { eventname, startdate, city,cityname, maxparticipants, description, remarks, q1, q2, q3 } = state.user;
     return (
         <Fragment>
             <Grid container className={classes.summary}>
                 <Grid item xs={12}>
                     <Typography variant='h4'>Summary</Typography>
                 </Grid>
-
                 <Grid item xs={12}>
                     <Typography variant='h6'>Event name</Typography>
                     <Typography variant='body2'>{eventname || "-"}</Typography>
@@ -36,7 +35,7 @@ export default props => {
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant='h6'>City</Typography>
-                    <Typography variant='body2'>{city || "-"}</Typography>
+                    <Typography variant='body2'>{cityname || "-"}</Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant='h6'>No. of participants</Typography>
@@ -47,10 +46,6 @@ export default props => {
                     <Typography variant='body2'>{description || "-"}</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant='h6'>Short description</Typography>
-                    <Typography variant='body2'>{shortdescription || "-"}</Typography>
-                </Grid>
-                <Grid item xs={12}>
                     <Typography variant='h6'>Remarks</Typography>
                     <Typography variant='body2'>{remarks || "-"}</Typography>
                 </Grid>
@@ -58,15 +53,15 @@ export default props => {
                     <Typography variant='h5'> Questionnaire </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant='h6'>question-1 </Typography>
+                    <Typography variant='h6'>Question 1 </Typography>
                     <Typography variant='body2'>{q1 || "-"}</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant='h6'>question-2 </Typography>
+                    <Typography variant='h6'>Question 2 </Typography>
                     <Typography variant='body2'>{q2 || "-"}</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant='h6'>question-3 </Typography>
+                    <Typography variant='h6'>Question 3 </Typography>
                     <Typography variant='body2'>{q3 || "-"}</Typography>
                 </Grid>
             </Grid>

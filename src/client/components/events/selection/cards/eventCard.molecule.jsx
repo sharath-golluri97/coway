@@ -28,10 +28,16 @@ import Button from '@material-ui/core/Button';
 import { FormControl,InputLabel,Input, FormHelperText,TextField} from '@material-ui/core';
 import {getUserInfo} from '../../../../../Authenticator/tokens';
 import {createJoinRequest} from '../../../../services/responses';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
   const bull = <span className={classes.bullet}>•</span>;
+
   const [expanded, setExpanded] = useState(false);
   const [request, setRequest] = useState(props.requestStatus);
   const [favorite, setFavorite] = useState(props.favoriteEvent);
@@ -47,9 +53,14 @@ const EventCard = (props) => {
   const [a3,setA3] = useState('');
   const [ready,setReady] = useState(false);
   const [groupStatus,setGroupStatus] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [failure, setFailure] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   
   // var dest = '';
   console.log("anonymous", props.anonymous);
+
+  
 
   const handleRequestClick = () => {
     if(!request){
@@ -64,23 +75,30 @@ const EventCard = (props) => {
     }
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('submit called');
+    console.log('submit called', a1,a2,a3,userInfo);
     //todo: make call with all details
     var user = {};
     var group = {};
     var user_responses = {};
-    user['id'] = userInfo['id'];
+    user['id'] = userInfo['userId'];
     group['id'] = groupInfo['id'];
     group['questionnaire_id'] = groupInfo.questionnaire_id;
     user_responses['answer_1']=a1;
-    user_responses['answer_1']=a2;
-    user_responses['answer_1']=a3;
+    user_responses['answer_2']=a2;
+    user_responses['answer_3']=a3;
     var request = {};
     request['user'] = user;
     request['group'] = group;
@@ -89,9 +107,11 @@ const EventCard = (props) => {
     createJoinRequest(request).then(resp => {
       if(resp=="CREATED"){
         // successful
+        setSuccess(true);
       }
       else{
        // handle failure
+        setFailure(true);
       }
     }
     )
@@ -107,8 +127,7 @@ const EventCard = (props) => {
     setStartEvent({date:eventStart.date, time: eventStart.time });
     setEndEvent({date:eventEnd.date, time: eventEnd.time });
     setGroupStatus(userGroupStatus);
-    console.log(JSON.stringify(groupInfo.user_group_infos))
-    // setGroupStatus(groupInfo.)
+    
     reverseGeocode(groupInfo.event.latitude,groupInfo.event.longitude)
       .then(resp => resp.address.suburb)
       .then(location => {
@@ -121,12 +140,23 @@ const EventCard = (props) => {
         });
         
       });
-
-    
   },[]);
 
   return (
+
+    
+
     <Grid item xs={12} sm={6} md={3}>
+      <ShowIfPropTrue prop={success}>
+        <Alert severity="success">Your join request was sent successfully!</Alert>
+        <Link to={'/'} style={{ textDecoration: 'none' }} ></Link>
+      </ShowIfPropTrue>
+
+      <ShowIfPropTrue prop={failure}>
+        <Alert severity="error">Something went wrong, please write to us and report!</Alert>
+        <Link to={'/'} style={{ textDecoration: 'none' }} ></Link>
+      </ShowIfPropTrue>
+
       <ShowIfPropTrue prop={ready}>
       <Card className={classes.root} variant="outlined">
           <CardHeader
@@ -197,13 +227,6 @@ const EventCard = (props) => {
             <Divider />
           </CardContent>
           <CardActions disableSpacing style={{paddingTop:'2px',paddingBottom:'5px'}}>
-            {/* <IconButton aria-label="add to favorites" style={{zIndex:1,paddingTop:2,paddingBottom:2}} onClick={addToFavorites}>
-              <FavoriteIcon
-                fontSize={'small'}
-                color={favColor}
-
-              />
-            </IconButton> */}
             <IconButton aria-label="share" style={{zIndex:1,paddingTop:2,paddingBottom:2}}>
               <ShareIcon fontSize={'small'}/>
             </IconButton>
@@ -240,20 +263,20 @@ const EventCard = (props) => {
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_1}</InputLabel>
                   <TextField
                         variant="outlined"
-                        onInput={ e=>setA1(e.target.value)}
+                        onChange={ e=>setA1(e.target.value)}
                     />
                   <ShowIfPropTrue prop={props.questionnaire.question_2}> 
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_2}</InputLabel>
                   <TextField  
                         variant="outlined"        
-                        onInput={ e=>setA2(e.target.value)}
+                        onChange={ e=>setA2(e.target.value)}
                     />
                   </ShowIfPropTrue> 
                   <ShowIfPropTrue prop={props.questionnaire.question_3}> 
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_3}</InputLabel>
                   <TextField  
                         variant="outlined"        
-                        onInput={ e=>setA3(e.target.value)}
+                        onChange={ e=>setA3(e.target.value)}
                     />
                   </ShowIfPropTrue> 
                   <Button
