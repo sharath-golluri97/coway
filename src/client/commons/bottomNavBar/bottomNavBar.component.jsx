@@ -2,14 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import FolderIcon from '@material-ui/icons/Folder';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import IconButton from "@material-ui/core/IconButton";
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -41,22 +38,25 @@ function LabelBottomNavigation(props) {
      className={classes.root}
      showLabels
      >
-      <BottomNavigationAction label="Recents" value="recents" 
-        icon={ 
-                <Link to={'/'} style={{ textDecoration: 'none' }} >
-                <RestoreIcon /> 
-                </Link>
-              } 
-      />
       <BottomNavigationAction
-        label="Create"
-        value="create-event"
+        label="Home"
+        value="home"
         icon={
-          <Link to={'/create'} style={{ textDecoration: 'none' }} >
-          <AddCircleIcon/>
+          <Link to={'/'} style={{ textDecoration: 'none' }} >
+            <HomeRoundedIcon/>
           </Link>
-          }
+        }
       />
+      {/* <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} /> */}
+           <BottomNavigationAction
+              label="Create"
+              value="create-event"
+              icon={
+                <Link to={'/create'} style={{ textDecoration: 'none' }} >
+                <AddCircleIcon/>
+                </Link>
+                }
+            />
       <BottomNavigationAction
         label="Nearby"
         value="nearby"
@@ -71,7 +71,7 @@ function LabelBottomNavigation(props) {
         value="notifications"
         icon={
           <Link to={'/notifications'} style={{ textDecoration: 'none' }} >
-            <Badge badgeContent={2} color="primary">
+            <Badge badgeContent={null} color="primary">
               <NotificationsIcon />
             </Badge>
           </Link>

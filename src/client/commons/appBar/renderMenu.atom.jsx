@@ -17,7 +17,6 @@ const renderMenu = (props) => {
 			open={props.menuOpen}
 			onClose={props.handleMenuClose}
 		>
-			<MenuItem onClick={props.handleMenuClose}>Profile</MenuItem>
 			<MenuItem onClick={handleLogOut}>Log out</MenuItem>
 		</Menu>
 	);

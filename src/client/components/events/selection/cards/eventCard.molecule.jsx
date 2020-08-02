@@ -56,16 +56,16 @@ const EventCard = (props) => {
   const [open, setOpen] = React.useState(false);
   const [failure, setFailure] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
-  
+
   // var dest = '';
   console.log("anonymous", props.anonymous);
 
-  
+
 
   const handleRequestClick = () => {
     if(!request){
       //POST call .then()
-      props.handleRequestClick(props.groupId,props.groupName,props.creatorUser);
+      // props.handleRequestClick(props.groupId,props.groupName,props.creatorUser);
       setRequest(!request);
       return;
     }
@@ -108,6 +108,7 @@ const EventCard = (props) => {
       if(resp=="CREATED"){
         // successful
         setSuccess(true);
+
       }
       else{
        // handle failure
@@ -127,7 +128,7 @@ const EventCard = (props) => {
     setStartEvent({date:eventStart.date, time: eventStart.time });
     setEndEvent({date:eventEnd.date, time: eventEnd.time });
     setGroupStatus(userGroupStatus);
-    
+
     reverseGeocode(groupInfo.event.latitude,groupInfo.event.longitude)
       .then(resp => resp.address.suburb)
       .then(location => {
@@ -138,14 +139,11 @@ const EventCard = (props) => {
             setReady(true);
           }
         });
-        
+
       });
   },[]);
 
   return (
-
-    
-
     <Grid item xs={12} sm={6} md={3}>
       <ShowIfPropTrue prop={success}>
         <Alert severity="success">Your join request was sent successfully!</Alert>
@@ -163,7 +161,7 @@ const EventCard = (props) => {
             action={
 
 
-                groupStatus == "APPROVED" || groupStatus == "ADMIN" ?
+                groupStatus == "ACTIVE" || groupStatus == "ADMIN" ?
                   <Link to={'/chatRoom/chat/' + groupInfo.group_name}>
 
                   <IconButton style={{zIndex:1}}
@@ -259,26 +257,33 @@ const EventCard = (props) => {
               </Typography>
 
               <ShowIfPropTrue prop={anonymous}>
+                <div>
               <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_1}</InputLabel>
                   <TextField
                         variant="outlined"
                         onChange={ e=>setA1(e.target.value)}
                     />
-                  <ShowIfPropTrue prop={props.questionnaire.question_2}> 
+                    <div>
+                  <ShowIfPropTrue prop={props.questionnaire.question_2}>
+                    <div>
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_2}</InputLabel>
-                  <TextField  
-                        variant="outlined"        
+                  <TextField
+                        variant="outlined"
                         onChange={ e=>setA2(e.target.value)}
                     />
-                  </ShowIfPropTrue> 
-                  <ShowIfPropTrue prop={props.questionnaire.question_3}> 
+                    </div>
+                  </ShowIfPropTrue>
+                    </div>
+                <div>
+                  <ShowIfPropTrue prop={props.questionnaire.question_3}>
                   <InputLabel htmlFor="component-simple">{props.questionnaire.question_3}</InputLabel>
-                  <TextField  
-                        variant="outlined"        
+                  <TextField
+                        variant="outlined"
                         onChange={ e=>setA3(e.target.value)}
                     />
-                  </ShowIfPropTrue> 
+                  </ShowIfPropTrue>
+                </div>
                   <Button
                     type='submit'
                     className={classes.button}
@@ -288,10 +293,13 @@ const EventCard = (props) => {
                     Submit
                   </Button>
               </form>
+                </div>
               </ShowIfPropTrue>
+
             </CardContent>
           </Collapse>
     </Card>
+
       </ShowIfPropTrue>
     </Grid>
   );
