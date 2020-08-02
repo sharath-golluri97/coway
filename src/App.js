@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
+import { HashRouter,Router, Route, Switch, withRouter } from "react-router-dom";
 
 import Container from "@material-ui/core/Container";
 import AppBar from "./client/commons/appBar/appBar.component";
@@ -42,13 +42,13 @@ function withSuspense(WrappedComponent, loader) {
   };
 }
 
-const pageWithBottomNavBar = ["/","/notifications","/mapView","/create","/chatRoom"];
-const page = ["/chatRoom/chat/:id", "/events/:id"];
+const pageWithBottomNavBar = ["/","/notifications","/mapView","/create","/chatRoom","/chatRoom/chat/:id", "/events/:id"];
+const page = [];
 
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <AzureAD provider={AuthProvider} forceLogin={true}>
         <div>
@@ -58,7 +58,7 @@ function App() {
         </div>
         </AzureAD>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
@@ -71,7 +71,8 @@ const DefaultContainer = () => (
         <Route exact path="/create" component={withSuspense(CreateEventAsync)}/>
         <Route exact path="/mapView" component={withSuspense(MapViewAsync)}/>
         <Route exact path="/notifications" component={withSuspense(NotificationsAsync)}/>
-
+        <Route path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
+        <Route path="/events/:id" component={withSuspense(EventDetailsAsync)} />
       </Container>
       <ScrollTop>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
@@ -86,10 +87,10 @@ const DefaultContainer = () => (
 );
 
 const CustomContainer = () => (
+  <Grid container >
   <div>
     <Container >
-      <Route exact path="/chatRoom/chat/:id" component={withSuspense(ChatAppAsync)} />
-      <Route exact path="/events/:id" component={withSuspense(EventDetailsAsync)} />
+      
     </Container>
     <ScrollTop>
       <Fab color="secondary" size="small" aria-label="scroll back to top">
@@ -97,7 +98,7 @@ const CustomContainer = () => (
       </Fab>
     </ScrollTop>
   </div>
-
+  </Grid>
 
 );
 

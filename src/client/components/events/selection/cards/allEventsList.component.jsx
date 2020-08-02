@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Grid } from "@material-ui/core";
+import { Grid,Typography } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import EventCard from "./eventCard.molecule";
 import ShowIfPropTrue from "../../../../commons/showPropIf/showPropIf";
@@ -24,11 +24,18 @@ const EventsList = (props) => {
       className={classes.gridContainer}
       justify="center"
     >
+    <ShowIfPropTrue prop={props.events.length==0}>
+    <Typography variant={"h5"}>
+      You don't have group subscriptions yet.
+      Please search and join groups or create new one.
+    </Typography>
+    </ShowIfPropTrue>
       {
         props.events.map( (eventDetails,key) => {
           return <EventCard {...eventDetails} key={key} {...props}  anonymous={false} questionnaire={{}}/>
         })
       }
+
     </Grid>
     </ShowIfPropTrue>
   );

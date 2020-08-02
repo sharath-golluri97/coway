@@ -19,7 +19,7 @@ import {getUserInfo} from "../../../Authenticator/tokens";
 import { v4 as uuidv4 } from 'uuid';
 const signalR = require("@aspnet/signalr");
 
-export default function ChatApp(props) {
+const ChatApp = (props) => {
     const classes = useStyles();
     TimeAgo.addLocale(en)
     const timeago = new TimeAgo('en-US');
@@ -208,7 +208,7 @@ export default function ChatApp(props) {
         </div>
 
     )
-
-
 }
+
+export default ChatApp;
 
