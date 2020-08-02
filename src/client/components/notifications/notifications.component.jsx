@@ -40,73 +40,8 @@ export default function Notifications() {
     bottom: false,
   });
   const [userInfo, setUserInfo] = useState({});
-  const [newMessageText, setNewMessageText] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [ready, setReady] = useState(false);
-
   const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState({});
-  const apiBaseUrl = "https://ridematechat.azurewebsites.net";
-
-  function sendMessage(sender, messageText, groupId, groupName, creatorUser) {
-    return axios
-      .post(`${apiBaseUrl}/api/notification`, {
-        sender: sender,
-        text: messageText,
-        groupName: groupName,
-        groupId: groupId,
-        recipient: creatorUser,
-      })
-      .then((resp) => resp.data);
-    /**
-     * Also Call to api to save this request info in postgres db
-     * */
-  }
-
-  function getMessages(userData) {
-    // return axios.get(`${apiBaseUrl}/api/notification/`, getAxiosConfig(userData))
-    //   .then(resp => resp.data);
-    /**
-     * will fetch request list from postgres db
-     * **/
-    return new Promise(resolve => resolve(PendingRequestData.userResponses))
-  }
-
-  function newMessage(message) {
-    //if sender is not set in our case, no anonymous messages will be passed!
-    // if (!message.sender) {
-    //   message.sender = "anonymous";
-    // } else {
-    messages.push(message);
-    setMessages(_.cloneDeep(messages));
-    // }
-  }
-
-  function getAxiosConfig(userData) {
-    const config = {
-      headers: { "x-ms-client-principal-name": userData.email },
-    };
-    return config;
-  }
-
-  function getConnectionInfo(userData) {
-    return axios
-      .post(`${apiBaseUrl}/api/SignalRInfo`, null, getAxiosConfig(userData))
-      .then((resp) => {
-        return resp.data;
-      });
-  }
-
-  const sendNewMessage = (groupId, groupName, creatorUser) => {
-    sendMessage(
-      userInfo.firstName,
-      newMessageText,
-      groupId,
-      groupName,
-      creatorUser
-    );
-    setNewMessageText("");
-  };
 
 
   const toggleDrawer = (anchor, open, pr) => (event) => {
@@ -280,35 +215,6 @@ export default function Notifications() {
          * */
         init(userData);
 
-        getMessages(userData).then(messages => {
-          // console.log("messages", messages);
-          for (let m of messages.reverse()) {
-            newMessage(m);
-          }
-
-        })
-          .then(()=>setReady(true));
-        getConnectionInfo(userData)
-          .then((info) => {
-            const options = {
-              accessTokenFactory: () => info.accessToken,
-            };
-
-            const connection = new signalR.HubConnectionBuilder()
-              .withUrl(info.url, options)
-              .configureLogging(signalR.LogLevel.Information)
-              .build();
-
-            connection.on("newMessage", newMessage);
-            connection.onclose(() => console.log("disconnected"));
-            connection
-              .start()
-              .then(() => {
-                setReady(true);
-              })
-              .catch(console.error);
-          })
-          .catch(console.error);
       }
     });
   },[])

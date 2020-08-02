@@ -105,8 +105,8 @@ export default props => {
                 onChange={handleCityChange}
                 helperText="Select your city"
                 >
-                {cities.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
+                {cities.map((option,key) => (
+                    <MenuItem key={key} value={option.id}>
                     {option.name}
                     </MenuItem>
                 ))}

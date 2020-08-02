@@ -6,30 +6,18 @@ import EventData from "../../events/selection/mocks/getEvents"
 import _ from 'lodash';
 const filter = createFilterOptions();
 
-export default function EventSearchBar() {
-  const [value, setValue] = React.useState(null);
+export default function EventSearchBar(props) {
+  // const [value, setValue] = React.useState(null);
 
-  //mock data
-  const eventList = EventData.groups.map(group => {
+  const eventList = props.events.map(group => {
     return { ..._.omit(group, ['group_name']), 'title': group.group_name};
   });
 
   return (
     <Autocomplete
       size={'small'}
-      value={value}
-      onChange={(event, newValue) => {
-        // Create a new value from the user input
-        if (newValue && newValue.inputValue) {
-          setValue({
-            title: newValue.inputValue,
-          });
-          return;
-        }
-        console.log("selected")
-
-        setValue(newValue);
-      }}
+      value={props.value}
+      onChange={props.onChange}
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
 

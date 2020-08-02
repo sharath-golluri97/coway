@@ -57,8 +57,8 @@ export default function EventDetails(props){
         justify="center"
         >
         {
-        events.map( (eventDetails) => {
-          return <EventCard {...eventDetails} key={eventDetails.id} anonymous={anonymous}/>
+        events.map( (eventDetails,i) => {
+          return <EventCard {...eventDetails} key={i} anonymous={anonymous}/>
         })
       }
         </Grid>

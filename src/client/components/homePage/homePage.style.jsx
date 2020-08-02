@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop:'0.8vh',
     position:'fixed',
     background:'white',
-    zIndex:2
+    zIndex:2,
+    width: 'calc(90% + 12px)'
   },
   eventList:{
     marginTop:'10vh'
