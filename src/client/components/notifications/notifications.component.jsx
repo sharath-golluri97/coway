@@ -14,7 +14,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import PendingRequestData from "../events/selection/mocks/getUserGroupInfoForPendingRequest";
 import axios from "axios";
 import _ from "lodash";
 import {getUserInfo} from "../../../Authenticator/tokens";

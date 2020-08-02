@@ -2,7 +2,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import EventData from "../../events/selection/mocks/getEvents"
 import _ from 'lodash';
 const filter = createFilterOptions();
 
