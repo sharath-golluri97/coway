@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import {AccountCircle} from '@material-ui/icons';
 import  {
@@ -16,8 +15,6 @@ import  {
 	Toolbar,
     Typography,
 } from '@material-ui/core';
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import useStyles from "./appBar.styles";
 import RenderMenu from "./renderMenu.atom";
@@ -25,6 +22,7 @@ import RenderMobileMenu from "./renderMobileMenu.atom";
 import MobilRightMenuSlider from '@material-ui/core/Drawer';
 import avatar from '../images/avatar.png';
 import MenuItems from './constants.atom';
+import {Link} from "react-router-dom";
 
 
 //Can't use function name as AppBar as it an identifier in material-UI components. Hence, BackToTop.
@@ -64,7 +62,7 @@ const PrimaryAppBar = (props) => {
         setState({...state, [slider]: open });
     };
     const sideList = slider => (
-        <Box 
+        <Box
         className={classes.menuSliderContainer}
         component="div"
         onClick={toggleSlider(slider, false)}
@@ -73,17 +71,30 @@ const PrimaryAppBar = (props) => {
             <Divider />
             <List>
                 {MenuItems.map((lsItem,key)=>(
-                <a href={lsItem.url} target="_blank" className={classes.a}>
+                  lsItem.listText === "Feedback" ?
+                <a key={key} href={lsItem.url} target="_blank" className={classes.a}>
                 <ListItem button key={key}>
                     <ListItemIcon className={classes.listItem}>
                         {lsItem.listIcon}
                     </ListItemIcon>
-                    <ListItemText 
+                    <ListItemText
                     className={classes.listItem}
                     primary={lsItem.listText}
                     />
                 </ListItem>
                 </a>
+                    :
+                    <Link to={lsItem.url} style={{ textDecoration: 'none' }} className={classes.a}>
+                      <ListItem button key={key}>
+                        <ListItemIcon className={classes.listItem}>
+                          {lsItem.listIcon}
+                        </ListItemIcon>
+                        <ListItemText
+                          className={classes.listItem}
+                          primary={lsItem.listText}
+                        />
+                      </ListItem>
+                    </Link>
                 ))}
             </List>
         </Box>
@@ -93,7 +104,7 @@ const PrimaryAppBar = (props) => {
 		<div className={classes.grow}>
 			<CssBaseline />
 			<AppBar position="fixed">
-				<Toolbar>					
+				<Toolbar>
 					<IconButton edge="start"
 					onClick={toggleSlider("right", true)}
 					color="inherit"
@@ -101,7 +112,7 @@ const PrimaryAppBar = (props) => {
                     <MenuIcon />
                     </IconButton>
 					<Typography className={classes.title} variant="h6" noWrap>
-						Coway
+						Ridemate
 					</Typography>
 					<MobilRightMenuSlider
                      anchor="left"
@@ -112,16 +123,6 @@ const PrimaryAppBar = (props) => {
                     </MobilRightMenuSlider>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-						<IconButton aria-label="show 4 new mails" color="inherit">
-							<Badge badgeContent={4} color="secondary">
-								<MailIcon />
-							</Badge>
-						</IconButton>
-						<IconButton aria-label="show 17 new notifications" color="inherit">
-							<Badge badgeContent={17} color="secondary">
-								<NotificationsIcon />
-							</Badge>
-						</IconButton>
 						<IconButton
 							edge="end"
 							aria-label="account of current user"

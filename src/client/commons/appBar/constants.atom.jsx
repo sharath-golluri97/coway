@@ -1,24 +1,35 @@
 import React from 'react';
 import { AccountBox, Event, Favorite, Home } from '@material-ui/icons';
 import FeedbackOutlinedIcon from '@material-ui/icons/FeedbackOutlined';
-
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 const menuItems = [
     {
         listIcon: <Home />,
-        listText: "Home"
+        listText: "Home",
+        url: '/'
     },
     {
-        listIcon: <AccountBox />,
-        listText: "Profile"
-    },
-    {
-        listIcon: <Event />,
-        listText: "My Events"
+      listIcon: <PeopleOutlineIcon />,
+      listText: "My Groups",
+      url: "/chatRoom"
     },
     {
         listIcon: <FeedbackOutlinedIcon />,
         listText: "Feedback",
         url:"https://forms.gle/YS87NiaWszHtBFXQ9"
-    }
+    },
+    // {
+    //   listIcon: <HelpOutlineIcon />,
+    //   listText: "Help",
+    //   url:""
+    // },
+    {
+      listIcon: <InfoOutlinedIcon />,
+      listText: "About",
+      url:""
+    },
+
 ]
 export default menuItems;
