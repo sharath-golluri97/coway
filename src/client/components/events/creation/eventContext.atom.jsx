@@ -7,20 +7,20 @@ export default props => {
             user_id: 0,
             eventname: "",
             startdate: new Date().toISOString().slice(0, 16),
-            city: "",
-            // ["Bengaluru", "Hyderabad", "Delhi", "Mumbai"]
+            city: 1,
             location: {
               lat : 12.925297,
               long : 77.669237
             },
-            maxparticipants: 2,
+            cityname: "BANGALORE",
+            maxparticipants: 4,
             // desc
             description: "",
             remarks: "",
             // questionnaire
             q1: "Why do you want to join the group?",
-            q2: "Extrovert or introvert?",
-            q3: "Tell us about you?",
+            q2: "",
+            q3: "",
         },
         errors: {}
     });

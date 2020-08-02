@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Grid } from "@material-ui/core";
+import { Grid,Typography } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {getUserInfo} from "../../../../../Authenticator/tokens";
 // import EventData from "../mocks/getEvents"
@@ -44,11 +44,18 @@ const EventsList = (props) => {
       className={classes.gridContainer}
       justify="center"
     > 
+    <ShowIfPropTrue prop={events.length==0}>
+    <Typography variant={"h5"}>
+      You don't have group subscriptions yet. 
+      Please search and join groups or create new one.
+    </Typography>
+    </ShowIfPropTrue>
       {
         events.map( (eventDetails) => {
           return <EventCard {...eventDetails} key={eventDetails.id} {...props} anonymous={false} questionnaire={{}}/>
         })
       }
+
     </Grid>
     </ShowIfPropTrue>
   );

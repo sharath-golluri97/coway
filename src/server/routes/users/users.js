@@ -4,7 +4,7 @@ const {logger} = require("../../utils/logger");
 const { isExistingUser, createUser } = require('../../services/users/UserService');
 const {cacheMiddleware} = require("../../utils/cache");
 
-router.get("/userdetails", cacheMiddleware(6000), async function (req, res, next) {
+router.get("/userdetails", cacheMiddleware(60), async function (req, res, next) {
     try{
         logger.info(`Entered ${req.originalURL} route`);
         console.log("query" , req.query);
@@ -34,7 +34,7 @@ router.post("/create", async function (req, res, next) {
         request['is_active']= true;
         request['contact']= 0;
         request['remarks']= '';
-        request['username']= email.split('@')[0];
+        request['username']= firstName + '_' + Math.floor(1000 + Math.random() * 9000);;
         logger.info("params", request);
         console.log("params", request);
         const data = await createUser(request);

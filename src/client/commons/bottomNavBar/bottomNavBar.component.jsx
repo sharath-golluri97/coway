@@ -41,17 +41,22 @@ function LabelBottomNavigation(props) {
      className={classes.root}
      showLabels
      >
-      <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-      {/* <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} /> */}
-           <BottomNavigationAction
-              label="Create"
-              value="create-event"
-              icon={
-                <Link to={'/create'} style={{ textDecoration: 'none' }} >
-                <AddCircleIcon/>
+      <BottomNavigationAction label="Recents" value="recents" 
+        icon={ 
+                <Link to={'/'} style={{ textDecoration: 'none' }} >
+                <RestoreIcon /> 
                 </Link>
-                }
-            />
+              } 
+      />
+      <BottomNavigationAction
+        label="Create"
+        value="create-event"
+        icon={
+          <Link to={'/create'} style={{ textDecoration: 'none' }} >
+          <AddCircleIcon/>
+          </Link>
+          }
+      />
       <BottomNavigationAction
         label="Nearby"
         value="nearby"

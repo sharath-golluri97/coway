@@ -23,12 +23,14 @@ export default (props) => {
     const event_link = "/events/" + props.event_id;
     return (
         <Fragment>
-            <Typography variant='h5' className={classes.title}>
+            <Typography variant='h4' className={classes.title}>
                 Voila! your event has been created.
             </Typography>
             <Button variant='contained' color='primary' onClick={reload}>
             <Link href={event_link} onClick={preventDefault}>
-                Go to your Event Page
+                <Typography variant='h5' className={classes.title}>
+                    Go to your Event Page
+                </Typography>
             </Link> 
             </Button>
         </Fragment>

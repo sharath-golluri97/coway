@@ -103,7 +103,7 @@ const Geo = (props) =>  {
             '  border-radius: 12px;' +
             '}' +
             '</style>'+
-            '<a href="http://localhost:3000/events/' + hit.event_id + '">' +
+            '<a href="http://localhost:3000/#/events/' + hit.event_id + '">' +
             '<button class="button button2">More details</button>' +
             '</a> ' +
             '</div>'

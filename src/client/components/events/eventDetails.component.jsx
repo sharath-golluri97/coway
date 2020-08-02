@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     }
   });
 
-export default function EventDetails(props){
+const EventDetails = (props) => {
     const groupId = props.match.params.id;
     console.log(groupId);
     const classes = useStyles();
@@ -65,3 +65,5 @@ export default function EventDetails(props){
         </ShowIfPropTrue>
     );
 }
+
+export default EventDetails;
