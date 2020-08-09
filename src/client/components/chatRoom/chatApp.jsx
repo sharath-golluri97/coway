@@ -56,9 +56,9 @@ const ChatApp = (props) => {
         setNewMessageText('');
     }
 
-    // useEffect(()=>{
-    //     scrollToBottom()
-    // }, [messages]);
+    useEffect(()=>{
+        scrollToBottom()
+    }, [messages]);
 
 
     useEffect(()=>{
@@ -103,9 +103,7 @@ const ChatApp = (props) => {
                 setInterval(refreshTimes, 1000);
             }
         })
-        console.log("states: ", ready, userValid);
-        scrollToBottom();
-    },[messages])
+    },[])
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
