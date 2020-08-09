@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 //material-ui
-import { TextField, Grid } from "@material-ui/core";
-import { isWidthDown } from "@material-ui/core/withWidth";
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Grid } from "@material-ui/core";
 import Map from './map.molecule';
 
 //context
@@ -10,7 +8,7 @@ import { EventContext } from "../eventContext.atom";
 
 export default props => {
     const [state] = useContext(EventContext);
-    const { user, errors } = state;
+    const { user } = state;
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>

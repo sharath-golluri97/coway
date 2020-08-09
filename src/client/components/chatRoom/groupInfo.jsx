@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Grid,Typography} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const GroupInfo = (props) =>{
+const GroupInfo = () =>{
 
   const classes = useStyles();
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
   const [ready, setReady] = useState(false);
   const [groups, setGroups] = useState([{}]);
 
@@ -52,7 +52,7 @@ const GroupInfo = (props) =>{
       {
         groups.map((group,key) => {
           return (<div key={key}>
-            <ButtonBase style={{width:'100%'}} component={Link} to={'/chatRoom/chat/' + group.group_name} onClick={()=>console.log("navigate now!")}>
+            <ButtonBase style={{width:'100%'}} component={Link} to={'/chatRoom/chat/' + group.id} onClick={()=>console.log("navigate now!")}>
             <ListItem alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt={group["event"] ? group["event"].name : null } src="" />

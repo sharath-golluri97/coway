@@ -3,19 +3,17 @@ import AllEvents from "../events/selection/cards/allEventsList.component";
 import { getUserInfo } from "../../../Authenticator/tokens";
 import _ from "lodash";
 import { Grid } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import EventSearchBar from "./eventsearch/searchBar.component";
 import useStyles from "./homePage.style";
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import {getUserGroups} from "../../services/groups";
 
-const signalR = require("@aspnet/signalr");
 
 // import displayUserInformation from "../../../Authenticator/UserInfo";
-export default function HomePage(props) {
+export default function HomePage() {
   const classes = useStyles();
 
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
   const [ready, setReady] = useState(false);
   const [events, setEvents] = useState([{}]);
   const [filteredEvents, setFilteredEvents]  = useState([{}]);

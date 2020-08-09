@@ -7,6 +7,7 @@
           "groupsForUser": "api/groups/user",
           "approvedGroupsForUser": "api/groups/user/approved",
           "userExistsInGroup": "api/groups/status",
+          "getGroupParticipants": "api/groups/details/",
           "groupDetails": "api/groups/",
           "userDetails": "api/users/email",
           "createUser": "api/users/create",

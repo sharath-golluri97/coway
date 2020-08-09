@@ -14,14 +14,11 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import axios from "axios";
-import _ from "lodash";
 import {getUserInfo} from "../../../Authenticator/tokens";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import {fetchPendingNotifications, acceptPendingRequest, rejectPendingRequest} from "../../services/notifications";
 
-const signalR = require("@aspnet/signalr");
 
 
 const useStyles = makeStyles({
@@ -54,7 +51,8 @@ export default function Notifications() {
 
 
   const acceptRequest = (requestId,anchor) => {
-    acceptPendingRequest({request_id: requestId}).then(res => {
+    acceptPendingRequest({request_id: requestId}).then(() => {
+      // TODO: if res.data is { 'status': 'FAILED' } or res.status is 400 ... give a alert that limit reached and reject!
       console.log('accepted!')
       init(userInfo);
       setState({ ...state, [anchor]: false });
@@ -62,7 +60,7 @@ export default function Notifications() {
   }
 
   const rejectRequest = (requestId,anchor) => {
-    rejectPendingRequest({request_id: requestId}).then(res => {
+    rejectPendingRequest({request_id: requestId}).then(() => {
       console.log('rejected!');
       init(userInfo);
       setState({ ...state, [anchor]: false });

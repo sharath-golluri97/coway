@@ -1,37 +1,33 @@
 import React, { Fragment } from "react";
-import { Typography, Button,Link } from "@material-ui/core";
+import { Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(3),
+        padding: theme.spacing(1),
         border: "1px solid #ddd",
-        marginBottom: theme.spacing(2),
-        textAlign: "center"
+        marginBottom: theme.spacing(1),
+        textAlign: "center",
+        textTransform: "uppercase",
+        letterSpacing: "2px"
     },
     title: {
         padding: theme.spacing(5, 0)
     }
 }));
 
-export default (props) => {
+export default () => {
     const classes = useStyles();
-    const reload = () => {
-        window.location.reload();
-    };
-    const preventDefault = (event) => event.preventDefault();
     return (
         <Fragment>
             <Typography variant='h4' className={classes.title}>
                 Voila! your event has been created.
             </Typography>
-            {/* <Button variant='contained' color='primary' onClick={reload}> */}
-            <Link to={'/'} onClick={preventDefault}>
-                <Typography variant='h5' className={classes.title}>
-                    Return to home page
-                </Typography>
-            </Link> 
-            {/* </Button> */}
+            <Typography className={classes.root}>
+                <Link href="/">
+                    Return to Home Page
+                </Link>
+            </Typography>
         </Fragment>
     );
 };

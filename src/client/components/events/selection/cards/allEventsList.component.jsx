@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Grid,Typography } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import EventCard from "./eventCard.molecule";
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const EventsList = (props) => {
 
   const classes = useStyles();
-  const [ready,setReady] = useState(true);
+  const [ready] = useState(true);
 
   return (
     <ShowIfPropTrue prop={ready}>

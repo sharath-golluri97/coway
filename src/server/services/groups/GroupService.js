@@ -43,6 +43,18 @@ async function fetchGroupDetails(params) {
   }
 }
 
+async function fetchGroupParticipants(params) {
+  console.log("+++++fetchGroupParticipants++++++", params);
+  try {
+    const url = appConfig.api.coway.getGroupParticipants;
+    const res = await fetch.get(url + params.id, {});
+    return res;
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+}
+
 async function isUserInGroup(params) {
   console.log("+++++isUserInGroup++++++", params);
   try {
@@ -61,5 +73,6 @@ module.exports = {
   fetchGroupsForUser,
   fetchGroupDetails,
   isUserInGroup,
-  fetchApprovedGroupsForUser
+  fetchApprovedGroupsForUser,
+  fetchGroupParticipants
 }

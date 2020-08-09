@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useRef} from 'react';
+import React, {useState,useEffect} from 'react';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -21,7 +21,6 @@ const EventDetails = (props) => {
     const classes = useStyles();
 
     const [events, setEvents] = useState([{}]);
-    const [userInfo,setUserInfo] = useState({});
     const [ready,setReady] = useState(false);
     const [anonymous,setAnonymous] = useState(true);
 

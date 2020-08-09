@@ -1,8 +1,8 @@
 import { MsalAuthProvider, LoginType } from "react-aad-msal";
 
-const tenant = "cowayauth.onmicrosoft.com";
-const signInPolicy = "B2C_1_coway_signup";
-const applicationID = "b722f51d-720a-4943-a4a3-a42c9c65005c";
+const tenant = "ridemateauth.onmicrosoft.com";
+const signInPolicy = "B2C_1_RideMate_Auto";
+const applicationID = "5396f86f-45cf-4b03-b7b0-673bcdcf5bbf";
 const reactRedirectUri = window.location.origin;
 const tenantSubdomain = tenant.split(".")[0];
 const instance = `https://${tenantSubdomain}.b2clogin.com/tfp/`;
@@ -25,7 +25,7 @@ const signInConfig = {
 const authenticationParameters = {
 	scopes: [
 		"https://graph.microsoft.com/Directory.Read.All",
-		" https://cowayauth.onmicrosoft.com/api/user_impersonation"
+		" https://ridemateauth.onmicrosoft.com/api/user_impersonation"
 	]
 };
 // Options

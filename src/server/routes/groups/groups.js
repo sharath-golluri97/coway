@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {logger} = require("../../utils/logger");
-const { fetchGroupsForUser,fetchGroupDetails,isUserInGroup,fetchApprovedGroupsForUser } = require('../../services/groups/GroupService');
+const { fetchGroupsForUser,fetchGroupDetails,isUserInGroup,fetchApprovedGroupsForUser, fetchGroupParticipants } = require('../../services/groups/GroupService');
 
 
 router.get("/getGroups", async function (req, res, next) {
@@ -43,6 +43,18 @@ router.get("/status", async function (req, res, next) {
         console.log("error in isUserInGroup", error);
         next(error);
     }
+});
+
+router.get("/details/:id", async function (req, res, next) {
+  try{
+      const params = req.params;
+      logger.info("params", params);
+      const data = await fetchGroupParticipants(params);
+      res.send(data.data);
+  } catch(error) {
+      console.log("error in fetching group participants", error);
+      next(error);
+  }
 });
 
 router.get("/:id", async function (req, res, next) {

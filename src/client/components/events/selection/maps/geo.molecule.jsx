@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { GeoSearch, Marker } from 'react-instantsearch-dom-maps';
 import { makeStyles } from '@material-ui/core/styles';
 import { renderToString } from 'react-dom/server'
@@ -39,19 +39,11 @@ month[11] = "December";
   return [day + ' ' + month +',' + hour + ' hours' ];
 }
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
 
 
 const Geo = (props) =>  {
     const InfoWindow = new props.google.maps.InfoWindow({content: ""});
-    const [state, setState] = useState({
+    const [] = useState({
         isPaneOpen: false,
         isPaneOpenLeft: false,
       });
@@ -68,7 +60,7 @@ const Geo = (props) =>  {
               <Divider/>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant='overline' noWrap>
+              <Typography variant='overline'>
               {hit.description}
               </Typography>
             </Grid>

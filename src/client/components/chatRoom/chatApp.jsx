@@ -7,58 +7,81 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en'
 import _ from 'lodash'
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
+import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import ChatMessage from "./chatMessage";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {getUserInfo} from "../../../Authenticator/tokens";
 import { v4 as uuidv4 } from 'uuid';
+import { getGroupParticipantsDetails } from '../../services/groups';
+import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
+
 const signalR = require("@aspnet/signalr");
 
+
+
 const ChatApp = (props) => {
+
     const classes = useStyles();
     TimeAgo.addLocale(en)
     const timeago = new TimeAgo('en-US');
     const groupId = props.match.params.id;
-    const {data} = props.location;
 
     // to auto scroll to bottom when new msg appears
     const messagesEndRef = useRef(null);
 
     const [userInfo,setUserInfo] = useState({});
-    // var userInfo = {};
+    const [groupInfo, setGroupInfo] = useState({});
     const [newMessageText,setNewMessageText] = useState('');
     const [messages,setMessages] = useState([]);
+    const [participants, setParticipants] = useState([]);
     const [ready,setReady] = useState(false);
+    const [drawer, setDrawer] = useState(false);
+    const [userValid, setUserValid] = useState(false);
 
     const sendNewMessage = () => {
-        sendMessage(userInfo.firstName, newMessageText, groupId);
+        sendMessage(userInfo.username, newMessageText, groupId);
         setNewMessageText('');
     }
 
-
-    useEffect(()=>{
-        scrollToBottom()
-    }, [messages]);
+    // useEffect(()=>{
+    //     scrollToBottom()
+    // }, [messages]);
 
 
     useEffect(()=>{
         getUserInfo().then(userData => {
             setUserInfo(userData);
-
+            var params = {};
+            params['id']=groupId;
+            getGroupParticipantsDetails(params).then(resp => {
+                setGroupInfo(resp);
+                setParticipants(resp.user_group_infos);
+                var groupUsers = resp.user_group_infos;
+                for(var i=0; i<groupUsers.length; i++){
+                    if(groupUsers[i]['user_id']==userData['userId']){
+                        setUserValid(true);
+                    }
+                }
+            });
             if (userData !== null) {
                 setReady(true);
-                console.log('retrieving messages');
                 getMessages(userData).then(messages => {
-                    console.log("messages", messages);
                        for (let m of messages.reverse()) {
                                 newMessage(m);
                         }
-
                 });
                 getConnectionInfo(userData).then(info => {
                     const options = {
@@ -75,23 +98,54 @@ const ChatApp = (props) => {
                     connection.start()
                         .then(() => {
                             addToGroup(userData);
-                        }
-                            )
-                        .catch(console.error);
-
+                        }).catch(console.error);
                 }).catch(console.error);
                 setInterval(refreshTimes, 1000);
             }
-    })
-},[])
+        })
+        console.log("states: ", ready, userValid);
+        scrollToBottom();
+    },[messages])
+
+    const toggleDrawer = (open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setDrawer(open);
+    };
+
+    const list = () => (
+    <div
+        className={clsx(classes.list)}
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+    >
+
+        <List>
+        <ListItemText primary={"Group Participants"} />
+        {participants.map((participant) => (
+            <ListItem key={participant.user_id}>
+            <ListItemIcon>
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                    {participant.user.username.toString().charAt(0)}
+                </Avatar>
+            </ListItemIcon>
+            <ListItemText primary={participant.user.username} />
+            </ListItem>
+        ))}
+        </List>
+    </div>
+    );
 
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        if(messagesEndRef !== null && messagesEndRef.current !== null){
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        }
     }
 
     // Azure SignalR connection configs
     const apiBaseUrl = 'https://ridematechat.azurewebsites.net';
-    const hubName = 'chat';
 
     function getAxiosConfig(userData) {
         const config = {
@@ -121,6 +175,7 @@ const ChatApp = (props) => {
             group: uuidv4(),
         }).then(resp => resp.data);
     }
+
     function getMessages(userData) {
         return axios.get(`${apiBaseUrl}/api/messages/` + groupId, getAxiosConfig(userData))
             .then(resp => resp.data);
@@ -148,6 +203,20 @@ const ChatApp = (props) => {
     };
 
     return(
+        <React.Fragment>
+        <ShowIfPropTrue prop={!ready & !userValid}>
+            <div className={classes.loader}>
+                <CircularProgress />
+            </div>
+        </ShowIfPropTrue>
+
+        <ShowIfPropTrue prop={ready & !userValid}>
+            <div>
+            <Typography>Authorization Error! Please go back to home page and try again.</Typography>
+            </div>
+        </ShowIfPropTrue>
+
+        <ShowIfPropTrue prop={ready & userValid}>
         <div style={{paddingTop:24+'px'}}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid item xs={1} className={classes.header}>
@@ -161,25 +230,26 @@ const ChatApp = (props) => {
                     <Card >
                         <CardHeader style={{padding:'0'}}
                             avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                    A
-                                </Avatar>
+                                <Avatar alt={groupInfo["group_name"] ? groupInfo["group_name"].toString().charAt(0) : null } src="" />
                             }
                             action={
-                                <IconButton aria-label="settings">
-                                    <GroupRoundedIcon />
-                                </IconButton>
+                                        <React.Fragment key={'right'}>
+                                        <IconButton aria-label="settings" onClick={toggleDrawer(true)}>
+                                            <GroupRoundedIcon />
+                                            
+                                        </IconButton>
+                                        <Drawer anchor={'right'} open={drawer} onClose={toggleDrawer(false)}>
+                                                {list()}
+                                            </Drawer>
+                                        </React.Fragment>
                             }
-                            title={groupId}
-                            subheader="Group Status"
+                            title={groupInfo.group_name}
                         />
                     </Card>
                 </Grid>
                 <Grid  item xs={12} className={classes.content}>
                     <ChatMessage messages={messages}/>
-
                     <div ref={messagesEndRef} />
-
                 </Grid>
                 <Grid container item xs={12} className={classes.footer}>
                     <Grid item xs={11}>
@@ -194,7 +264,6 @@ const ChatApp = (props) => {
                         fullWidth={true}
                         size="small"
                         style={{borderRadius: '10px'}}
-
                     />
                     </Grid>
                     <Grid item xs={1}>
@@ -206,7 +275,8 @@ const ChatApp = (props) => {
 
             </Grid>
         </div>
-
+        </ShowIfPropTrue>
+        </React.Fragment>
     )
 }
 
