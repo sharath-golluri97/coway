@@ -9,13 +9,19 @@ import { EventContext } from "../eventContext.atom";
 export default props => {
     const [state] = useContext(EventContext);
     const { user } = state;
+
+    const handleMapUpdate= (lat, long) => {
+        user.location.lat = lat;
+        user.location.long = long;
+    }
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <Map
                     google={props.google}
                     center={{lat: user.location.lat, lng: user.location.long}}
-                    stateContext={user}
+                    onLocationChange={handleMapUpdate}
                     height='300px'
                     zoom={12}
                 />
