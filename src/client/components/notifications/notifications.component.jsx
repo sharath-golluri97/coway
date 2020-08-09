@@ -14,6 +14,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import {getUserInfo} from "../../../Authenticator/tokens";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
@@ -222,6 +223,11 @@ export default function Notifications() {
       {['bottom'].map((anchor) => (
         <React.Fragment key={anchor}>
           <List className={classes.root}>
+          <ShowIfPropTrue prop={pendingRequests.length==0}>
+            <Typography variant={"h5"}>
+              You don't have any pending notifications.
+            </Typography>
+          </ShowIfPropTrue>
             {
               pendingRequests.map((pr,i) => {
                 return (

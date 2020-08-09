@@ -37,8 +37,8 @@ const GroupInfo = () =>{
       setUserInfo(userData);
       var params = {};
       params['email']=userData.email;
-      console.log("params", params);
       getApprovedUserGroups(params).then(resp => {
+        console.log(resp);
         setGroups(resp);
         setReady(true);
       });
@@ -48,6 +48,12 @@ const GroupInfo = () =>{
   return (
     <ShowIfPropTrue prop={ready}>
     <List className={classes.root}>
+      <ShowIfPropTrue prop={groups.length==0}>
+        <Typography variant={"h5"}>
+          You don't have group subscriptions yet.
+          Please search and join groups or create new one.
+        </Typography>
+      </ShowIfPropTrue>
       <div>
       {
         groups.map((group,key) => {
