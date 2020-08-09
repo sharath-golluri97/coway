@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Grid,Typography} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const GroupInfo = (props) =>{
+const GroupInfo = () =>{
 
   const classes = useStyles();
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
   const [ready, setReady] = useState(false);
   const [groups, setGroups] = useState([{}]);
 
@@ -37,8 +37,8 @@ const GroupInfo = (props) =>{
       setUserInfo(userData);
       var params = {};
       params['email']=userData.email;
-      console.log("params", params);
       getApprovedUserGroups(params).then(resp => {
+        console.log(resp);
         setGroups(resp);
         setReady(true);
       });
@@ -48,11 +48,17 @@ const GroupInfo = (props) =>{
   return (
     <ShowIfPropTrue prop={ready}>
     <List className={classes.root}>
+      <ShowIfPropTrue prop={groups.length==0}>
+        <Typography variant={"h5"}>
+          You don't have group subscriptions yet.
+          Please search and join groups or create new one.
+        </Typography>
+      </ShowIfPropTrue>
       <div>
       {
         groups.map((group,key) => {
           return (<div key={key}>
-            <ButtonBase style={{width:'100%'}} component={Link} to={'/chatRoom/chat/' + group.group_name} onClick={()=>console.log("navigate now!")}>
+            <ButtonBase style={{width:'100%'}} component={Link} to={'/chatRoom/chat/' + group.id} onClick={()=>console.log("navigate now!")}>
             <ListItem alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt={group["event"] ? group["event"].name : null } src="" />
@@ -67,7 +73,7 @@ const GroupInfo = (props) =>{
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      User 1
+                    ...
                     </Typography>
 
                 </React.Fragment>

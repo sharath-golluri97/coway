@@ -1,25 +1,19 @@
-import React, { Fragment, useContext,useState,useEffect } from "react";
+import React, { Fragment, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-//modules
 import EventDetails from "./forms/eventDetails.form";
 import LocationDetails from "./forms/location.form";
 import Questionnaire from "./forms/questionnaire.form";
 import EventFormSummary from "./summary.molecule";
 import Success from "./success.atom";
-
-//material-ui
 import { Box, Typography, Snackbar, SnackbarContent } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
-//stepper
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import {createEvent} from "../../../services/events"; 
 import Button from "@material-ui/core/Button";
-//context
 import { EventContext } from "./eventContext.atom";
-import HomePage from "../../homePage/homePage.component";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,7 +53,7 @@ const useStyles = makeStyles(theme => ({
 const steps = ["Event details", "Location details","Questionnaire", "Summary"];
 
 //main form component
-export default props => {
+export default () => {
     const [completed, setCompleted] = React.useState(false);
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -191,7 +185,7 @@ export default props => {
                             const labelProps = {};
                             if (isStepOptional(index)) {
                                 labelProps.optional = (
-                                    <Typography variant='caption'>group joining questions</Typography>
+                                    <Typography variant='caption'></Typography>
                                 );
                             }
 

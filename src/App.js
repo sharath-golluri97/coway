@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { HashRouter,Router, Route, Switch, withRouter } from "react-router-dom";
+import { HashRouter,Route, Switch } from "react-router-dom";
 
 import Container from "@material-ui/core/Container";
 import AppBar from "./client/commons/appBar/appBar.component";
@@ -18,7 +18,6 @@ const HomePageAsync = lazy(() => import("./client/components/homePage/homePage.c
 const CreateEventAsync = lazy( () => import("./client/components/events/creation/createEvent.component"));
 const MapViewAsync = lazy( () => import("./client/components/events/selection/maps/mapView.component"));
 const NotificationsAsync = lazy( () => import("./client/components/notifications/notifications.component"));
-const NotFoundAsync = lazy( () => import("./client/components/notFound/notFound.component"));
 
 //Custom Chat -> for Azure SignalR and Azure Cosmos DB
 const GroupInfoAsync = lazy(()=> import("./client/components/chatRoom/groupInfo"));
@@ -28,7 +27,7 @@ const EventDetailsAsync = lazy(()=> import("./client/components/events/eventDeta
 /**
  * HOC to wrap dynamically imported routes with React.Suspense fallback loader
  */
-function withSuspense(WrappedComponent, loader) {
+function withSuspense(WrappedComponent) {
   return function (props) {
     return (
       <Suspense

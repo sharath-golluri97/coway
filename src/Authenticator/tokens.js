@@ -20,9 +20,10 @@ export const getUserInfo = () => {
 			email : decoded.emails[0]
 		};
 		// check if exists
-		return signInUser(userInfo).then(userId =>{
-			if(userId !== false){
-				userInfo['userId']= userId;
+		return signInUser(userInfo).then(userDetails =>{
+			if(userDetails !== false){
+				userInfo['userId']= userDetails.id;
+				userInfo['username']=userDetails.username;
 				console.log("userInfo", userInfo);
 				return userInfo;
 			}

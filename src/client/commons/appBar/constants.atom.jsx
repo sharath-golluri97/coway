@@ -1,8 +1,7 @@
 import React from 'react';
-import { AccountBox, Event, Favorite, Home } from '@material-ui/icons';
+import { Home } from '@material-ui/icons';
 import FeedbackOutlinedIcon from '@material-ui/icons/FeedbackOutlined';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 const menuItems = [
     {

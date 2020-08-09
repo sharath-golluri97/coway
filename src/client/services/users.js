@@ -8,14 +8,14 @@ export async function signInUser(params){
         const resp = await axios.get("/api/users/userdetails", {params});
         console.log(resp.data);
         if(resp.data.user && resp.data.user.id){
-            return resp.data.user.id;
+            return resp.data.user;
         }
         else{
             console.log('creating new user..');
             const newUser = await axios.post("/api/users/create", {params});
             console.log("newUser: " + JSON.stringify(newUser));
             if(newUser.data.user && newUser.data.user.id){
-                return newUser.data.user.id;
+                return newUser.data.user;
             }
             else {
                 console.log('user creation failed.');

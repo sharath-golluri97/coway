@@ -48,6 +48,22 @@ export async function getGroupDetails(params){
       }
 }
 
+export async function getGroupParticipantsDetails(params){
+  try {
+      const resp = await axios.get("/api/groups/details/" + params.id, {});
+      console.log("api response", resp.data.group);
+      return resp.data.group;
+    } catch (err) {
+      if (err.response) {
+        throw err.response.data;
+      } else if (err.request) {
+        throw err.request;
+      } else {
+        throw err.message;
+      }
+    }
+}
+
 export async function isUserInGroup(params){
     try {
         console.log("params" , params);

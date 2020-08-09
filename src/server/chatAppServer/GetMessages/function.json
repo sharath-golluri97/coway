@@ -21,7 +21,7 @@
       "type": "cosmosDB",
       "databaseName": "CowayDevDb",
       "collectionName": "chat",
-      "sqlQuery": "select * from c where c.groupName = {group_name} order by c._ts desc",
+      "sqlQuery": "select * from c where c.groupName = {group_name} order by c._ts desc offset 0 limit 500",
       "connectionStringSetting": "AzureWebJobsCosmosDBConnectionString",
       "direction": "in"
     }

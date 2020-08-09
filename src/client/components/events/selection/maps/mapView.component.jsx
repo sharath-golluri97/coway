@@ -1,4 +1,4 @@
-import React, {useState,useContext,useEffect } from 'react'
+import React, {useState,useEffect } from 'react'
 import { InstantSearch, Configure, SearchBox } from 'react-instantsearch-dom'
 import algoliasearch from 'algoliasearch/lite';
 import { GoogleMapsLoader } from 'react-instantsearch-dom-maps'
@@ -9,7 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import MaterialUIPickers from "../../../../commons/dateTimePicker/dateTimePicker";
 import CitySelect from "../citySelect/citySelect.component";
 import {getCities} from "../../../../services/cities";
-// const options = ['Bengaluru', 'Option 2'];
 
 const MapsView = () =>  {
 
@@ -23,7 +22,10 @@ const MapsView = () =>  {
         function getCityId(cityName){
           for(var i in cities){
             if(cities[i].name==cityName){
-              console.log(cities[i].id);
+              if(cities[i].id == undefined){
+                console.log("entered undefied")
+                return 1;
+              }
               return cities[i].id;
             }
           }
@@ -65,13 +67,14 @@ const MapsView = () =>  {
                 searchClient={searchClient}
             >
                 <Configure
-                    hitsPerPage={6}
+                    hitsPerPage={100}
                     getRankingInfo
                     aroundLatLngViaIP
                     typoTolerance="min"
                     filters={`city_id:${getCityId(value)} AND end_time > ${selectedDate.getTime()}`}
                 />
                 <main>
+                    
                   <Grid container justify="center" alignItems="center" >
                     <Grid item xs={12} style={{marginTop:'10px'}}>
                       <CitySelect options={cityOptions} handleOnChange={handleOnCityChange} value={value} inputValue={inputValue} onInputChange={handleOnCityInputChange} />

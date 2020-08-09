@@ -5,6 +5,18 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: 100+'%',
     },
+    loader: {
+        display: 'flex',
+        '& > * + *': {
+          marginLeft: theme.spacing(2),
+        },
+      },
+    list: {
+        width: 250,
+    },
+    fullList: {
+        width: 'auto',
+    },
     headButton: {
         // position: 'sticky',
     },

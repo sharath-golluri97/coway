@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
     const [state] = useContext(EventContext);
-    const { eventname, startdate, city,cityname, maxparticipants, description, remarks, q1, q2, q3 } = state.user;
+    console.log("summary details:", state);
+    const { eventname, startdate,cityname, maxparticipants, description, remarks, q1, q2, q3 } = state.user;
     return (
         <Fragment>
             <Grid container className={classes.summary}>
