@@ -21,7 +21,7 @@ export default () => {
     return (
         <Fragment>
             <Typography variant='h4' className={classes.title}>
-                Voila! your event has been created.
+                Voila! your event has been created. 
             </Typography>
             <Typography className={classes.root}>
                 <Link href="/">

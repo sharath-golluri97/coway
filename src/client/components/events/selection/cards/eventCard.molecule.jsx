@@ -121,10 +121,10 @@ const EventCard = (props) => {
     setEndEvent({ date: eventEnd.date, time: eventEnd.time });
     setGroupStatus(userGroupStatus);
     var eventTimeReadable = new Date(groupInfo.event.event_start_time).toDateString();
-    setShareText("Hi, %0a Join me on RideMate for " + groupInfo.event.name + " ( " 
+    setShareText("Hi, %0a %0a Join me on RideMate for " + groupInfo.event.name + " ( " 
      + groupInfo.event.description + " ) on " + eventTimeReadable  + 
-     " . %0a Visit RideMate now: " +
-     "https://ridemate.in/events/" + groupInfo['id']);
+     " . %0a %0a Visit RideMate for details now: " +
+     "https://ridemate.in/#/events/" + groupInfo['id']);
     reverseGeocode(groupInfo.event.latitude, groupInfo.event.longitude)
       .then(resp => resp.address.suburb)
       .then(location => {
@@ -145,7 +145,8 @@ const EventCard = (props) => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
-              Your join request was sent successfully!
+              Your join request was sent successfully! 
+              Once the admin approves your request, you can chat with them by visiting "My Groups".
             </Alert>
           </Snackbar>
           <HomePage />

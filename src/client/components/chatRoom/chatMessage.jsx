@@ -19,7 +19,7 @@ const ChatMessage = (props) =>{
             <div key={i}>
 
                 {
-                    message.sender === userInfo.firstName?
+                    message.sender === userInfo.username?
                         <Grid className={classes.messageContainer} container direction='column' alignItems="flex-end">
                             <Grid item xs={8}>
                                 <Paper className={classes.messageMe} variant="elevation"  elevation={4}>

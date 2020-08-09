@@ -15,6 +15,7 @@ export default props => {
                 <Map
                     google={props.google}
                     center={{lat: user.location.lat, lng: user.location.long}}
+                    stateContext={user}
                     height='300px'
                     zoom={12}
                 />

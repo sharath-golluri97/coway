@@ -73,7 +73,7 @@ const GroupInfo = () =>{
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      User 1
+                    ...
                     </Typography>
 
                 </React.Fragment>

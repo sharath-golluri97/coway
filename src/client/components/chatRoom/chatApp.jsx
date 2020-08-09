@@ -49,7 +49,7 @@ const ChatApp = (props) => {
     const [participants, setParticipants] = useState([]);
     const [ready,setReady] = useState(false);
     const [drawer, setDrawer] = useState(false);
-    const [userValid, setUserValid] = useState(false);
+    const [userValid, setUserValid] = useState(true);
 
     const sendNewMessage = () => {
         sendMessage(userInfo.username, newMessageText, groupId);
@@ -70,11 +70,13 @@ const ChatApp = (props) => {
                 setGroupInfo(resp);
                 setParticipants(resp.user_group_infos);
                 var groupUsers = resp.user_group_infos;
+                var user_valid = false;
                 for(var i=0; i<groupUsers.length; i++){
                     if(groupUsers[i]['user_id']==userData['userId']){
-                        setUserValid(true);
+                        user_valid=true;
                     }
                 }
+                setUserValid(user_valid);
             });
             if (userData !== null) {
                 setReady(true);
@@ -202,7 +204,7 @@ const ChatApp = (props) => {
 
     return(
         <React.Fragment>
-        <ShowIfPropTrue prop={!ready & !userValid}>
+        <ShowIfPropTrue prop={!ready}>
             <div className={classes.loader}>
                 <CircularProgress />
             </div>

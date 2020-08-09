@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component , useContext} from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
 import {Grid} from "@material-ui/core";
+import { EventContext } from "../eventContext.atom";
+
 Geocode.setApiKey( 'AIzaSyCv7mHnjHZYsbeOe9tRMqWcKDZ9ywXSmI0' );
 Geocode.enableDebug();
 
@@ -156,7 +158,14 @@ class Map extends Component{
                     city = this.getCity( addressArray ),
                     area = this.getArea( addressArray ),
                     state = this.getState( addressArray );
+
                 this.setState( {
+                    user:{
+                        location: {
+                            lat: newLat,
+                            long: newLng
+                        }
+                    },
                     address: ( address ) ? address : '',
                     area: ( area ) ? area : '',
                     city: ( city ) ? city : '',
@@ -192,6 +201,12 @@ class Map extends Component{
             lngValue = place.geometry.location.lng();
         // Set these values in the state.
         this.setState({
+            user:{
+                location: {
+                    lat: latValue,
+                    long: lngValue
+                }
+            },
             address: ( address ) ? address : '',
             area: ( area ) ? area : '',
             city: ( city ) ? city : '',
@@ -216,16 +231,6 @@ class Map extends Component{
                                defaultZoom={ this.props.zoom }
                                defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
                     >
-                        {/* InfoWindow on top of marker */}
-                        {/*<InfoWindow*/}
-                        {/*    onClose={this.onInfoWindowClose}*/}
-                        {/*    position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}*/}
-                        {/*>*/}
-                        {/*    <div>*/}
-                        {/*        <span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>*/}
-                        {/*    </div>*/}
-                        {/*</InfoWindow>*/}
-                        {/*Marker*/}
                         <Marker google={this.props.google}
                                 name={'Dolores park'}
                                 draggable={true}
@@ -253,24 +258,6 @@ class Map extends Component{
         if( this.props.center.lat !== undefined ) {
           map = <Grid container spacing={2}>
             <Grid item xs={12}>
-              {/*<div>*/}
-              {/*    <div className="form-group">*/}
-              {/*        <label htmlFor="">City</label>*/}
-              {/*        <input type="text" name="city" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.city }/>*/}
-              {/*    </div>*/}
-              {/*    <div className="form-group">*/}
-              {/*        <label htmlFor="">Area</label>*/}
-              {/*        <input type="text" name="area" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.area }/>*/}
-              {/*    </div>*/}
-              {/*    <div className="form-group">*/}
-              {/*        <label htmlFor="">State</label>*/}
-              {/*        <input type="text" name="state" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.state }/>*/}
-              {/*    </div>*/}
-              {/*    <div className="form-group">*/}
-              {/*        <label htmlFor="">Address</label>*/}
-              {/*        <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>*/}
-              {/*    </div>*/}
-              {/*</div>*/}
               <AsyncMap
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCv7mHnjHZYsbeOe9tRMqWcKDZ9ywXSmI0&libraries=places`}
                 loadingElement={
@@ -284,10 +271,6 @@ class Map extends Component{
                 }
               />
             </Grid>
-            {/* <Grid item xs={12}>
-            </Grid>
-            <Grid item xs={12}>
-            </Grid> */}
           </Grid>
         } else {
             map = <div style={{height: this.props.height}} />
