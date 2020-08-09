@@ -63,7 +63,7 @@ function App() {
 
 const DefaultContainer = () => (
   <Grid container >
-    <Grid item xs={12} style={{height:'86.2vh',overflowY:'scroll'}}>
+    <Grid container item xs={12} style={{height:'82vh',overflowY:'scroll'}}>
       <Container >
         <Route exact path="/" component={withSuspense(HomePageAsync)} />
         <Route exact path="/chatRoom" component={withSuspense(GroupInfoAsync)} />
@@ -72,13 +72,13 @@ const DefaultContainer = () => (
         <Route exact path="/notifications" component={withSuspense(NotificationsAsync)}/>
         <Route exact path="/events/:id" component={withSuspense(EventDetailsAsync)} />
       </Container>
-      <ScrollTop>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
+      {/*<ScrollTop>*/}
+      {/*  <Fab color="secondary" size="small" aria-label="scroll back to top">*/}
+      {/*    <KeyboardArrowUpIcon />*/}
+      {/*  </Fab>*/}
+      {/*</ScrollTop>*/}
     </Grid>
-    <Grid item xs={12} style={{zIndex:1}}>
+    <Grid item xs={12} style={{zIndex:1, bottom:0,width:'100%',position:'fixed'}}>
       <LabelBottomNavigation/>
     </Grid>
   </Grid>

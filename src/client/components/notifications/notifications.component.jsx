@@ -19,7 +19,8 @@ import {getUserInfo} from "../../../Authenticator/tokens";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
 import {fetchPendingNotifications, acceptPendingRequest, rejectPendingRequest} from "../../services/notifications";
-
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 
 const useStyles = makeStyles({
@@ -39,7 +40,7 @@ export default function Notifications() {
   const [userInfo, setUserInfo] = useState({});
   const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState({});
-
+  const [ready,setReady] = useState(false);
 
   const toggleDrawer = (anchor, open, pr) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -194,9 +195,11 @@ export default function Notifications() {
 
 
   const init = (userData) => {
+    setReady(false);
     fetchPendingNotifications({email:userData.email}).then(res => {
       // console.log(JSON.stringify(resp));
       setPendingRequests(res.userResponses);
+      setReady(true);
     })
   }
 
@@ -219,9 +222,20 @@ export default function Notifications() {
 
 
   return (
-    <div>
+    <div style={{height:'100%'}}>
       {['bottom'].map((anchor) => (
         <React.Fragment key={anchor}>
+          <ShowIfPropTrue prop={!ready}>
+            <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+              <Loader
+                type="Circles"
+                color="#00BFFF"
+                height={40}
+                width={40}
+              />
+            </Grid>
+          </ShowIfPropTrue>
+          <ShowIfPropTrue prop={ready}>
           <List className={classes.root}>
           <ShowIfPropTrue prop={pendingRequests.length==0}>
             <Typography variant={"h5"}>
@@ -263,6 +277,7 @@ export default function Notifications() {
               })
             }
           </List>
+          </ShowIfPropTrue>
           <Drawer variant="persistent" anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>

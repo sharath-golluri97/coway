@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import AllEvents from "../events/selection/cards/allEventsList.component";
 import { getUserInfo } from "../../../Authenticator/tokens";
 import _ from "lodash";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Grid } from "@material-ui/core";
 import EventSearchBar from "./eventsearch/searchBar.component";
 import useStyles from "./homePage.style";
@@ -9,7 +11,6 @@ import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
 import {getUserGroups} from "../../services/groups";
 
 
-// import displayUserInformation from "../../../Authenticator/UserInfo";
 export default function HomePage() {
   const classes = useStyles();
 
@@ -37,13 +38,9 @@ export default function HomePage() {
     if(value && value.event ) {
       console.log(JSON.stringify(events))
       const filterResult = events.filter(event => {
-        console.log("eg: " + event.group_name +  " ve: " + value.event.name);
         return event.group_name === value.event.name
       });
-      console.log(JSON.stringify(filterResult))
       setFilteredEvents(filterResult)
-
-
     }
     else {
       setFilteredEvents(events)
@@ -63,12 +60,20 @@ export default function HomePage() {
   }
 
   return (
-    <div>
+    <div style={{height:'100%'}}>
+      <ShowIfPropTrue prop={!ready}>
+        <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+            <Loader
+              type="Circles"
+              color="#00BFFF"
+              height={40}
+              width={40}
+
+            />
+        </Grid>
+      </ShowIfPropTrue>
       <ShowIfPropTrue prop={ready}>
       <Grid container spacing={1}>
-       {/* <Grid item xs={12}>
-          <Typography variant={"h6"}>Welcome</Typography>
-        </Grid>*/}
           <Grid item container xs={12} className={classes.searchBar}>
             <Grid item xs={12}>
               <EventSearchBar value={value} onChange={handleSearchSelect} events={events} />

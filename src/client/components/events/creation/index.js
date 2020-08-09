@@ -1,19 +1,21 @@
-import React, { Fragment, useContext } from "react";
+import React, {Fragment, useContext, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import EventDetails from "./forms/eventDetails.form";
 import LocationDetails from "./forms/location.form";
 import Questionnaire from "./forms/questionnaire.form";
 import EventFormSummary from "./summary.molecule";
 import Success from "./success.atom";
-import { Box, Typography, Snackbar, SnackbarContent } from "@material-ui/core";
+import {Box, Typography, Snackbar, SnackbarContent, Grid} from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
-import {createEvent} from "../../../services/events"; 
+import {createEvent} from "../../../services/events";
 import Button from "@material-ui/core/Button";
 import { EventContext } from "./eventContext.atom";
+import ShowIfPropTrue from "../../../commons/showPropIf/showPropIf";
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -55,6 +57,7 @@ const steps = ["Event details", "Location details","Questionnaire", "Summary"];
 //main form component
 export default () => {
     const [completed, setCompleted] = React.useState(false);
+    const [ready,setReady] = useState(true);
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [errors] = React.useState({});
@@ -81,6 +84,7 @@ export default () => {
         e.preventDefault();
         if (activeStep < steps.length - 1) handleNext();
         else {
+            setReady(false);
             console.log('form data..', state);
                 var events = {};
                 var questionnaire = {};
@@ -99,10 +103,10 @@ export default () => {
                 questionnaire['question_2']= state.user.q2;
                 questionnaire['question_3']= state.user.q3;
                 questionnaire['required_questions']= [1];
-                
+
                 groups['creator_id']= state.user.user_id;
                 groups['max_participants']= state.user.maxparticipants;
-                
+
                 var request = {};
                 request['groups']= groups;
                 request['questionnaire']=questionnaire;
@@ -111,9 +115,10 @@ export default () => {
                 console.log("request..", request);
                 createEvent(request).then(resp => {
                     console.log("new event created: ", resp.id);
-                    setCompleted(true);
+                  setReady(true)
+                  setCompleted(true);
                 });
-                
+
         }
     };
 
@@ -177,6 +182,18 @@ export default () => {
     };
 
     return (
+      <div style={{height:'100%'}}>
+      <ShowIfPropTrue prop={!ready}>
+        <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+          <Loader
+            type="Circles"
+            color="#00BFFF"
+            height={40}
+            width={40}
+          />
+        </Grid>
+      </ShowIfPropTrue>
+      <ShowIfPropTrue prop={ready}>
         <Fragment>
             {!completed && (
                 <Box className={classes.root}>
@@ -261,5 +278,8 @@ export default () => {
                 </Box>
             )}
         </Fragment>
-    );
+  </ShowIfPropTrue>
+  </div>
+
+);
 };

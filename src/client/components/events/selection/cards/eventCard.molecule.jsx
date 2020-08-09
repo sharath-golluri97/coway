@@ -26,6 +26,7 @@ import { getUserInfo } from '../../../../../Authenticator/tokens';
 import { createJoinRequest } from '../../../../services/responses';
 import MuiAlert from '@material-ui/lab/Alert';
 import HomePage from "../../../homePage/homePage.component";
+import Grow from '@material-ui/core/Grow';
 
 
 const EventCard = (props) => {
@@ -121,8 +122,8 @@ const EventCard = (props) => {
     setEndEvent({ date: eventEnd.date, time: eventEnd.time });
     setGroupStatus(userGroupStatus);
     var eventTimeReadable = new Date(groupInfo.event.event_start_time).toDateString();
-    setShareText("Hi, %0a %0a Join me on RideMate for " + groupInfo.event.name + " ( " 
-     + groupInfo.event.description + " ) on " + eventTimeReadable  + 
+    setShareText("Hi, %0a %0a Join me on RideMate for " + groupInfo.event.name + " ( "
+     + groupInfo.event.description + " ) on " + eventTimeReadable  +
      " . %0a %0a Visit RideMate for details now: " +
      "https://ridemate.in/#/events/" + groupInfo['id']);
     reverseGeocode(groupInfo.event.latitude, groupInfo.event.longitude)
@@ -145,7 +146,7 @@ const EventCard = (props) => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
-              Your join request was sent successfully! 
+              Your join request was sent successfully!
               Once the admin approves your request, you can chat with them by visiting "My Groups".
             </Alert>
           </Snackbar>
@@ -163,7 +164,7 @@ const EventCard = (props) => {
         </div>
       </ShowIfPropTrue>
 
-      <ShowIfPropTrue prop={ready}>
+      <Grow in={ready}>
         <Card className={classes.root} variant="outlined">
           <CardHeader
             action={
@@ -209,7 +210,7 @@ const EventCard = (props) => {
           <CardContent style={{ paddingTop: '5px', paddingBottom: '5px' }}>
           <div style={{display:"flex"}}>
             <Typography variant="body2" gutterBottom>
-              Description:  
+              Description:
             </Typography>
             <Typography variant="body2" gutterBottom>
               {groupInfo.event.description}
@@ -309,7 +310,7 @@ const EventCard = (props) => {
           </Collapse>
         </Card>
 
-      </ShowIfPropTrue>
+      </Grow>
     </Grid>
   );
 }
