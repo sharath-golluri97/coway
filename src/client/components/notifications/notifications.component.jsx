@@ -21,6 +21,9 @@ import Grid from "@material-ui/core/Grid";
 import {fetchPendingNotifications, acceptPendingRequest, rejectPendingRequest} from "../../services/notifications";
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import {Snackbar} from "@material-ui/core";
+import HomePage from "../homePage/homePage.component";
+import MuiAlert from "@material-ui/lab/Alert";
 
 
 const useStyles = makeStyles({
@@ -41,6 +44,19 @@ export default function Notifications() {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState({});
   const [ready,setReady] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [failure, setFailure] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const toggleDrawer = (anchor, open, pr) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -53,19 +69,35 @@ export default function Notifications() {
 
 
   const acceptRequest = (requestId,anchor) => {
-    acceptPendingRequest({request_id: requestId}).then(() => {
+    setReady(false);
+    setState({ ...state, [anchor]: false });
+
+    acceptPendingRequest({request_id: requestId}).then((resp) => {
       // TODO: if res.data is { 'status': 'FAILED' } or res.status is 400 ... give a alert that limit reached and reject!
-      console.log('accepted!')
+      console.log("resp from accept! :" + JSON.stringify(resp));
+      if (resp == "CREATED") {
+        setSuccess(true);
+        setOpen(true);
+        console.log('accepted!')
+      }
+      else {
+        setFailure(true);
+        setOpen(true);
+      }
       init(userInfo);
-      setState({ ...state, [anchor]: false });
+      setReady(true);
+
     })
   }
 
   const rejectRequest = (requestId,anchor) => {
+    setReady(false);
+    setState({ ...state, [anchor]: false });
+
     rejectPendingRequest({request_id: requestId}).then(() => {
       console.log('rejected!');
       init(userInfo);
-      setState({ ...state, [anchor]: false });
+      setReady(true)
     })
   }
 
@@ -225,6 +257,27 @@ export default function Notifications() {
     <div style={{height:'100%'}}>
       {['bottom'].map((anchor) => (
         <React.Fragment key={anchor}>
+          <div>
+            <ShowIfPropTrue prop={ready&&success}>
+              <div>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="success">
+                    Request accepted!
+                  </Alert>
+                </Snackbar>
+                <HomePage />
+              </div>
+            </ShowIfPropTrue>
+            <ShowIfPropTrue prop={ready&&failure}>
+              <div>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error">
+                    Sorry, this group has already reached the max participants limit!
+                  </Alert>
+                </Snackbar>
+              </div>
+            </ShowIfPropTrue>
+          </div>
           <ShowIfPropTrue prop={!ready}>
             <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
               <Loader
@@ -246,7 +299,7 @@ export default function Notifications() {
               pendingRequests.map((pr,i) => {
                 return (
                   <div key={i}>
-                    <ButtonBase onClick={toggleDrawer(anchor,true,pr)}>
+                    <ButtonBase style={{width:'100%'}} onClick={toggleDrawer(anchor,true,pr)}>
                     <ListItem alignItems="flex-start" >
                   <ListItemAvatar>
                     <Avatar alt={pr.user_group_info.user.full_name} src="" />
