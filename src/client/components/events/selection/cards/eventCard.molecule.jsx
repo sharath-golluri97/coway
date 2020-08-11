@@ -26,7 +26,9 @@ import { getUserInfo } from '../../../../../Authenticator/tokens';
 import { createJoinRequest } from '../../../../services/responses';
 import MuiAlert from '@material-ui/lab/Alert';
 import HomePage from "../../../homePage/homePage.component";
-
+import Grow from '@material-ui/core/Grow';
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const EventCard = (props) => {
   const classes = EventCardStyles();
@@ -49,7 +51,9 @@ const EventCard = (props) => {
   const [open, setOpen] = useState(false);
   const [failure, setFailure] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [full, setFull] = useState(false);
   const [shareText, setShareText] = useState('');
+  const [loader,setLoader] =  useState(false);
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -80,6 +84,7 @@ const EventCard = (props) => {
   };
 
   const handleSubmit = e => {
+    setLoader(true);
     e.preventDefault();
     console.log('submit called', a1, a2, a3, userInfo);
     //todo: make call with all details
@@ -102,10 +107,15 @@ const EventCard = (props) => {
         setSuccess(true);
         setOpen(true);
       }
+      else if(resp == "FULL"){
+        setFull(true);
+        setOpen(true);
+      }
       else {
         setFailure(true);
         setOpen(true);
       }
+      setLoader(false);
     }
     )
   };
@@ -121,8 +131,8 @@ const EventCard = (props) => {
     setEndEvent({ date: eventEnd.date, time: eventEnd.time });
     setGroupStatus(userGroupStatus);
     var eventTimeReadable = new Date(groupInfo.event.event_start_time).toDateString();
-    setShareText("Hi, %0a %0a Join me on RideMate for " + groupInfo.event.name + " ( " 
-     + groupInfo.event.description + " ) on " + eventTimeReadable  + 
+    setShareText("Hi, %0a %0a Join me on RideMate for " + groupInfo.event.name + " ( "
+     + groupInfo.event.description + " ) on " + eventTimeReadable  +
      " . %0a %0a Visit RideMate for details now: " +
      "https://ridemate.in/#/events/" + groupInfo['id']);
     reverseGeocode(groupInfo.event.latitude, groupInfo.event.longitude)
@@ -145,11 +155,21 @@ const EventCard = (props) => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
-              Your join request was sent successfully! 
+              Your join request was sent successfully!
               Once the admin approves your request, you can chat with them by visiting "My Groups".
             </Alert>
           </Snackbar>
           <HomePage />
+        </div>
+      </ShowIfPropTrue>
+
+      <ShowIfPropTrue prop={full}>
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+              Sorry, this group has already reached the max participants limit!
+            </Alert>
+          </Snackbar>
         </div>
       </ShowIfPropTrue>
 
@@ -163,7 +183,7 @@ const EventCard = (props) => {
         </div>
       </ShowIfPropTrue>
 
-      <ShowIfPropTrue prop={ready}>
+      <Grow in={ready}>
         <Card className={classes.root} variant="outlined">
           <CardHeader
             action={
@@ -209,7 +229,7 @@ const EventCard = (props) => {
           <CardContent style={{ paddingTop: '5px', paddingBottom: '5px' }}>
           <div style={{display:"flex"}}>
             <Typography variant="body2" gutterBottom>
-              Description:  
+              Description:
             </Typography>
             <Typography variant="body2" gutterBottom>
               {groupInfo.event.description}
@@ -304,12 +324,22 @@ const EventCard = (props) => {
                   </form>
                 </div>
               </ShowIfPropTrue>
+              <ShowIfPropTrue prop={loader}>
+                <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+                  <Loader
+                    type="Circles"
+                    color="#00BFFF"
+                    height={40}
+                    width={40}
+                  />
+                </Grid>
+              </ShowIfPropTrue>
 
             </CardContent>
           </Collapse>
         </Card>
 
-      </ShowIfPropTrue>
+      </Grow>
     </Grid>
   );
 }

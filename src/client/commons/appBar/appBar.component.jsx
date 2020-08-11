@@ -112,7 +112,7 @@ const PrimaryAppBar = (props) => {
                     <MenuIcon />
                     </IconButton>
 					<Typography className={classes.title} variant="h6" noWrap>
-						Ridemate
+						RideMate
 					</Typography>
 					<MobilRightMenuSlider
                      anchor="left"

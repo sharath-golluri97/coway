@@ -21,12 +21,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { getGroupParticipantsDetails } from '../../services/groups';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
+import Skeleton from '@material-ui/lab/Skeleton';
+import Divider from '@material-ui/core/Divider';
+import SkeleteonChatContent from "./skeletonChatContent";
+
 
 const signalR = require("@aspnet/signalr");
 
@@ -58,7 +61,7 @@ const ChatApp = (props) => {
 
     useEffect(()=>{
         scrollToBottom()
-    }, [messages]);
+    }, [messages,ready]);
 
 
     useEffect(()=>{
@@ -79,11 +82,12 @@ const ChatApp = (props) => {
                 setUserValid(user_valid);
             });
             if (userData !== null) {
-                setReady(true);
                 getMessages(userData).then(messages => {
                        for (let m of messages.reverse()) {
                                 newMessage(m);
                         }
+                  setReady(true);
+
                 });
                 getConnectionInfo(userData).then(info => {
                     const options = {
@@ -121,9 +125,9 @@ const ChatApp = (props) => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
     >
-
+      <Typography style={{padding:5, margin:7}} variant='overline'>Group Participants</Typography>
+      <Divider variant='middle'/>
         <List>
-        <ListItemText primary={"Group Participants"} />
         {participants.map((participant) => (
             <ListItem key={participant.user_id}>
             <ListItemIcon>
@@ -205,9 +209,27 @@ const ChatApp = (props) => {
     return(
         <React.Fragment>
         <ShowIfPropTrue prop={!ready}>
-            <div className={classes.loader}>
-                <CircularProgress />
-            </div>
+          <div style={{paddingTop:24+'px'}}>
+            <Grid container spacing={3} className={classes.container}>
+              <Grid item xs={1} className={classes.header}>
+
+              </Grid>
+              <Grid item xs={11} className={classes.header}>
+                <Card >
+                  <Skeleton variant="circle" width={40} height={40} />
+                </Card>
+              </Grid>
+              <Grid  item xs={12} className={classes.content}>
+                <SkeleteonChatContent/>
+              </Grid>
+              <Grid container item xs={12} className={classes.footer}>
+                <Grid item xs={11}>
+                </Grid>
+                <Grid item xs={1}>
+                </Grid>
+              </Grid>
+            </Grid>
+          </div>
         </ShowIfPropTrue>
 
         <ShowIfPropTrue prop={ready & !userValid}>
@@ -236,7 +258,7 @@ const ChatApp = (props) => {
                                         <React.Fragment key={'right'}>
                                         <IconButton aria-label="settings" onClick={toggleDrawer(true)}>
                                             <GroupRoundedIcon />
-                                            
+
                                         </IconButton>
                                         <Drawer anchor={'right'} open={drawer} onClose={toggleDrawer(false)}>
                                                 {list()}

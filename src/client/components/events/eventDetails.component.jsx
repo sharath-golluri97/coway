@@ -7,6 +7,8 @@ import EventCard from "./selection/cards/eventCard.molecule";
 import {getUserInfo} from "../../../Authenticator/tokens";
 import {getGroupDetails,isUserInGroup} from "../../services/groups";
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const useStyles = makeStyles({
     gridContainer: {
@@ -48,6 +50,17 @@ const EventDetails = (props) => {
     },[]);
 
     return (
+      <div style={{height:'100%'}}>
+      <ShowIfPropTrue prop={!ready}>
+        <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+          <Loader
+            type="Circles"
+            color="#00BFFF"
+            height={40}
+            width={40}
+          />
+        </Grid>
+      </ShowIfPropTrue>
         <ShowIfPropTrue prop={ready}>
         <Grid
         container
@@ -62,6 +75,7 @@ const EventDetails = (props) => {
       }
         </Grid>
         </ShowIfPropTrue>
+      </div>
     );
 }
 

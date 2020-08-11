@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Typography} from '@material-ui/core';
+import {Grid, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,6 +14,8 @@ import {getUserInfo} from "../../../Authenticator/tokens";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import {getApprovedUserGroups} from "../../services/groups";
 import ShowIfPropTrue from "../../commons/showPropIf/showPropIf";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,6 +48,18 @@ const GroupInfo = () =>{
   },[]);
 
   return (
+    <div style={{height:'100%'}}>
+    <ShowIfPropTrue prop={!ready}>
+      <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+        <Loader
+          type="Circles"
+          color="#00BFFF"
+          height={40}
+          width={40}
+
+        />
+      </Grid>
+    </ShowIfPropTrue>
     <ShowIfPropTrue prop={ready}>
     <List className={classes.root}>
       <ShowIfPropTrue prop={groups.length==0}>
@@ -101,6 +115,7 @@ const GroupInfo = () =>{
       </div>
     </List>
     </ShowIfPropTrue>
+    </div>
   );
 }
 

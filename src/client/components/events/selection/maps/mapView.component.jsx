@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import MaterialUIPickers from "../../../../commons/dateTimePicker/dateTimePicker";
 import CitySelect from "../citySelect/citySelect.component";
 import {getCities} from "../../../../services/cities";
+import ShowIfPropTrue from "../../../../commons/showPropIf/showPropIf";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const MapsView = () =>  {
 
@@ -17,7 +20,7 @@ const MapsView = () =>  {
         const [cities, setCities] = useState([{}]);
         const [cityOptions, setCityOptions]= useState([]);
         const [value, setValue] = React.useState(cityOptions[0]);
-
+        const [ready,setReady] = useState(false);
 
         function getCityId(cityName){
           for(var i in cities){
@@ -41,7 +44,9 @@ const MapsView = () =>  {
                 console.log(cityRes[i].name);
               }
               setCityOptions(cityMap);
-        });
+              setReady(true);
+
+          });
         },[]);
 
         const handleOnCityChange = (event, newValue) => {
@@ -62,6 +67,18 @@ const MapsView = () =>  {
         '53bb626187096f4bd90c3f82e2b6a032'
         );
         return (
+          <div style={{height:'100%'}}>
+          <ShowIfPropTrue prop={!ready}>
+            <Grid container item direction='column' alignItems='center' justify='center' style={{height:'100%'}}>
+              <Loader
+                type="Circles"
+                color="#00BFFF"
+                height={40}
+                width={40}
+              />
+            </Grid>
+          </ShowIfPropTrue>
+            <ShowIfPropTrue prop={ready}>
             <InstantSearch
                 indexName="events_data"
                 searchClient={searchClient}
@@ -74,7 +91,7 @@ const MapsView = () =>  {
                     filters={`city_id:${getCityId(value)} AND end_time > ${selectedDate.getTime()}`}
                 />
                 <main>
-                    
+
                   <Grid container justify="center" alignItems="center" >
                     <Grid item xs={12} style={{marginTop:'10px'}}>
                       <CitySelect options={cityOptions} handleOnChange={handleOnCityChange} value={value} inputValue={inputValue} onInputChange={handleOnCityInputChange} />
@@ -107,6 +124,8 @@ const MapsView = () =>  {
                     </div>
                 </main>
             </InstantSearch>
+            </ShowIfPropTrue>
+          </div>
         );
 }
 export default MapsView;
