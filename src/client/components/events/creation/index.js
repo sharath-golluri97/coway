@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center"
     },
     content: {
-        padding: theme.spacing(3, 0, 3, 5)
+        padding: theme.spacing(3, 1, 3, 1)
     },
     buttonsContainer: {
         margin: theme.spacing(7,0, 0)
@@ -197,19 +197,18 @@ export default () => {
         <Fragment>
             {!completed && (
                 <Box className={classes.root}>
-                    <Stepper activeStep={activeStep} orientation='vertical'>
-                        {steps.map((label, index) => {
-                            const labelProps = {};
-                            if (isStepOptional(index)) {
-                                labelProps.optional = (
-                                    <Typography variant='caption'></Typography>
-                                );
-                            }
+                  <Grid container>
+                    <Grid item xs={12}>
+                    <Stepper alternativeLabel activeStep={activeStep} >
+                      {steps.map(label => (
+                        <Step key={label}>
+                          <StepLabel >{label}</StepLabel>
+                        </Step>
+                      ))}
+                    </Stepper>
+                    </Grid>
+                    <Grid item xs={12}>
 
-                            return (
-                                <Step key={index}>
-                                    <StepLabel {...labelProps}>{label}</StepLabel>
-                                    <StepContent>
                                         <form
                                             onSubmit={handleSubmit}
                                             onInvalid={handleError}
@@ -248,11 +247,9 @@ export default () => {
                                                 )}
                                             </div>
                                         </form>
-                                    </StepContent>
-                                </Step>
-                            );
-                        })}
-                    </Stepper>
+
+                    </Grid>
+                  </Grid>
                 </Box>
             )}
             <Snackbar
